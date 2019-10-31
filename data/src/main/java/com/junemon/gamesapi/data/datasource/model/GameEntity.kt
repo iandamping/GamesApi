@@ -170,7 +170,6 @@ data class ParentPlatformsItem(
     val platform: PlatformEntity
 )
 
-
 fun GamesEntity.mapToDomain(): GameModel = GameModel(id, slug, released, backgroundImage, name)
 
 fun List<GamesEntity>.mapToDomain(): List<GameModel> = map { it.mapToDomain() }

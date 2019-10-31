@@ -9,8 +9,7 @@ import com.junemon.gamesapi.data.datasource.model.GameDbEntity
  * Github https://github.com/iandamping
  * Indonesia.
  */
-@Database(entities = [GameDbEntity::class],version = 1,exportSchema = false)
-abstract class GameDatabase:RoomDatabase() {
-    abstract fun gameDao():GameDao
+@Database(entities = [GameDbEntity::class], version = 1, exportSchema = false)
+abstract class GameDatabase : RoomDatabase() {
+    abstract fun gameDao(): GameDao
 }
-

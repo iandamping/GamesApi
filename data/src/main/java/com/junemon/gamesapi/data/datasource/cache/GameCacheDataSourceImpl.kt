@@ -12,7 +12,7 @@ import com.junemon.gamesapi.domain2.model.GameModel
  * Github https://github.com/iandamping
  * Indonesia.
  */
-class GameCacheDataSourceImpl(private val db:GameDatabase):GameCacheDataSource {
+class GameCacheDataSourceImpl(private val db: GameDatabase) : GameCacheDataSource {
 
     override suspend fun set(data: List<GameModel>) {
         db.gameDao().insertGame(*data.mapToDatabase().toTypedArray())

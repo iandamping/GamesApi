@@ -14,5 +14,4 @@ val databaseModule = module {
             .fallbackToDestructiveMigration().build()
     }
     single { get<GameDatabase>().gameDao() }
-
 }

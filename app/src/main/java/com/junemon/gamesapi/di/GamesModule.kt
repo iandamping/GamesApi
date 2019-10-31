@@ -26,7 +26,7 @@ fun injectData() = loadFeature
 private val loadFeature by lazy {
     loadKoinModules(
         listOf(
-            networkModule, dataSourceModule, repositoryModule, useCaseModule, viewmodelModule,databaseModule
+            networkModule, dataSourceModule, repositoryModule, useCaseModule, viewmodelModule, databaseModule
         )
     )
 }
@@ -47,6 +47,5 @@ private val dataSourceModule = module {
 }
 
 private val repositoryModule = module {
-    single { GamesRepositoryImpl(remoteSource = get(),localSource = get()) as GamesRepository }
+    single { GamesRepositoryImpl(remoteSource = get(), localSource = get()) as GamesRepository }
 }
-
