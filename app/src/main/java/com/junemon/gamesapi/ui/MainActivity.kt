@@ -11,7 +11,6 @@ import com.ian.app.helper.util.timberLogE
 import com.ian.recyclerviewhelper.helper.setUpVerticalListAdapter
 import com.junemon.gamesapi.R
 import com.junemon.gamesapi.databinding.ActivityMainBinding
-import com.junemon.gamesapi.datasource.ui.GameDataViewModel
 import com.junemon.gamesapi.model.mapToPresentation
 import com.junemon.gamesapi.util.CommonHelper
 import kotlinx.android.synthetic.main.item_games.view.*
