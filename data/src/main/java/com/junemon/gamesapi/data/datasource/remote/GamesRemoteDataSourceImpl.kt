@@ -5,7 +5,6 @@ import com.ian.app.helper.data.ResultToConsume
 import com.junemon.gamesapi.data.data.datasource.GamesRemoteDataSource
 import com.junemon.gamesapi.data.datasource.model.mapToDomain
 import com.junemon.gamesapi.domain2.model.GameModel
-import com.junemon.gamesapi.domain2.model.ResultModels
 
 /**
  * Created by Ian Damping on 31,October,2019
@@ -14,9 +13,9 @@ import com.junemon.gamesapi.domain2.model.ResultModels
  */
 class GamesRemoteDataSourceImpl(private val api: GamesApi) : BaseDataSource(), GamesRemoteDataSource {
 
-    override suspend fun get(): ResultToConsume<ResultModels<List<GameModel>>> {
+    override suspend fun get(): ResultToConsume<List<GameModel>> {
         val firstData = getResult { api.getGames() }
         val firstDataMap = firstData.data?.data?.mapToDomain()
-        return ResultToConsume(firstData.status, ResultModels(firstDataMap!!), firstData.message)
+        return ResultToConsume(firstData.status, firstDataMap!!, firstData.message)
     }
 }

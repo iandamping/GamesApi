@@ -3,7 +3,6 @@ package com.junemon.gamesapi.domain2.usecase
 import androidx.lifecycle.LiveData
 import com.ian.app.helper.data.ResultToConsume
 import com.junemon.gamesapi.domain2.model.GameModel
-import com.junemon.gamesapi.domain2.model.ResultModels
 import com.junemon.gamesapi.domain2.repository.GamesRepository
 
 /**
@@ -13,5 +12,5 @@ import com.junemon.gamesapi.domain2.repository.GamesRepository
  */
 class GamesUseCase(private val gameRepository: GamesRepository) {
 
-    fun get(): LiveData<ResultToConsume<ResultModels<List<GameModel>>>> = gameRepository.get()
+    fun get(): LiveData<ResultToConsume<List<GameModel>>> = gameRepository.get()
 }

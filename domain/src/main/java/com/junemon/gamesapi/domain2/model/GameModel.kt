@@ -6,16 +6,10 @@ package com.junemon.gamesapi.domain2.model
  * Indonesia.
  */
 
-data class ClipModel(
-    val preview: String = "",
-    val clip: String = ""
-)
-
 data class GameModel(
     val id: Int = 0,
     val slug: String = "",
     val released: String = "",
     val backgroundImage: String = "",
-    val name: String = "",
-    val clip: ClipModel
+    val name: String = ""
 )

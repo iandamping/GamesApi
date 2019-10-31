@@ -2,7 +2,6 @@ package com.junemon.gamesapi.data.data.datasource
 
 import com.ian.app.helper.data.ResultToConsume
 import com.junemon.gamesapi.domain2.model.GameModel
-import com.junemon.gamesapi.domain2.model.ResultModels
 
 /**
  * Created by Ian Damping on 31,October,2019
@@ -11,5 +10,5 @@ import com.junemon.gamesapi.domain2.model.ResultModels
  */
 interface GamesRemoteDataSource {
 
-    suspend fun get(): ResultToConsume<ResultModels<List<GameModel>>>
+    suspend fun get(): ResultToConsume<List<GameModel>>
 }

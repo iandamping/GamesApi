@@ -5,7 +5,6 @@ import com.ian.app.helper.data.ResultToConsume
 import com.ian.app.helper.data.resultLiveData
 import com.junemon.gamesapi.data.data.datasource.GamesRemoteDataSource
 import com.junemon.gamesapi.domain2.model.GameModel
-import com.junemon.gamesapi.domain2.model.ResultModels
 import com.junemon.gamesapi.domain2.repository.GamesRepository
 
 /**
@@ -15,7 +14,7 @@ import com.junemon.gamesapi.domain2.repository.GamesRepository
  */
 
 class GamesRepositoryImpl(private val remoteSource: GamesRemoteDataSource) : GamesRepository {
-    override fun get(): LiveData<ResultToConsume<ResultModels<List<GameModel>>>> {
+    override fun get(): LiveData<ResultToConsume<List<GameModel>>> {
         return resultLiveData { remoteSource.get() }
     }
 }

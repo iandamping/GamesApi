@@ -1,7 +1,6 @@
 package com.junemon.gamesapi.data.datasource.model
 
 import com.google.gson.annotations.SerializedName
-import com.junemon.gamesapi.domain2.model.ClipModel
 import com.junemon.gamesapi.domain2.model.GameModel
 
 /**
@@ -171,8 +170,7 @@ data class ParentPlatformsItem(
     val platform: PlatformEntity
 )
 
-private fun ClipEntity.mapToClipDomain() = ClipModel(preview, clip)
 
-fun GamesEntity.mapToDomain(): GameModel = GameModel(id, slug, released, backgroundImage, name, clip.mapToClipDomain())
+fun GamesEntity.mapToDomain(): GameModel = GameModel(id, slug, released, backgroundImage, name)
 
 fun List<GamesEntity>.mapToDomain(): List<GameModel> = map { it.mapToDomain() }

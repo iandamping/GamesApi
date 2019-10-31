@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
 
                     ResultToConsume.Status.SUCCESS -> {
                         progressBars.visibility = View.GONE
-                        rvMain.setUpVerticalListAdapter(result.data?.data?.mapToPresentation(),
+                        rvMain.setUpVerticalListAdapter(result.data?.mapToPresentation(),
                             CommonHelper.gamesDiffCallbacks, R.layout.item_games, {
                                 tvText.text = it.name
                                 ivImages.loadWithGlide(it.backgroundImage)
