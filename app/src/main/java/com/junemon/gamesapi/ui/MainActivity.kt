@@ -5,14 +5,15 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import com.ian.app.helper.data.ResultToConsume
+import com.ian.app.helper.util.loadWithGlide
+import com.ian.app.helper.util.timberLogE
 import com.ian.recyclerviewhelper.helper.setUpVerticalListAdapter
 import com.junemon.gamesapi.R
-import com.junemon.gamesapi.data.ResultToConsume
-import com.junemon.gamesapi.data_source.ui.GameDataViewModel
 import com.junemon.gamesapi.databinding.ActivityMainBinding
+import com.junemon.gamesapi.datasource.ui.GameDataViewModel
+import com.junemon.gamesapi.model.mapToPresentation
 import com.junemon.gamesapi.util.CommonHelper
-import com.junemon.gamesapi.util.loadWithGlide
-import com.junemon.gamesapi.util.timberLogE
 import kotlinx.android.synthetic.main.item_games.view.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -37,7 +38,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun getData(binding: ActivityMainBinding) {
         binding.apply {
-            gameVm.getListGames().observe(this@MainActivity, Observer { result ->
+            gameVm.get().observe(this@MainActivity, Observer { result ->
                 when (result.status) {
                     ResultToConsume.Status.LOADING -> {
                         progressBars.visibility = View.VISIBLE
@@ -49,16 +50,15 @@ class MainActivity : AppCompatActivity() {
 
                     ResultToConsume.Status.SUCCESS -> {
                         progressBars.visibility = View.GONE
-                        rvMain.setUpVerticalListAdapter(result.data?.data,
+                        rvMain.setUpVerticalListAdapter(result.data?.data?.mapToPresentation(),
                             CommonHelper.gamesDiffCallbacks, R.layout.item_games, {
                                 tvText.text = it.name
-                                ivImages.loadWithGlide(it.shortScreenshots?.get(0)?.image)
+                                ivImages.loadWithGlide(it.backgroundImage)
                             }
                         )
                     }
                 }
             })
         }
-
     }
 }

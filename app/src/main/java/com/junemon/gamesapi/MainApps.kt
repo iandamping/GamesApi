@@ -7,7 +7,6 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import timber.log.Timber
 
-
 /**
  * Created by Ian Damping on 29,October,2019
  * Github https://github.com/iandamping
