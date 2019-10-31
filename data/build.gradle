@@ -49,6 +49,6 @@ dependencies {
     implementation "com.google.code.gson:gson:$gson_version"
     implementation "com.github.iandamping:CommonHelper:$commonHelper_version"
     implementation "org.koin:koin-android-viewmodel:$koin_version"
-    implementation project(":domain2")
+    implementation project(':domain')
 
 }
