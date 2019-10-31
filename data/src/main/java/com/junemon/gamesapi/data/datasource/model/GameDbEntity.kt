@@ -14,7 +14,7 @@ import com.junemon.gamesapi.domain2.model.GameModel
  */
 @Entity(tableName = "game_table")
 data class GameDbEntity(
-    @PrimaryKey(autoGenerate = true) val localId:Int?,
+    @PrimaryKey
     @ColumnInfo(name = "game_id")val gameID: Int,
     @ColumnInfo(name = "game_slug")val slug: String,
     @ColumnInfo(name = "game_released")val released: String,
@@ -23,10 +23,9 @@ data class GameDbEntity(
 )
 
 fun GameDbEntity.mapToDomain(): GameModel = GameModel(gameID, slug, released, backgroundImage, name)
-fun GameModel.mapToDatabase() = GameDbEntity(null,id, slug, released, backgroundImage, name)
+fun GameModel.mapToDatabase() = GameDbEntity(id, slug, released, backgroundImage, name)
 
 fun List<GameDbEntity>.mapToDomain(): List<GameModel> = map { it.mapToDomain() }
-
 fun List<GameModel>.mapToDatabase(): List<GameDbEntity> = map { it.mapToDatabase() }
 
 fun LiveData<List<GameDbEntity>>.mapToDomain(): LiveData<List<GameModel>> = Transformations.map(this) { it.mapToDomain() }

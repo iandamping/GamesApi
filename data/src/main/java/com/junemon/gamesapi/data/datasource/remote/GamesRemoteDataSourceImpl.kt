@@ -16,6 +16,6 @@ class GamesRemoteDataSourceImpl(private val api: GamesApi) : BaseDataSource(), G
     override suspend fun get(): ResultToConsume<List<GameModel>> {
         val firstData = getResult { api.getGames() }
         val firstDataMap = firstData.data?.data?.mapToDomain()
-        return ResultToConsume(firstData.status, firstDataMap!!, firstData.message)
+        return ResultToConsume(firstData.status, firstDataMap, firstData.message)
     }
 }
