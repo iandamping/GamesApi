@@ -12,5 +12,5 @@ import kotlinx.coroutines.flow.Flow
  */
 interface GamesRepository {
 
-    fun get(): Flow<ResultToConsume<List<GameModel>>>
+    fun get(): LiveData<ResultToConsume<List<GameModel>>>
 }

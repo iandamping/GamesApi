@@ -14,11 +14,5 @@ import kotlinx.coroutines.launch
  */
 class GameDataViewModel(private val repository: GamesUseCase) : BaseViewModel() {
 
-    fun get(data:(ResultToConsume<List<GameModel>>) -> Unit){
-        vmScope.launch {
-            repository.get().collect {
-                data(it)
-            }
-        }
-    }
+    fun get() = repository.get()
 }

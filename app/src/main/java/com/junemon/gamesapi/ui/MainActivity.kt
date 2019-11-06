@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import com.ian.app.helper.data.ResultToConsume
 import com.ian.app.helper.util.loadWithGlide
 import com.ian.app.helper.util.myToast
-import com.ian.app.helper.util.timberLogE
 import com.ian.recyclerviewhelper.helper.setUpVerticalListAdapter
 import com.junemon.gamesapi.R
 import com.junemon.gamesapi.databinding.ActivityMainBinding
@@ -37,8 +37,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun getData(binding: ActivityMainBinding) {
         binding.apply {
-            gameVm.get {result ->
-                when(result.status){
+            gameVm.get().observe(this@MainActivity, Observer { result ->
+                when (result.status) {
                     ResultToConsume.Status.LOADING -> {
                         progressBars.visibility = View.VISIBLE
                     }
@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
                         )
                     }
                 }
-            }
+            })
         }
     }
 }

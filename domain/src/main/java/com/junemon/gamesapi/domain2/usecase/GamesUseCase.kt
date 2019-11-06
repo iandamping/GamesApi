@@ -1,5 +1,6 @@
 package com.junemon.gamesapi.domain2.usecase
 
+import androidx.lifecycle.LiveData
 import com.ian.app.helper.data.ResultToConsume
 import com.junemon.gamesapi.domain2.model.GameModel
 import com.junemon.gamesapi.domain2.repository.GamesRepository
@@ -12,5 +13,5 @@ import kotlinx.coroutines.flow.Flow
  */
 class GamesUseCase(private val gameRepository: GamesRepository) {
 
-    fun get(): Flow<ResultToConsume<List<GameModel>>> = gameRepository.get()
+    fun get(): LiveData<ResultToConsume<List<GameModel>>> = gameRepository.get()
 }

@@ -7,6 +7,7 @@ import com.junemon.gamesapi.data.datasource.remote.ApiConstant.baseUrl
 import com.junemon.gamesapi.data.datasource.remote.ApiConstant.games
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.GET
 
@@ -19,6 +20,10 @@ interface GamesApi {
 
     @GET(games)
     suspend fun getGames(): Response<ResultEntity<GamesEntity>>
+
+    @GET(games)
+    fun getGamesCancelation(): Call<ResultEntity<GamesEntity>>
+
 }
 
 object ApiConstant {

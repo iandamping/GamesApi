@@ -1,7 +1,5 @@
 package com.junemon.gamesapi.data.datasource.model
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey

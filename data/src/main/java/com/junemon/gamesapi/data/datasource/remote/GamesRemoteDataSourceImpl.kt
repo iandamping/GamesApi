@@ -11,7 +11,8 @@ import com.junemon.gamesapi.domain2.model.GameModel
  * Github https://github.com/iandamping
  * Indonesia.
  */
-class GamesRemoteDataSourceImpl(private val api: GamesApi) : BaseDataSource(), GamesRemoteDataSource {
+class GamesRemoteDataSourceImpl(private val api: GamesApi) : BaseDataSource(),
+    GamesRemoteDataSource {
 
     override suspend fun get(): ResultToConsume<List<GameModel>> {
         val firstData = getResult { api.getGames() }
