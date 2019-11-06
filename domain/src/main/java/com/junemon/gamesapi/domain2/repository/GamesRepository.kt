@@ -3,6 +3,7 @@ package com.junemon.gamesapi.domain2.repository
 import androidx.lifecycle.LiveData
 import com.ian.app.helper.data.ResultToConsume
 import com.junemon.gamesapi.domain2.model.GameModel
+import kotlinx.coroutines.flow.Flow
 
 /**
  * Created by Ian Damping on 31,October,2019
@@ -11,5 +12,5 @@ import com.junemon.gamesapi.domain2.model.GameModel
  */
 interface GamesRepository {
 
-    fun get(): LiveData<ResultToConsume<List<GameModel>>>
+    fun get(): Flow<ResultToConsume<List<GameModel>>>
 }

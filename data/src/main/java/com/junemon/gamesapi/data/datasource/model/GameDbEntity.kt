@@ -6,6 +6,8 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.junemon.gamesapi.domain2.model.GameModel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 /**
  * Created by Ian Damping on 31,October,2019
@@ -28,4 +30,4 @@ fun GameModel.mapToDatabase() = GameDbEntity(id, slug, released, backgroundImage
 fun List<GameDbEntity>.mapToDomain(): List<GameModel> = map { it.mapToDomain() }
 fun List<GameModel>.mapToDatabase(): List<GameDbEntity> = map { it.mapToDatabase() }
 
-fun LiveData<List<GameDbEntity>>.mapToDomain(): LiveData<List<GameModel>> = Transformations.map(this) { it.mapToDomain() }
+fun Flow<List<GameDbEntity>>.mapToDomain(): Flow<List<GameModel>> = map { it.mapToDomain() }

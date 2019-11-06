@@ -1,11 +1,11 @@
 package com.junemon.gamesapi.data.db
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.junemon.gamesapi.data.datasource.model.GameDbEntity
+import kotlinx.coroutines.flow.Flow
 
 /**
  * Created by Ian Damping on 31,October,2019
@@ -15,7 +15,7 @@ import com.junemon.gamesapi.data.datasource.model.GameDbEntity
 @Dao
 interface GameDao {
     @Query("SELECT * FROM game_table")
-    fun loadGame(): LiveData<List<GameDbEntity>>
+    fun loadGame(): Flow<List<GameDbEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertGame(vararg gameData: GameDbEntity)

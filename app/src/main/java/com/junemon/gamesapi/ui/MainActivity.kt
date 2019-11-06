@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import com.ian.app.helper.data.ResultToConsume
 import com.ian.app.helper.util.loadWithGlide
+import com.ian.app.helper.util.myToast
 import com.ian.app.helper.util.timberLogE
 import com.ian.recyclerviewhelper.helper.setUpVerticalListAdapter
 import com.junemon.gamesapi.R
@@ -37,14 +37,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun getData(binding: ActivityMainBinding) {
         binding.apply {
-            gameVm.get().observe(this@MainActivity, Observer { result ->
-                when (result.status) {
+            gameVm.get {result ->
+                when(result.status){
                     ResultToConsume.Status.LOADING -> {
                         progressBars.visibility = View.VISIBLE
                     }
                     ResultToConsume.Status.ERROR -> {
                         progressBars.visibility = View.GONE
-                        timberLogE(result.message)
+                        myToast(result.message)
                     }
 
                     ResultToConsume.Status.SUCCESS -> {
@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
                         )
                     }
                 }
-            })
+            }
         }
     }
 }

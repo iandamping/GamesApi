@@ -3,6 +3,7 @@ package com.junemon.gamesapi.data.data.datasource
 import androidx.lifecycle.LiveData
 import com.ian.app.helper.data.ResultToConsume
 import com.junemon.gamesapi.domain2.model.GameModel
+import kotlinx.coroutines.flow.Flow
 
 /**
  * Created by Ian Damping on 31,October,2019
@@ -18,5 +19,5 @@ interface GameCacheDataSource {
 
     suspend fun set(data: List<GameModel>)
 
-    fun get(): LiveData<List<GameModel>>
+    fun get(): Flow<List<GameModel>>
 }

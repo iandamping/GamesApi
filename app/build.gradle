@@ -64,6 +64,8 @@ dependencies {
     implementation "com.github.bumptech.glide:glide:$glideVer"
     implementation 'com.jakewharton.timber:timber:4.7.1'
     kapt "com.github.bumptech.glide:compiler:$glideVer"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutine_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutine_version"
     implementation "com.github.iandamping:CommonHelper:$commonHelper_version"
     implementation "com.github.iandamping:RecyclerViewHelper:$recyclerhelper_version"
 }
