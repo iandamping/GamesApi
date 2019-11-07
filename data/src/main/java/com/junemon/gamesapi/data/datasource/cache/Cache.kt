@@ -1,6 +1,7 @@
 package com.junemon.gamesapi.data.datasource.cache
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.liveData
 import com.ian.app.helper.data.ResultToConsume
 import com.junemon.gamesapi.data.datasource.remote.ApiConstant
@@ -22,14 +23,12 @@ fun <T, A> ssotResultFlow(
     databaseQuery: () -> Flow<T>,
     networkCall: suspend () -> ResultToConsume<A>,
     saveCallResult: suspend (A) -> Unit
-): Flow<ResultToConsume<T>> =
-    flow {
+): Flow<ResultToConsume<T>> = flow {
         // emit loading
         emit(ResultToConsume.loading())
 
-        // emit livedata from database
+        // map database source into an object
         val source = databaseQuery.invoke().map {
-            // emit succeed from database
             ResultToConsume.success(it)
         }
 
@@ -49,11 +48,11 @@ fun <T, A> ssotResultFlow(
                 } else {
                     emit(ResultToConsume.error("Unable to resolve host ${ApiConstant.baseUrl}"))
                 }
-                // emit from database
+                // emit database object into flow
                 emitAll(source)
             }
         }
-        // emit from database
+        // emit database object into flow
         emitAll(source)
     }
 
@@ -62,14 +61,12 @@ fun <T, A> ssotResultFlowLiveDataResult(
     databaseQuery: () -> Flow<T>,
     networkCall: suspend () -> ResultToConsume<A>,
     saveCallResult: suspend (A) -> Unit
-): LiveData<ResultToConsume<T>> =
-    liveData {
+): LiveData<ResultToConsume<T>> = flow {
         // emit loading
         emit(ResultToConsume.loading())
 
-        // emit livedata from database
+        // map database source into an object
         val source = databaseQuery.invoke().map {
-            // emit succeed from database
             ResultToConsume.success(it)
         }
 
@@ -90,15 +87,16 @@ fun <T, A> ssotResultFlowLiveDataResult(
                 } else {
                     emit(ResultToConsume.error("Unable to resolve host ${ApiConstant.baseUrl}"))
                 }
-                // emit from database
+                // emit database object into flow
                 source.collect {
                     emit(it)
                 }
             }
         }
-        // emit from database
+        // emit database object into flow
         source.collect {
             emit(it)
         }
-    }
+    }.asLiveData()
+    //transform it into livedata
 
