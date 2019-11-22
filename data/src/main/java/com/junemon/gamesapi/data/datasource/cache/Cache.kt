@@ -3,8 +3,11 @@ package com.junemon.gamesapi.data.datasource.cache
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.liveData
+import androidx.lifecycle.map
 import com.ian.app.helper.data.ResultToConsume
 import com.junemon.gamesapi.data.datasource.remote.ApiConstant
+import com.junemon.gamesapi.data.datasource.remote.ApiConstant.baseUrl
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
@@ -12,6 +15,7 @@ import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.transform
+import java.lang.Exception
 
 /**
  * Created by Ian Damping on 05,November,2019
@@ -99,4 +103,30 @@ fun <T, A> ssotResultFlowLiveDataResult(
         }
     }.asLiveData()
     //transform it into livedata
+
+
+fun <T, A> ssotResultLiveDatas(databaseQuery: () -> Flow<T>,
+    networkCall: suspend () -> ResultToConsume<A>,
+    saveCallResult: suspend (A) -> Unit): LiveData<ResultToConsume<T>> =
+    liveData(Dispatchers.IO) {
+        //emit loading
+        val disposables = emitSource(databaseQuery.invoke().map {
+            ResultToConsume.loading(it)
+        }.asLiveData())
+
+        try {
+            val responseStatus = networkCall.invoke()
+            disposables.dispose()
+            check(responseStatus.status == ResultToConsume.Status.SUCCESS){
+                "  Unable to resolve host $baseUrl "
+            }
+            assert(responseStatus.data!=null){
+                " data is null "
+            }
+            saveCallResult(responseStatus.data!!)
+            emitSource(databaseQuery.invoke().map { ResultToConsume.success(it) }.asLiveData())
+        } catch (e:Exception){
+            emitSource(databaseQuery.invoke().map { ResultToConsume.error(e.message!!,it) }.asLiveData())
+        }
+    }
 

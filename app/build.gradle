@@ -68,4 +68,5 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutine_version"
     implementation "com.github.iandamping:CommonHelper:$commonHelper_version"
     implementation "com.github.iandamping:RecyclerViewHelper:$recyclerhelper_version"
+    implementation 'com.allattentionhere:fabulousfilter:0.0.5'
 }

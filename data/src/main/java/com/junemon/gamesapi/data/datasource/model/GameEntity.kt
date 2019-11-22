@@ -172,4 +172,9 @@ data class ParentPlatformsItem(
 
 fun GamesEntity.mapToDomain(): GameModel = GameModel(id, slug, released, backgroundImage, name)
 
-fun List<GamesEntity>.mapToDomain(): List<GameModel> = map { it.mapToDomain() }
+fun List<GamesEntity>.mapToDomain(): List<GameModel>{
+    checkNotNull(this){
+        " value from Service is null "
+    }
+    return  map { it.mapToDomain() }
+}

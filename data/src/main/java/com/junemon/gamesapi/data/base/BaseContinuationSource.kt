@@ -16,7 +16,7 @@ import kotlin.coroutines.resume
  */
 abstract class BaseDataSources {
 
-    protected suspend fun <T> Call<T>.doOneShot(): ResultToConsume<T> =
+    /*protected suspend fun <T> Call<T>.doOneShot(): ResultToConsume<T> =
         suspendCancellableCoroutine { cancellableContinuation ->
             this.enqueue(object : Callback<T> {
                 override fun onFailure(call: Call<T>, t: Throwable) {
@@ -41,24 +41,22 @@ abstract class BaseDataSources {
             cancellableContinuation.invokeOnCancellation {
                 this.cancel()
             }
-        }
+        }*/
 
 
 
-    /*protected suspend fun <T> getResult(call: suspend () -> Response<T>): ResultToConsume<T> {
-        val response = call()
+    protected suspend fun <T> Response<T>.getResult(): ResultToConsume<T> {
         return suspendCancellableCoroutine { cancellableContinuation ->
-            if (response.isSuccessful) {
-                val body = response.body()
+            if (this.isSuccessful) {
+                val body = this.body()
                 if (body != null) cancellableContinuation.resume(ResultToConsume.success(body))
-            }
-            cancellableContinuation.resume(ResultToConsume.error(response.message()))
+            }else cancellableContinuation.resume(ResultToConsume.error(this.message()))
 
             cancellableContinuation.invokeOnCancellation {
-                response.errorBody()?.close()
+                cancellableContinuation.resume(ResultToConsume.error(it?.message!!))
             }
         }
-    }*/
+    }
 }
 
 
