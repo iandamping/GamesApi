@@ -5,7 +5,9 @@ import com.junemon.gamesapi.core.model.DataHelper
 import com.junemon.gamesapi.core.model.Results
 import com.junemon.gamesapi.core.network.ApiInterface
 import com.junemon.gamesapi.core.network.BaseSources
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 
 /**
  * Created by Ian Damping on 16,May,2020
@@ -24,5 +26,5 @@ class GameRemoteDataSourceImpl(private val api: ApiInterface): BaseSources(), Ga
             }
 
         }
-    }
+    }.flowOn(Dispatchers.IO)
 }
