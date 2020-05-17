@@ -3,6 +3,7 @@ package com.junemon.gamesapi.view
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
 import com.junemon.gamesapi.R
 import com.junemon.gamesapi.core.model.GamesModel
@@ -23,6 +24,7 @@ class MainActivity : AppCompatActivity(), MainView {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
 
         lifecycleScope.launchWhenStarted {
             presenter.getGames()
