@@ -3,7 +3,7 @@ package com.junemon.gamesapi.data.datasource.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.junemon.gamesapi.domain2.model.GameModel
+import com.junemon.gamesapi.domain2.model.GameData
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
@@ -22,10 +22,10 @@ data class GameDbEntity(
     @ColumnInfo(name = "game_name")val name: String
 )
 
-fun GameDbEntity.mapToDomain(): GameModel = GameModel(gameID, slug, released, backgroundImage, name)
-fun GameModel.mapToDatabase() = GameDbEntity(id, slug, released, backgroundImage, name)
+fun GameDbEntity.mapToDomain(): GameData = GameData(gameID, slug, released, backgroundImage, name)
+fun GameData.mapToDatabase() = GameDbEntity(id, slug, released, backgroundImage, name)
 
-fun List<GameDbEntity>.mapToDomain(): List<GameModel> = map { it.mapToDomain() }
-fun List<GameModel>.mapToDatabase(): List<GameDbEntity> = map { it.mapToDatabase() }
+fun List<GameDbEntity>.mapToDomain(): List<GameData> = map { it.mapToDomain() }
+fun List<GameData>.mapToDatabase(): List<GameDbEntity> = map { it.mapToDatabase() }
 
-fun Flow<List<GameDbEntity>>.mapToDomain(): Flow<List<GameModel>> = map { it.mapToDomain() }
+fun Flow<List<GameDbEntity>>.mapToDomain(): Flow<List<GameData>> = map { it.mapToDomain() }

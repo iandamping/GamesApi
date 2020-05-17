@@ -6,7 +6,7 @@ package com.junemon.gamesapi.domain2.model
  * Indonesia.
  */
 
-data class GameModel(
+data class GameData(
     val id: Int = 0,
     val slug: String = "",
     val released: String = "",

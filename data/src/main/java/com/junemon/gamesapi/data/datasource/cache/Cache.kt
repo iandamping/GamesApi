@@ -118,7 +118,7 @@ fun <T, A> ssotResultLiveDatas(databaseQuery: () -> Flow<T>,
             val responseStatus = networkCall.invoke()
             disposables.dispose()
             check(responseStatus.status == ResultToConsume.Status.SUCCESS){
-                "  Unable to resolve host $baseUrl "
+                " ${responseStatus.message} "
             }
             assert(responseStatus.data!=null){
                 " data is null "

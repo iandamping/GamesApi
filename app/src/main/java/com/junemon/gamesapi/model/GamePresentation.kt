@@ -1,6 +1,6 @@
 package com.junemon.gamesapi.model
 
-import com.junemon.gamesapi.domain2.model.GameModel
+import com.junemon.gamesapi.domain2.model.GameData
 
 /**
  * Created by Ian Damping on 31,October,2019
@@ -8,7 +8,7 @@ import com.junemon.gamesapi.domain2.model.GameModel
  * Indonesia.
  */
 
-data class GameItem(
+data class GamePresentation(
     val id: Int = 0,
     val slug: String = "",
     val released: String = "",
@@ -16,4 +16,4 @@ data class GameItem(
     val name: String = ""
 )
 
-fun List<GameModel>.mapToPresentation(): List<GameItem> = map { GameItem(it.id, it.slug, it.released, it.backgroundImage, it.name) }
+fun List<GameData>.mapToPresentation(): List<GamePresentation> = map { GamePresentation(it.id, it.slug, it.released, it.backgroundImage, it.name) }

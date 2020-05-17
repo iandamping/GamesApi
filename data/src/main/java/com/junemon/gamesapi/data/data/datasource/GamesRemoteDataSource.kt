@@ -1,7 +1,7 @@
 package com.junemon.gamesapi.data.data.datasource
 
-import com.ian.app.helper.data.ResultToConsume
-import com.junemon.gamesapi.domain2.model.GameModel
+import com.junemon.gamesapi.domain2.model.GameData
+import com.junemon.model.DataHelper
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -11,12 +11,12 @@ import kotlinx.coroutines.flow.Flow
  */
 interface GamesRemoteDataSource {
 
-    suspend fun get(): ResultToConsume<List<GameModel>>
+    suspend fun get(): DataHelper<List<GameData>>
 }
 
 interface GameCacheDataSource {
 
-    suspend fun set(data: List<GameModel>)
+    suspend fun set(data: List<GameData>)
 
-    fun get(): Flow<List<GameModel>>
+    fun get(): Flow<List<GameData>>
 }

@@ -1,9 +1,9 @@
 package com.junemon.gamesapi.domain2.usecase
 
 import androidx.lifecycle.LiveData
-import com.ian.app.helper.data.ResultToConsume
-import com.junemon.gamesapi.domain2.model.GameModel
+import com.junemon.gamesapi.domain2.model.GameData
 import com.junemon.gamesapi.domain2.repository.GamesRepository
+import com.junemon.model.RepositoryDataHelper
 
 /**
  * Created by Ian Damping on 31,October,2019
@@ -12,5 +12,5 @@ import com.junemon.gamesapi.domain2.repository.GamesRepository
  */
 class GamesUseCase(private val gameRepository: GamesRepository) {
 
-    fun get(): LiveData<ResultToConsume<List<GameModel>>> = gameRepository.get()
+    fun get(): LiveData<RepositoryDataHelper<List<GameData>>> = gameRepository.get()
 }

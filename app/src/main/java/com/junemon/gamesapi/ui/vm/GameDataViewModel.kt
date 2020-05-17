@@ -1,11 +1,7 @@
-package com.junemon.gamesapi.ui
+package com.junemon.gamesapi.ui.vm
 
 import com.ian.app.helper.base.BaseViewModel
-import com.ian.app.helper.data.ResultToConsume
-import com.junemon.gamesapi.domain2.model.GameModel
 import com.junemon.gamesapi.domain2.usecase.GamesUseCase
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 
 /**
  * Created by Ian Damping on 29,October,2019

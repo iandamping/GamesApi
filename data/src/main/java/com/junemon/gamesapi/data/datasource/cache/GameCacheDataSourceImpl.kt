@@ -4,7 +4,7 @@ import com.junemon.gamesapi.data.data.datasource.GameCacheDataSource
 import com.junemon.gamesapi.data.datasource.model.mapToDatabase
 import com.junemon.gamesapi.data.datasource.model.mapToDomain
 import com.junemon.gamesapi.data.db.GameDatabase
-import com.junemon.gamesapi.domain2.model.GameModel
+import com.junemon.gamesapi.domain2.model.GameData
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -14,11 +14,11 @@ import kotlinx.coroutines.flow.Flow
  */
 class GameCacheDataSourceImpl(private val db: GameDatabase) : GameCacheDataSource {
 
-    override suspend fun set(data: List<GameModel>) {
+    override suspend fun set(data: List<GameData>) {
         db.gameDao().insertGame(*data.mapToDatabase().toTypedArray())
     }
 
-    override fun get(): Flow<List<GameModel>> {
+    override fun get(): Flow<List<GameData>> {
         return db.gameDao().loadGame().mapToDomain()
     }
 }

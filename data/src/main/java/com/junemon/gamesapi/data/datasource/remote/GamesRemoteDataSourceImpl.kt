@@ -1,11 +1,14 @@
 package com.junemon.gamesapi.data.datasource.remote
 
-import com.ian.app.helper.data.ResultToConsume
 import com.junemon.gamesapi.data.base.BaseDataSources
 import com.junemon.gamesapi.data.data.datasource.GamesRemoteDataSource
 import com.junemon.gamesapi.data.datasource.model.mapToDomain
-import com.junemon.gamesapi.domain2.model.GameModel
-import kotlinx.coroutines.CompletableDeferred
+import com.junemon.gamesapi.domain2.model.GameData
+import com.junemon.model.DataHelper
+import com.junemon.model.RemoteDataSourceHelper
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlin.coroutines.resume
 
 /**
  * Created by Ian Damping on 31,October,2019
@@ -15,23 +18,33 @@ import kotlinx.coroutines.CompletableDeferred
 class GamesRemoteDataSourceImpl(private val api: GamesApi) : BaseDataSources(),
     GamesRemoteDataSource {
 
-    override suspend fun get(): ResultToConsume<List<GameModel>> {
-        val results = CompletableDeferred<ResultToConsume<List<GameModel>>>()
+    @ExperimentalCoroutinesApi
+    override suspend fun get(): DataHelper<List<GameData>> {
+        val firstData = api.getGames().doOneShots()
+        return suspendCancellableCoroutine { cc ->
+                when(firstData){
+                    is RemoteDataSourceHelper.Error ->{
+                        cc.resume(DataHelper.RemoteSourceError(firstData.exception))
+                    }
+                    is RemoteDataSourceHelper.Success ->{
+                        val firstDataMap = firstData.data.data.mapToDomain()
+                        cc.resume(DataHelper.RemoteSourceValue(firstDataMap))
+                    }
+                }
+
+        }
+        /*val results = CompletableDeferred<List<GameData>>()
         try {
             val firstData = api.getGames().getResult()
             val firstDataMap = firstData.data?.data?.mapToDomain()
             checkNotNull(firstDataMap){
-                " data from service is null"
+                " ${firstData.message} "
             }
             assert(firstDataMap.isNotEmpty())
-            results.complete(ResultToConsume(firstData.status, firstDataMap, firstData.message))
+            results.complete(firstDataMap)
         } catch (e: Exception) {
-            results.complete(ResultToConsume(ResultToConsume.Status.ERROR, null, e.message))
+            results.complete(HelperResults.Error(e))
         }
-        return results.await()
-        // val firstData = api.getGamesCancelation().doOneShot()
-        /* val firstData = getResult { api.getGames() }
-         val firstDataMap = firstData.data?.data?.mapToDomain()
-         return ResultToConsume(firstData.status, firstDataMap, firstData.message)*/
+        return results.await()*/
     }
 }

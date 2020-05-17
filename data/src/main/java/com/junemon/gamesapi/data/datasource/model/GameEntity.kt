@@ -1,7 +1,7 @@
 package com.junemon.gamesapi.data.datasource.model
 
 import com.google.gson.annotations.SerializedName
-import com.junemon.gamesapi.domain2.model.GameModel
+import com.junemon.gamesapi.domain2.model.GameData
 
 /**
  * Created by Ian Damping on 31,October,2019
@@ -170,9 +170,9 @@ data class ParentPlatformsItem(
     val platform: PlatformEntity
 )
 
-fun GamesEntity.mapToDomain(): GameModel = GameModel(id, slug, released, backgroundImage, name)
+fun GamesEntity.mapToDomain(): GameData = GameData(id, slug, released, backgroundImage, name)
 
-fun List<GamesEntity>.mapToDomain(): List<GameModel>{
+fun List<GamesEntity>.mapToDomain(): List<GameData>{
     checkNotNull(this){
         " value from Service is null "
     }
