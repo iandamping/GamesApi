@@ -1,2 +1,2 @@
-include ':app', ':data', ':domain', ':model'
+include ':app'
 rootProject.name='GamesApi'
