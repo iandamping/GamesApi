@@ -1,4 +1,4 @@
-package com.junemon.gamesapi.view
+package com.junemon.gamesapi.feature
 
 import android.os.Bundle
 import android.view.View

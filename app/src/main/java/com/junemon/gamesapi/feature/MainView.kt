@@ -1,4 +1,4 @@
-package com.junemon.gamesapi.view
+package com.junemon.gamesapi.feature
 
 import com.junemon.gamesapi.core.model.GamesModel
 
