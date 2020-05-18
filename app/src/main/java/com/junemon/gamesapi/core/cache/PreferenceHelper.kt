@@ -3,8 +3,9 @@ package com.junemon.gamesapi.core.cache
 import android.app.Application
 import android.content.Context
 import com.junemon.gamesapi.util.AppConstant.prefHelperInit
+import javax.inject.Inject
 
-class PreferenceHelper(app: Application) {
+class PreferenceHelper @Inject constructor(app: Application) {
 
 
     private val prefHelp by lazy {
