@@ -4,8 +4,6 @@ import com.junemon.gamesapi.core.domain.usecase.GameUseCase
 import com.junemon.gamesapi.core.model.ConsumeResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import org.koin.core.KoinComponent
-import org.koin.core.inject
 
 /**
  * Created by Ian Damping on 16,May,2020

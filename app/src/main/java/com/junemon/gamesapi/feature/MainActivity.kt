@@ -14,8 +14,6 @@ import com.junemon.gamesapi.util.adapter.AdapterConstant.listGameAdapterCallback
 import com.junemon.gamesapi.util.adapter.interfaces.RecyclerHelper
 import com.junemon.gamesapi.util.imageHelper.LoadImageHelper
 import kotlinx.android.synthetic.main.item_main.view.*
-import org.koin.android.ext.android.inject
-import org.koin.core.inject
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), MainView {
