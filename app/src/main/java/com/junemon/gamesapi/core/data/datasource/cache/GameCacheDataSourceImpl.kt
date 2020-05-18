@@ -5,13 +5,14 @@ import com.junemon.gamesapi.core.cache.PreferenceHelper
 import com.junemon.gamesapi.core.data.data.datasource.GameCacheDataSource
 import com.junemon.gamesapi.core.model.GamesModel
 import com.junemon.gamesapi.util.AppConstant.saveGameKey
+import javax.inject.Inject
 
 /**
  * Created by Ian Damping on 16,May,2020
  * Github https://github.com/iandamping
  * Indonesia.
  */
-class GameCacheDataSourceImpl(private val preferenceHelper: PreferenceHelper) :
+class GameCacheDataSourceImpl @Inject constructor(private val preferenceHelper: PreferenceHelper) :
     GameCacheDataSource {
     private val gson: Gson by lazy { Gson() }
 

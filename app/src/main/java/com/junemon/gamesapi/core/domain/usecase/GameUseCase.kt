@@ -3,13 +3,14 @@ package com.junemon.gamesapi.core.domain.usecase
 import com.junemon.gamesapi.core.domain.repository.GameRepository
 import com.junemon.gamesapi.core.model.ConsumeResult
 import com.junemon.gamesapi.core.model.GamesModel
+import javax.inject.Inject
 
 /**
  * Created by Ian Damping on 16,May,2020
  * Github https://github.com/iandamping
  * Indonesia.
  */
-class GameUseCase(private val repository: GameRepository) {
+class GameUseCase @Inject constructor(private val repository: GameRepository) {
 
     suspend fun getListGames(): ConsumeResult<GamesModel> = repository.getListGames()
 

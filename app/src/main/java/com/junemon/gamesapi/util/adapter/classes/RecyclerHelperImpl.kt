@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.junemon.gamesapi.util.adapter.base.BaseKotlinListAdapter
 import com.junemon.gamesapi.util.adapter.interfaces.RecyclerHelper
+import javax.inject.Inject
 
 /**
  *
@@ -13,7 +14,7 @@ Github = https://github.com/iandamping
 
 This class has been customized to return adapter position
  */
-class RecyclerHelperImpl : RecyclerHelper {
+class RecyclerHelperImpl @Inject constructor() : RecyclerHelper {
 
     override fun <T> RecyclerView.setUpVerticalListAdapter(
         items: List<T>?,

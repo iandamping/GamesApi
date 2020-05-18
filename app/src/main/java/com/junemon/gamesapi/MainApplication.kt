@@ -1,9 +1,7 @@
 package com.junemon.gamesapi
 
 import android.app.Application
-import com.junemon.gamesapi.core.di.injectModules
-import org.koin.android.ext.koin.androidContext
-import org.koin.core.context.startKoin
+import com.junemon.gamesapi.core.di.component.*
 import timber.log.Timber
 
 /**
@@ -11,16 +9,28 @@ import timber.log.Timber
  * Github https://github.com/iandamping
  * Indonesia.
  */
-class MainApplication : Application() {
+class MainApplication : Application(), ActivityComponentProvider, AppComponentProvider,
+    CoreComponentProvider {
 
     override fun onCreate() {
         super.onCreate()
-        startKoin {
-            androidContext(this@MainApplication)
-            injectModules()
-        }
+
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }
     }
+
+    override fun provideActivityComponent(): ActivityComponent {
+        return DaggerActivityComponent.factory().appComponent(provideAppComponent())
+    }
+
+    override fun provideAppComponent(): AppComponent {
+        return DaggerAppComponent.factory().coreComponent(provideCoreComponent())
+    }
+
+    override fun provideCoreComponent(): CoreComponent {
+        return DaggerCoreComponent.factory().injectApplication(this)
+    }
+
+
 }

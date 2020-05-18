@@ -12,8 +12,7 @@ import org.koin.core.inject
  * Github https://github.com/iandamping
  * Indonesia.
  */
-class MainPresenter(private val mView: MainView) : KoinComponent {
-    private val repo: GameUseCase by inject()
+class MainPresenter(private val mView: MainView,private val repo:GameUseCase) {
 
     suspend fun getGames() {
         withContext(Dispatchers.Main){

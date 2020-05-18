@@ -2,19 +2,23 @@ package com.junemon.gamesapi.core.data.data.repository
 
 import com.junemon.gamesapi.core.data.data.datasource.GameCacheDataSource
 import com.junemon.gamesapi.core.data.data.datasource.GameRemoteDataSource
+import com.junemon.gamesapi.core.di.module.MainDispatcher
 import com.junemon.gamesapi.core.domain.repository.GameRepository
 import com.junemon.gamesapi.core.model.ConsumeResult
 import com.junemon.gamesapi.core.model.DataHelper
 import com.junemon.gamesapi.core.model.GamesModel
 import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.collect
+import javax.inject.Inject
 
 /**
  * Created by Ian Damping on 16,May,2020
  * Github https://github.com/iandamping
  * Indonesia.
  */
-class GameRepositoryImpl(
+class GameRepositoryImpl @Inject constructor(
+    @MainDispatcher private val ioDispatcher: CoroutineDispatcher,
     private val remoteDataSource: GameRemoteDataSource,
     private val cacheDataSource: GameCacheDataSource
 ) : GameRepository {
