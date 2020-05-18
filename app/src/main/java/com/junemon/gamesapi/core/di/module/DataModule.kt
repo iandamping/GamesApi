@@ -23,8 +23,5 @@ abstract class DataModule {
     abstract fun bindRemoteDataSource(remoteDataSource: GameRemoteDataSourceImpl): GameRemoteDataSource
 
     @Binds
-    abstract fun bindCacheDataSource(cacheDataSource: GameCacheDataSourceImpl): GameCacheDataSource
-
-    @Binds
     abstract fun bindRepository(repository: GameRepositoryImpl): GameRepository
 }

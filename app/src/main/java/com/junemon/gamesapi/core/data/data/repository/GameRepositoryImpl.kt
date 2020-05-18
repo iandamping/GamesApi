@@ -19,8 +19,7 @@ import javax.inject.Inject
  */
 class GameRepositoryImpl @Inject constructor(
     @MainDispatcher private val mainDispatcher: CoroutineDispatcher,
-    private val remoteDataSource: GameRemoteDataSource,
-    private val cacheDataSource: GameCacheDataSource
+    private val remoteDataSource: GameRemoteDataSource
 ) : GameRepository {
 
     override fun getListGames() = liveData(mainDispatcher) {
@@ -34,13 +33,5 @@ class GameRepositoryImpl @Inject constructor(
                 }
             }
         }
-    }
-
-    override fun saveCacheGames(data: GamesModel) {
-        cacheDataSource.saveGames(data)
-    }
-
-    override fun getCacheGames(): GamesModel {
-        return cacheDataSource.getGames()
     }
 }

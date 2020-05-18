@@ -11,8 +11,4 @@ import com.junemon.gamesapi.core.model.GamesModel
  */
 interface GameRepository {
     fun getListGames(): LiveData<ConsumeResult<GamesModel>>
-
-    fun saveCacheGames(data: GamesModel)
-
-    fun getCacheGames(): GamesModel
 }
