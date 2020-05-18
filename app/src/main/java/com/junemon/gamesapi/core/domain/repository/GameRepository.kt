@@ -1,5 +1,6 @@
 package com.junemon.gamesapi.core.domain.repository
 
+import androidx.lifecycle.LiveData
 import com.junemon.gamesapi.core.model.ConsumeResult
 import com.junemon.gamesapi.core.model.GamesModel
 
@@ -9,7 +10,7 @@ import com.junemon.gamesapi.core.model.GamesModel
  * Indonesia.
  */
 interface GameRepository {
-    suspend fun getListGames(): ConsumeResult<GamesModel>
+    fun getListGames(): LiveData<ConsumeResult<GamesModel>>
 
     fun saveCacheGames(data: GamesModel)
 

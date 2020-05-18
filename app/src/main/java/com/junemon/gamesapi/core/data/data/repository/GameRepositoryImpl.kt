@@ -1,5 +1,6 @@
 package com.junemon.gamesapi.core.data.data.repository
 
+import androidx.lifecycle.liveData
 import com.junemon.gamesapi.core.data.data.datasource.GameCacheDataSource
 import com.junemon.gamesapi.core.data.data.datasource.GameRemoteDataSource
 import com.junemon.gamesapi.core.di.module.MainDispatcher
@@ -7,7 +8,6 @@ import com.junemon.gamesapi.core.domain.repository.GameRepository
 import com.junemon.gamesapi.core.model.ConsumeResult
 import com.junemon.gamesapi.core.model.DataHelper
 import com.junemon.gamesapi.core.model.GamesModel
-import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
@@ -18,24 +18,22 @@ import javax.inject.Inject
  * Indonesia.
  */
 class GameRepositoryImpl @Inject constructor(
-    @MainDispatcher private val ioDispatcher: CoroutineDispatcher,
+    @MainDispatcher private val mainDispatcher: CoroutineDispatcher,
     private val remoteDataSource: GameRemoteDataSource,
     private val cacheDataSource: GameCacheDataSource
 ) : GameRepository {
 
-    override suspend fun getListGames(): ConsumeResult<GamesModel> {
-        val result: CompletableDeferred<ConsumeResult<GamesModel>> = CompletableDeferred()
+    override fun getListGames() = liveData(mainDispatcher) {
         remoteDataSource.getListGames().collect {
             when (it) {
                 is DataHelper.RemoteSourceValue -> {
-                    result.complete(ConsumeResult.ConsumeData(it.data))
+                    emit(ConsumeResult.ConsumeData(it.data))
                 }
                 is DataHelper.RemoteSourceError -> {
-                    result.complete(ConsumeResult.ErrorHappen(it.exception))
+                    emit(ConsumeResult.ErrorHappen(it.exception))
                 }
             }
         }
-        return result.await()
     }
 
     override fun saveCacheGames(data: GamesModel) {

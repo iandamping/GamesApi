@@ -3,48 +3,60 @@ package com.junemon.gamesapi.feature
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
 import com.junemon.gamesapi.R
 import com.junemon.gamesapi.core.di.activityComponent
-import com.junemon.gamesapi.core.domain.usecase.GameUseCase
+import com.junemon.gamesapi.core.model.ConsumeResult
 import com.junemon.gamesapi.core.model.GamesModel
 import com.junemon.gamesapi.databinding.ActivityMainBinding
+import com.junemon.gamesapi.feature.viewmodel.GameViewModel
 import com.junemon.gamesapi.util.adapter.AdapterConstant.listGameAdapterCallback
 import com.junemon.gamesapi.util.adapter.interfaces.RecyclerHelper
 import com.junemon.gamesapi.util.imageHelper.LoadImageHelper
 import kotlinx.android.synthetic.main.item_main.view.*
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity(), MainView {
+class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var recyclerHelper: RecyclerHelper
+
     @Inject
     lateinit var loadImageHelper: LoadImageHelper
+
     @Inject
-    lateinit var repo: GameUseCase
+    lateinit var gameVm: GameViewModel
 
     private lateinit var binding: ActivityMainBinding
-    private val presenter: MainPresenter by lazy { MainPresenter(this,repo) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         activityComponent().inject(this)
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        getGames()
 
-
-        lifecycleScope.launchWhenStarted {
-            presenter.getGames()
-        }
     }
 
-    override fun onFailGetValue(e: Exception) {
+    private fun getGames() {
+        gameVm.getGames().observe(this@MainActivity, Observer {
+            when (it) {
+                is ConsumeResult.ConsumeData -> {
+                    onSuccessGetGame(it.data)
+                }
+                is ConsumeResult.ErrorHappen -> {
+                    onFailGetValue(it.exception)
+                }
+            }
+        })
+    }
+
+    private fun onFailGetValue(e: Exception) {
         binding.progressBars.visibility = View.GONE
         Snackbar.make(binding.root, e.message!!, Snackbar.LENGTH_SHORT).show()
     }
 
-    override fun onSuccessGetGame(data: List<GamesModel>) {
+    private fun onSuccessGetGame(data: List<GamesModel>) {
         binding.progressBars.visibility = View.GONE
         recyclerHelper.run {
             binding.rvGames.setUpVerticalListAdapter(items = data,
