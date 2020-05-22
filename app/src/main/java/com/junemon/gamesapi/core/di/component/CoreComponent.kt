@@ -14,13 +14,12 @@ import dagger.Component
  * Indonesia.
  */
 @Component(
-    modules = [NetworkModule::class, CacheModule::class, DataModule::class, DomainModule::class, CoroutineModule::class]
+    modules = [NetworkModule::class, CacheModule::class, DataModule::class,
+        PresentationModule::class,DomainModule::class, CoroutineModule::class,ContextModule::class]
 )
 interface CoreComponent {
 
     val provideRepository: GameRepository
-
-    val providePreferenceHelper: PreferenceHelper
 
     @Component.Factory
     interface Factory {

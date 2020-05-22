@@ -1,5 +1,6 @@
 package com.junemon.gamesapi.core.di.module
 
+import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.junemon.gamesapi.core.network.ApiInterface
 import com.junemon.gamesapi.util.AppConstant.baseUrl
@@ -58,5 +59,10 @@ object NetworkModule {
         return provideRetrofit().create(ApiInterface::class.java)
     }
 
+    @Provides
+    @JvmStatic
+    fun provideGson(): Gson {
+        return Gson()
+    }
 
 }

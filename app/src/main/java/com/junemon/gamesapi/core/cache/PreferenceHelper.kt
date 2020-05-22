@@ -1,15 +1,14 @@
 package com.junemon.gamesapi.core.cache
 
-import android.app.Application
 import android.content.Context
 import com.junemon.gamesapi.util.AppConstant.prefHelperInit
 import javax.inject.Inject
 
-class PreferenceHelper @Inject constructor(app: Application) {
+class PreferenceHelper @Inject constructor(context: Context) {
 
 
     private val prefHelp by lazy {
-        app.getSharedPreferences(prefHelperInit, Context.MODE_PRIVATE)
+        context.getSharedPreferences(prefHelperInit, Context.MODE_PRIVATE)
     }
     private val preHelperEditor = prefHelp.edit()
 

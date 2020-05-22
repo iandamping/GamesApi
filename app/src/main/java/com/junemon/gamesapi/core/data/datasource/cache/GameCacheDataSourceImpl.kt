@@ -5,6 +5,7 @@ import com.junemon.gamesapi.core.cache.PreferenceHelper
 import com.junemon.gamesapi.core.data.data.datasource.GameCacheDataSource
 import com.junemon.gamesapi.core.model.GamesModel
 import com.junemon.gamesapi.util.AppConstant.saveGameKey
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -12,9 +13,11 @@ import javax.inject.Inject
  * Github https://github.com/iandamping
  * Indonesia.
  */
-class GameCacheDataSourceImpl @Inject constructor(private val preferenceHelper: PreferenceHelper) :
+class GameCacheDataSourceImpl @Inject constructor(
+    private val preferenceHelper: PreferenceHelper,
+    private val gson: Gson
+) :
     GameCacheDataSource {
-    private val gson: Gson by lazy { Gson() }
 
     override fun saveGames(data: GamesModel) {
         preferenceHelper.saveStringInSharedPreference(
@@ -24,7 +27,7 @@ class GameCacheDataSourceImpl @Inject constructor(private val preferenceHelper: 
     }
 
     override fun getGames(): GamesModel {
-        val results: GamesModel by lazy { gson.fromJson(saveGameKey, GamesModel::class.java) }
+        val results: GamesModel by lazy { gson.fromJson(preferenceHelper.getStringInSharedPreference(saveGameKey), GamesModel::class.java) }
         return results
     }
 }

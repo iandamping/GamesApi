@@ -2,6 +2,7 @@ package com.junemon.gamesapi.feature
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
@@ -15,6 +16,7 @@ import com.junemon.gamesapi.util.adapter.AdapterConstant.listGameAdapterCallback
 import com.junemon.gamesapi.util.adapter.interfaces.RecyclerHelper
 import com.junemon.gamesapi.util.imageHelper.LoadImageHelper
 import kotlinx.android.synthetic.main.item_main.view.*
+import timber.log.Timber
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
@@ -51,6 +53,10 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    private fun getCachedGames() {
+      Timber.e(" this is the data ${gameVm.getCachedGame()}")
+    }
+
     private fun onFailGetValue(e: Exception) {
         binding.progressBars.visibility = View.GONE
         Snackbar.make(binding.root, e.message!!, Snackbar.LENGTH_SHORT).show()
@@ -67,6 +73,11 @@ class MainActivity : AppCompatActivity() {
                     loadImageHelper.run {
                         ivImages.loadWithGlide(it.backgroundImage)
                     }
+                }, itemClick = {
+                    gameVm.saveGames(this)
+                }
+                , onLongClicks = {
+                    getCachedGames()
                 }
             )
         }

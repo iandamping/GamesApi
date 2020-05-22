@@ -24,9 +24,6 @@ interface ActivityComponent {
 
     val provideRepository: GameRepository
 
-    val providePreferenceHelper: PreferenceHelper
-
-
     @Component.Factory
     interface Factory {
         fun appComponent(appComponent: AppComponent): ActivityComponent

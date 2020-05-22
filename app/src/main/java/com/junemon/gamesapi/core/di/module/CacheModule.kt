@@ -1,6 +1,6 @@
 package com.junemon.gamesapi.core.di.module
 
-import android.app.Application
+import android.content.Context
 import com.junemon.gamesapi.core.cache.PreferenceHelper
 import dagger.Module
 import dagger.Provides
@@ -16,7 +16,7 @@ object CacheModule {
 
     @Provides
     @JvmStatic
-    fun providePreferenceHelper(app: Application): PreferenceHelper {
-        return PreferenceHelper(app)
+    fun providePreferenceHelper(context: Context): PreferenceHelper {
+        return PreferenceHelper(context)
     }
 }

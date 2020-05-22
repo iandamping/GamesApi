@@ -15,4 +15,8 @@ class GameUseCase @Inject constructor(private val repository: GameRepository) {
 
     fun getListGames(): LiveData<ConsumeResult<GamesModel>> = repository.getListGames()
 
+    fun saveGames(data: GamesModel) = repository.saveGames(data)
+
+    fun getCachedGames(): GamesModel = repository.getCachedGames()
+
 }

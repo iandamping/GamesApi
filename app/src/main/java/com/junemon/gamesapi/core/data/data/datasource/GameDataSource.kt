@@ -14,6 +14,7 @@ interface GameRemoteDataSource {
 }
 
 interface GameCacheDataSource {
+
     fun saveGames(data: GamesModel)
 
     fun getGames(): GamesModel

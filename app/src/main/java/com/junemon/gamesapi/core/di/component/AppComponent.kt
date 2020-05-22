@@ -1,6 +1,5 @@
 package com.junemon.gamesapi.core.di.component
 
-import com.junemon.gamesapi.core.cache.PreferenceHelper
 import com.junemon.gamesapi.core.di.scope.ApplicationScope
 import com.junemon.gamesapi.core.domain.repository.GameRepository
 import dagger.Component
@@ -16,8 +15,6 @@ import dagger.Component
 interface AppComponent {
 
     val provideRepository: GameRepository
-
-    val providePreferenceHelper: PreferenceHelper
 
     @Component.Factory
     interface Factory {
