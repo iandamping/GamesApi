@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
  * Indonesia.
  */
 interface GameRemoteDataSource {
-    suspend fun getListGames(): Flow<DataHelper<List<GamesModel>>>
+    suspend fun getListGames(): DataHelper<List<GamesModel>>
 }
 
 interface GameCacheDataSource {

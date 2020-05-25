@@ -2,7 +2,6 @@ package com.junemon.gamesapi.feature
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
@@ -18,6 +17,7 @@ import com.junemon.gamesapi.util.imageHelper.LoadImageHelper
 import kotlinx.android.synthetic.main.item_main.view.*
 import timber.log.Timber
 import javax.inject.Inject
+import kotlin.system.measureTimeMillis
 
 class MainActivity : AppCompatActivity() {
     @Inject
@@ -54,12 +54,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getCachedGames() {
-      Timber.e(" this is the data ${gameVm.getCachedGame()}")
+        Timber.e(" this is the data ${gameVm.getCachedGame()}")
     }
 
     private fun onFailGetValue(e: Exception) {
         binding.progressBars.visibility = View.GONE
-        Snackbar.make(binding.root, e.message!!, Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(binding.root, e.message ?: "Error happen", Snackbar.LENGTH_SHORT).show()
     }
 
     private fun onSuccessGetGame(data: List<GamesModel>) {

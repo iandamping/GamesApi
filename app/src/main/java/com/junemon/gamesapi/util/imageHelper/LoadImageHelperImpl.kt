@@ -3,6 +3,7 @@ package com.junemon.gamesapi.util.imageHelper
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.junemon.gamesapi.R
 import javax.inject.Inject
@@ -11,7 +12,11 @@ class LoadImageHelperImpl @Inject constructor() : LoadImageHelper {
 
     override fun ImageView.loadWithGlide(url: String?) {
         val requestOptions = RequestOptions().diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
-        Glide.with(this.context).load(url).apply(requestOptions).placeholder(R.drawable.empty_image).thumbnail(0.25f).into(this)
+        Glide.with(this.context)
+            .load(url)
+            .transition(DrawableTransitionOptions.withCrossFade())
+            .apply(requestOptions)
+            .placeholder(R.drawable.empty_image).thumbnail(0.25f).into(this)
     }
 
 
