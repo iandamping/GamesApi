@@ -1,8 +1,10 @@
 package com.junemon.gamesapi.util.adapter.classes
 
 import android.view.View
+import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.junemon.gamesapi.util.adapter.base.BaseBindingKotlinListAdapter
 import com.junemon.gamesapi.util.adapter.base.BaseKotlinListAdapter
 import com.junemon.gamesapi.util.adapter.interfaces.RecyclerHelper
 import javax.inject.Inject
@@ -44,5 +46,26 @@ class RecyclerHelperImpl @Inject constructor() : RecyclerHelper {
         }
     }
 
+    override fun <T, B : ViewDataBinding> RecyclerView.setUpVerticalBindingListAdapter(
+        items: List<T>?,
+        diffUtil: DiffUtil.ItemCallback<T>,
+        layoutResId: Int,
+        itemClick: T.() -> Unit,
+        onLongClicks: T.() -> Unit,
+        manager: RecyclerView.LayoutManager
+    ): BaseBindingKotlinListAdapter<T, B>? {
 
+        requireNotNull(items) {
+            " your list data is null"
+        }
+        return BaseBindingKotlinListAdapter<T, B>(
+            layout = layoutResId,
+            diffUtil = diffUtil,
+            itemClicks = { itemClick() },
+            onLongClickListener = { onLongClicks() }).apply {
+            layoutManager = manager
+            adapter = this
+        }
+    }
 }
+

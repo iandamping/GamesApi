@@ -12,3 +12,4 @@ import android.view.ViewGroup
 fun ViewGroup.inflates(layout: Int): View {
     return LayoutInflater.from(context).inflate(layout, this, false)
 }
+
