@@ -10,7 +10,6 @@ import com.junemon.gamesapi.core.di.activityComponent
 import com.junemon.gamesapi.core.model.ConsumeResult
 import com.junemon.gamesapi.core.model.GamesModel
 import com.junemon.gamesapi.databinding.ActivityMainBinding
-import com.junemon.gamesapi.databinding.ItemMainBindBinding
 import com.junemon.gamesapi.databinding.ItemMainBinding
 import com.junemon.gamesapi.feature.viewmodel.GameViewModel
 import com.junemon.gamesapi.util.adapter.AdapterConstant.listGameAdapterCallback
@@ -19,7 +18,6 @@ import com.junemon.gamesapi.util.imageHelper.LoadImageHelper
 import kotlinx.android.synthetic.main.item_main.view.*
 import timber.log.Timber
 import javax.inject.Inject
-import kotlin.system.measureTimeMillis
 
 class MainActivity : AppCompatActivity() {
     @Inject
@@ -67,7 +65,12 @@ class MainActivity : AppCompatActivity() {
     private fun onSuccessGetGame(data: List<GamesModel>) {
         binding.progressBars.visibility = View.GONE
         recyclerHelper.run {
-       
+            /*binding.rvGames.setUpVerticalBindingListAdapter<GamesModel,ItemMainBindBinding>(
+                layoutResId = R.layout.item_main,
+                items = data,
+                diffUtil = listGameAdapterCallback
+            )*/
+
             binding.rvGames.setUpVerticalListAdapter(items = data,
                 diffUtil = listGameAdapterCallback,
                 layoutResId = R.layout.item_main,
