@@ -1,8 +1,7 @@
 package com.junemon.gamesapi.core.data.data.datasource
 
-import com.junemon.gamesapi.core.model.DataHelper
-import com.junemon.gamesapi.core.model.GamesModel
-import kotlinx.coroutines.flow.Flow
+import com.junemon.model.DataHelper
+import com.junemon.model.games.GamesModel
 
 /**
  * Created by Ian Damping on 16,May,2020

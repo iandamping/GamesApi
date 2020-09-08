@@ -1,8 +1,14 @@
 package com.junemon.gamesapi.core.di.component
 
+import com.junemon.gamesapi.MainApplication
+import com.junemon.gamesapi.core.di.module.*
 import com.junemon.gamesapi.core.di.scope.ApplicationScope
 import com.junemon.gamesapi.core.domain.repository.GameRepository
+import com.junemon.gamesapi.feature.MainActivity
 import dagger.Component
+import dagger.android.AndroidInjector
+import dagger.android.support.AndroidSupportInjectionModule
+import javax.inject.Singleton
 
 
 /**
@@ -10,19 +16,23 @@ import dagger.Component
  * Github https://github.com/iandamping
  * Indonesia.
  */
-@ApplicationScope
-@Component(dependencies = [CoreComponent::class])
-interface AppComponent {
+@Singleton
+@Component(
+    modules = [AndroidSupportInjectionModule::class,
+        ContextModule::class,
+        ActivityBindingModule::class,
+        ViewModelModule::class,
+        CacheModule::class,
+        CoroutineModule::class,
+        DataModule::class,
+        DomainModule::class,
+        NetworkModule::class,
+        PresentationModule::class,
+        GlideModule::class]
+)
+interface AppComponent: AndroidInjector<MainApplication> {
 
-    val provideRepository: GameRepository
-
-    @Component.Factory
-    interface Factory {
-        fun coreComponent(coreComponent: CoreComponent): AppComponent
-    }
+    @Component.Builder
+    abstract class Builder : AndroidInjector.Builder<MainApplication>()
 }
 
-interface AppComponentProvider {
-
-    fun provideAppComponent(): AppComponent
-}

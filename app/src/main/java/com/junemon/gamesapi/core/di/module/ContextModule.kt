@@ -1,9 +1,9 @@
 package com.junemon.gamesapi.core.di.module
 
-import android.app.Application
 import android.content.Context
-import dagger.Binds
+import com.junemon.gamesapi.MainApplication
 import dagger.Module
+import dagger.Provides
 
 
 /**
@@ -12,8 +12,10 @@ import dagger.Module
  * Indonesia.
  */
 @Module
-abstract class ContextModule {
+class ContextModule {
 
-    @Binds
-    abstract fun bindContext(applicationInstance: Application): Context
+    @Provides
+    fun provideContext(application: MainApplication): Context {
+        return application.applicationContext
+    }
 }

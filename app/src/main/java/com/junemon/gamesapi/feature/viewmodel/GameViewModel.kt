@@ -2,7 +2,7 @@ package com.junemon.gamesapi.feature.viewmodel
 
 import androidx.lifecycle.*
 import com.junemon.gamesapi.core.domain.usecase.GameUseCase
-import com.junemon.gamesapi.core.model.GamesModel
+import com.junemon.model.games.GamesModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -38,6 +38,10 @@ class GameViewModel @Inject constructor(private val repo:GameUseCase): ViewModel
     val progressBar: LiveData<Boolean>
         get() = _progressBar
 
+    fun setupProgressBar(data:Boolean){
+        _progressBar.value = data
+    }
+
 
     fun getGames() = repo.getListGames()
 
@@ -46,7 +50,7 @@ class GameViewModel @Inject constructor(private val repo:GameUseCase): ViewModel
             repo.getListGames()
         }*/
 
-    fun saveGames(data:GamesModel) = repo.saveGames(data)
+    fun saveGames(data: GamesModel) = repo.saveGames(data)
 
     fun getCachedGame() = repo.getCachedGames()
 

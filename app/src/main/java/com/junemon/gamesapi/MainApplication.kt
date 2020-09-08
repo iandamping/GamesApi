@@ -1,7 +1,8 @@
 package com.junemon.gamesapi
 
-import android.app.Application
 import com.junemon.gamesapi.core.di.component.*
+import dagger.android.AndroidInjector
+import dagger.android.DaggerApplication
 import timber.log.Timber
 
 /**
@@ -9,8 +10,7 @@ import timber.log.Timber
  * Github https://github.com/iandamping
  * Indonesia.
  */
-class MainApplication : Application(), ActivityComponentProvider, AppComponentProvider,
-    CoreComponentProvider {
+class MainApplication: DaggerApplication()  {
 
     override fun onCreate() {
         super.onCreate()
@@ -20,16 +20,8 @@ class MainApplication : Application(), ActivityComponentProvider, AppComponentPr
         }
     }
 
-    override fun provideActivityComponent(): ActivityComponent {
-        return DaggerActivityComponent.factory().appComponent(provideAppComponent())
-    }
-
-    override fun provideAppComponent(): AppComponent {
-        return DaggerAppComponent.factory().coreComponent(provideCoreComponent())
-    }
-
-    override fun provideCoreComponent(): CoreComponent {
-        return DaggerCoreComponent.factory().injectApplication(this)
+    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
+        return DaggerAppComponent.builder().create(this)
     }
 
 

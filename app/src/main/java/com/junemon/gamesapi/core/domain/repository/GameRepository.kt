@@ -1,8 +1,9 @@
 package com.junemon.gamesapi.core.domain.repository
 
 import androidx.lifecycle.LiveData
-import com.junemon.gamesapi.core.model.ConsumeResult
-import com.junemon.gamesapi.core.model.GamesModel
+import com.junemon.model.ConsumeResult
+import com.junemon.model.games.GamesModel
+import kotlinx.coroutines.flow.Flow
 
 /**
  * Created by Ian Damping on 16,May,2020
@@ -10,7 +11,7 @@ import com.junemon.gamesapi.core.model.GamesModel
  * Indonesia.
  */
 interface GameRepository {
-    fun getListGames(): LiveData<ConsumeResult<GamesModel>>
+    fun getListGames(): Flow<ConsumeResult<GamesModel>>
     fun saveGames(data: GamesModel)
     fun getCachedGames(): GamesModel
 }

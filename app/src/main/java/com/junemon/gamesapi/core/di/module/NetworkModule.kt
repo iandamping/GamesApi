@@ -2,6 +2,7 @@ package com.junemon.gamesapi.core.di.module
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.junemon.gamesapi.BuildConfig
 import com.junemon.gamesapi.core.network.ApiInterface
 import com.junemon.gamesapi.util.AppConstant.baseUrl
 import dagger.Module
@@ -24,7 +25,7 @@ object NetworkModule {
 
     @Provides
     @JvmStatic
-    fun provideOkHttpClient(): OkHttpClient {
+    fun provideOkHttpClient(): OkHttpClient = if (BuildConfig.DEBUG){
         val okHttpBuilder: OkHttpClient.Builder = OkHttpClient.Builder()
             .connectTimeout(60L, TimeUnit.SECONDS)
             .writeTimeout(60L, TimeUnit.SECONDS)
@@ -39,8 +40,23 @@ object NetworkModule {
             .addInterceptor { chain ->
                 chain.run { proceed(this.request().newBuilder().build()) }
             }
-        return okHttpBuilder.build()
+        okHttpBuilder.build()
+    }else{
+        val okHttpBuilder: OkHttpClient.Builder = OkHttpClient.Builder()
+            .connectTimeout(60L, TimeUnit.SECONDS)
+            .writeTimeout(60L, TimeUnit.SECONDS)
+            .readTimeout(60L, TimeUnit.SECONDS)
+            .dispatcher(Dispatcher().apply {
+                maxRequests = 20
+                maxRequestsPerHost = 20
+            })
+            .addInterceptor { chain ->
+                chain.run { proceed(this.request().newBuilder().build()) }
+            }
+        okHttpBuilder.build()
     }
+
+
 
     @Provides
     @JvmStatic

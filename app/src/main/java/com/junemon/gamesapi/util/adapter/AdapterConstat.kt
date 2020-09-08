@@ -1,7 +1,7 @@
 package com.junemon.gamesapi.util.adapter
 
 import androidx.recyclerview.widget.DiffUtil
-import com.junemon.gamesapi.core.model.GamesModel
+import com.junemon.model.games.GamesModel
 
 /**
  * Created by Ian Damping on 22,January,2020
@@ -16,7 +16,7 @@ object AdapterConstant {
         }
 
         override fun areContentsTheSame(oldItem: GamesModel, newItem: GamesModel): Boolean {
-            return oldItem == newItem
+            return oldItem.id == newItem.id
         }
     }
 }

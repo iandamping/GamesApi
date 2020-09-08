@@ -24,7 +24,4 @@ abstract class PresentationModule {
 
     @Binds
     abstract fun bindsLoadImageHelper(loadImageHelper: LoadImageHelperImpl): LoadImageHelper
-
-    @Binds
-    abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
 }

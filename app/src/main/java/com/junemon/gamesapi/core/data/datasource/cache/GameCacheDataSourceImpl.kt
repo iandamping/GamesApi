@@ -3,9 +3,8 @@ package com.junemon.gamesapi.core.data.datasource.cache
 import com.google.gson.Gson
 import com.junemon.gamesapi.core.cache.PreferenceHelper
 import com.junemon.gamesapi.core.data.data.datasource.GameCacheDataSource
-import com.junemon.gamesapi.core.model.GamesModel
+import com.junemon.model.games.GamesModel
 import com.junemon.gamesapi.util.AppConstant.saveGameKey
-import timber.log.Timber
 import javax.inject.Inject
 
 /**

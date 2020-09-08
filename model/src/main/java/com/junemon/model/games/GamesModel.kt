@@ -1,6 +1,7 @@
-package com.junemon.gamesapi.core.model
+package com.junemon.model.games
 
 import com.google.gson.annotations.SerializedName
+
 
 /**
  * Created by Ian Damping on 29,October,2019

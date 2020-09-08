@@ -1,4 +1,4 @@
-package com.junemon.gamesapi.core.model
+package com.junemon.model.games
 
 import com.google.gson.annotations.SerializedName
 
