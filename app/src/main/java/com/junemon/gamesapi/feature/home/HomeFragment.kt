@@ -100,6 +100,7 @@ class HomeFragment : BaseFragment(), HomeSliderAdapter.HomeSliderAdapterListener
     }
 
     override fun onClicked(data: GameData) {
+        setupExitEnterAxisTransition()
        val directions = HomeFragmentDirections.actionHomeFragmentToDetailFragment(data.id)
         navigate(directions)
     }
