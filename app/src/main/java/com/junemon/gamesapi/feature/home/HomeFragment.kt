@@ -80,11 +80,7 @@ class HomeFragment : BaseFragment() {
 
     private fun observeState(){
         gameVm.progressBar.observe(this,{
-            if (it){
-                binding.progressBars.visibility = View.GONE
-            }else{
-                binding.progressBars.visibility = View.VISIBLE
-            }
+            setDialogShow(it)
         })
     }
 
