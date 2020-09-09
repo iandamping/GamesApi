@@ -13,7 +13,7 @@
         android:padding="8dp"
         app:lottie_enableMergePathsForKitKatAndAbove="true"
         app:lottie_autoPlay="true"
-        app:lottie_fileName="the_best_loading.json"
+        app:lottie_fileName="beautiful_loading.json"
         app:lottie_loop="true" />
 
 

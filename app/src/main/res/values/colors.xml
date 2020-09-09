@@ -4,6 +4,9 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="white">#FFFFFF</color>
+    <color name="textGray">#ECEAEA</color>
+    <color name="mainYellow">#F7B30C</color>
     <color name="toolbar_bg">#F7B30C</color>
+    <color name="yellowTransparant">#B2FFE298</color>
     <color name="home_bg">#2C2C2A</color>
 </resources>

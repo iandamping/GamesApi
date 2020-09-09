@@ -15,10 +15,13 @@ data class EsrbRating(@SerializedName("name")
                       @SerializedName("slug")
                       val slug: String = "")
 
+
 data class MetacriticPlatformsItem(@SerializedName("metascore")
                                    val metascore: Int = 0,
                                    @SerializedName("url")
-                                   val url: String = "")
+                                   val url: String = "",
+                                   @SerializedName("platform")
+                                   val platform: Platform)
 
 data class Platform(@SerializedName("name")
                     val name: String = "",
@@ -38,6 +41,29 @@ data class Requirements(@SerializedName("minimum")
                         val minimum: String = "",
                         @SerializedName("recommended")
                         val recommended: String = "")
+
+
+data class Clips(@SerializedName("320")
+                 val threetwenty: String = "",
+                 @SerializedName("640")
+                 val sixforty: String = "",
+                 @SerializedName("full")
+                 val full: String = "")
+
+
+data class PublishersItem(@SerializedName("games_count")
+                          val gamesCount: Int = 0,
+                          @SerializedName("name")
+                          val name: String = "",
+                          @SerializedName("id")
+                          val id: Int = 0,
+                          @SerializedName("image_background")
+                          val imageBackground: String = "",
+                          @SerializedName("slug")
+                          val slug: String = "")
+
+
+
 
 
 data class ShortScreenshotsItem(
@@ -67,6 +93,8 @@ data class Store(
 
 
 data class StoresItem(
+    @SerializedName("url")
+    val url: String = "",
     @SerializedName("url_ru")
     val urlRu: String = "",
     @SerializedName("url_en")
@@ -94,12 +122,31 @@ data class AddedByStatus(
 )
 
 
-data class Clip(
-    @SerializedName("preview")
-    val preview: String = "",
-    @SerializedName("clip")
-    val clip: String = ""
-)
+
+data class Clip(@SerializedName("preview")
+                val preview: String = "",
+                @SerializedName("clips")
+                val clips: Clips,
+                @SerializedName("video")
+                val video: String = "",
+                @SerializedName("clip")
+                val clip: String = "")
+
+
+data class TagsItem(@SerializedName("games_count")
+                    val gamesCount: Int = 0,
+                    @SerializedName("name")
+                    val name: String = "",
+                    @SerializedName("language")
+                    val language: String = "",
+                    @SerializedName("id")
+                    val id: Int = 0,
+                    @SerializedName("image_background")
+                    val imageBackground: String = "",
+                    @SerializedName("slug")
+                    val slug: String = "")
+
+
 
 
 data class RatingsItem(
