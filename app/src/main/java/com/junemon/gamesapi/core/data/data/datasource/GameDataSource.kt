@@ -1,7 +1,7 @@
 package com.junemon.gamesapi.core.data.data.datasource
 
 import com.junemon.model.DataHelper
-import com.junemon.model.games.GamesModel
+import com.junemon.model.games.GameData
 
 /**
  * Created by Ian Damping on 16,May,2020
@@ -9,12 +9,12 @@ import com.junemon.model.games.GamesModel
  * Indonesia.
  */
 interface GameRemoteDataSource {
-    suspend fun getListGames(): DataHelper<List<GamesModel>>
+    suspend fun getListGames(): DataHelper<List<GameData>>
 }
 
 interface GameCacheDataSource {
 
-    fun saveGames(data: GamesModel)
+    fun saveGames(data: GameData)
 
-    fun getGames(): GamesModel
+    fun getGames(): GameData
 }

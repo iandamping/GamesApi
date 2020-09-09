@@ -6,7 +6,7 @@ import com.junemon.gamesapi.core.di.module.DefaultDispatcher
 import com.junemon.gamesapi.core.domain.repository.GameRepository
 import com.junemon.model.ConsumeResult
 import com.junemon.model.DataHelper
-import com.junemon.model.games.GamesModel
+import com.junemon.model.games.GameData
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
@@ -35,11 +35,11 @@ class GameRepositoryImpl @Inject constructor(
     }.onStart { emit(ConsumeResult.Loading) }.onCompletion { emit(ConsumeResult.Complete) }
         .flowOn(defaultDispatcher).conflate()
 
-    override fun saveGames(data: GamesModel) {
+    override fun saveGames(data: GameData) {
         cacheDataSource.saveGames(data)
     }
 
-    override fun getCachedGames(): GamesModel {
+    override fun getCachedGames(): GameData {
         return cacheDataSource.getGames()
     }
 }

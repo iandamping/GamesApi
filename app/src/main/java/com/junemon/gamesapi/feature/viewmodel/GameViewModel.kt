@@ -2,7 +2,7 @@ package com.junemon.gamesapi.feature.viewmodel
 
 import androidx.lifecycle.*
 import com.junemon.gamesapi.core.domain.usecase.GameUseCase
-import com.junemon.model.games.GamesModel
+import com.junemon.model.games.GameData
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -50,7 +50,7 @@ class GameViewModel @Inject constructor(private val repo:GameUseCase): ViewModel
             repo.getListGames()
         }*/
 
-    fun saveGames(data: GamesModel) = repo.saveGames(data)
+    fun saveGames(data: GameData) = repo.saveGames(data)
 
     fun getCachedGame() = repo.getCachedGames()
 

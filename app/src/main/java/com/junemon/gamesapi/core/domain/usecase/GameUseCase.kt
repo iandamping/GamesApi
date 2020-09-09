@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
 import com.junemon.gamesapi.core.domain.repository.GameRepository
 import com.junemon.model.ConsumeResult
-import com.junemon.model.games.GamesModel
+import com.junemon.model.games.GameData
 import javax.inject.Inject
 
 /**
@@ -14,10 +14,10 @@ import javax.inject.Inject
  */
 class GameUseCase @Inject constructor(private val repository: GameRepository) {
 
-    fun getListGames(): LiveData<ConsumeResult<GamesModel>> = repository.getListGames().asLiveData()
+    fun getListGames(): LiveData<ConsumeResult<GameData>> = repository.getListGames().asLiveData()
 
-    fun saveGames(data: GamesModel) = repository.saveGames(data)
+    fun saveGames(data: GameData) = repository.saveGames(data)
 
-    fun getCachedGames(): GamesModel = repository.getCachedGames()
+    fun getCachedGames(): GameData = repository.getCachedGames()
 
 }

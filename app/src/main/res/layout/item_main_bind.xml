@@ -6,7 +6,7 @@
     <data>
         <variable
             name="itemData"
-            type="com.junemon.model.games.GamesModel" />
+            type="com.junemon.model.games.GameData" />
     </data>
 
     <LinearLayout

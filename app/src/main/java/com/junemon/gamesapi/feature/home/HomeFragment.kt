@@ -13,7 +13,7 @@ import com.junemon.gamesapi.util.horizontalRecyclerviewInitializer
 import com.junemon.gamesapi.util.imageHelper.LoadImageHelper
 import com.junemon.gamesapi.util.viewModelProvider
 import com.junemon.model.ConsumeResult
-import com.junemon.model.games.GamesModel
+import com.junemon.model.games.GameData
 import javax.inject.Inject
 
 
@@ -99,7 +99,7 @@ class HomeFragment : BaseFragment(), HomeSliderAdapter.HomeSliderAdapterListener
         }
     }
 
-    override fun onClicked(data: GamesModel) {
+    override fun onClicked(data: GameData) {
         toastingMessage("data : ${data.name}")
     }
 }

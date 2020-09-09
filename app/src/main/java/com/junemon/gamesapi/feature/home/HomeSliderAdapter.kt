@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.junemon.gamesapi.databinding.ItemSliderBinding
 import com.junemon.gamesapi.util.adapter.AdapterConstant
-import com.junemon.model.games.GamesModel
+import com.junemon.model.games.GameData
 
 
 /**
@@ -14,10 +14,10 @@ import com.junemon.model.games.GamesModel
  * Indonesia.
  */
 class HomeSliderAdapter(private val listener: HomeSliderAdapterListener) :
-    ListAdapter<GamesModel, HomeSliderViewHolder>(AdapterConstant.listGameAdapterCallback) {
+    ListAdapter<GameData, HomeSliderViewHolder>(AdapterConstant.listGameAdapterCallback) {
 
     interface HomeSliderAdapterListener {
-        fun onClicked(data: GamesModel)
+        fun onClicked(data: GameData)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeSliderViewHolder {

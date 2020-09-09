@@ -3,7 +3,7 @@ package com.junemon.gamesapi.core.data.datasource.cache
 import com.google.gson.Gson
 import com.junemon.gamesapi.core.cache.PreferenceHelper
 import com.junemon.gamesapi.core.data.data.datasource.GameCacheDataSource
-import com.junemon.model.games.GamesModel
+import com.junemon.model.games.GameData
 import com.junemon.gamesapi.util.AppConstant.saveGameKey
 import javax.inject.Inject
 
@@ -18,15 +18,15 @@ class GameCacheDataSourceImpl @Inject constructor(
 ) :
     GameCacheDataSource {
 
-    override fun saveGames(data: GamesModel) {
+    override fun saveGames(data: GameData) {
         preferenceHelper.saveStringInSharedPreference(
             saveGameKey,
             gson.toJson(data)
         )
     }
 
-    override fun getGames(): GamesModel {
-        val results: GamesModel by lazy { gson.fromJson(preferenceHelper.getStringInSharedPreference(saveGameKey), GamesModel::class.java) }
+    override fun getGames(): GameData {
+        val results: GameData by lazy { gson.fromJson(preferenceHelper.getStringInSharedPreference(saveGameKey), GameData::class.java) }
         return results
     }
 }

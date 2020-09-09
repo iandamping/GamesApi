@@ -3,7 +3,7 @@ package com.junemon.gamesapi.feature.home
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.junemon.gamesapi.databinding.ItemSliderBinding
-import com.junemon.model.games.GamesModel
+import com.junemon.model.games.GameData
 
 
 /**
@@ -13,7 +13,7 @@ import com.junemon.model.games.GamesModel
  */
 class HomeSliderViewHolder(private val binding:ItemSliderBinding):RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(data:GamesModel){
+    fun bind(data:GameData){
         binding.run {
             Glide.with(ivItemGameImage).load(data.backgroundImage)
                 .into(ivItemGameImage)

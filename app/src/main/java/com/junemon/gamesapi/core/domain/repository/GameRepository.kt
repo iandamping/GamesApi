@@ -1,8 +1,7 @@
 package com.junemon.gamesapi.core.domain.repository
 
-import androidx.lifecycle.LiveData
 import com.junemon.model.ConsumeResult
-import com.junemon.model.games.GamesModel
+import com.junemon.model.games.GameData
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -11,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
  * Indonesia.
  */
 interface GameRepository {
-    fun getListGames(): Flow<ConsumeResult<GamesModel>>
-    fun saveGames(data: GamesModel)
-    fun getCachedGames(): GamesModel
+    fun getListGames(): Flow<ConsumeResult<GameData>>
+    fun saveGames(data: GameData)
+    fun getCachedGames(): GameData
 }
