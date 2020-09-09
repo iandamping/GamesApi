@@ -4,10 +4,14 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.junemon.gamesapi.util.recycleviewhelper.RecyclerHorizontalSnapHelper
 
 /**
  * Created by Ian Damping on 16,May,2020
@@ -31,6 +35,19 @@ fun ViewGroup.inflates(layout: Int): View {
 
 inline val Context.layoutInflater: LayoutInflater
     get() = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+
+fun RecyclerView.horizontalRecyclerviewInitializer() {
+    layoutManager = LinearLayoutManager(
+        this.context, LinearLayoutManager.HORIZONTAL,
+        false
+    )
+    if (this.onFlingListener == null) {
+        RecyclerHorizontalSnapHelper()
+            .attachToRecyclerView(this)
+    }
+}
+
+
 
 /**
  * For Fragments, allows declarations like

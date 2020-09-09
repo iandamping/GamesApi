@@ -9,9 +9,11 @@ import android.os.StrictMode
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.Hold
 import com.google.android.material.transition.MaterialElevationScale
 import com.google.android.material.transition.MaterialFadeThrough
@@ -136,5 +138,13 @@ abstract class BaseFragment : DaggerFragment() {
         super.onDestroyView()
         destroyView()
         _binding = null
+    }
+
+    protected fun onFailGetValue(e: Exception) {
+        Snackbar.make(binding.root, e.message ?: "Error happen", Snackbar.LENGTH_SHORT).show()
+    }
+
+    protected fun toastingMessage(message:String){
+        Toast.makeText(requireContext(),message, Toast.LENGTH_SHORT).show()
     }
 }

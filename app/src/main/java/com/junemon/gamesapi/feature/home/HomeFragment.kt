@@ -5,17 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.snackbar.Snackbar
-import com.junemon.gamesapi.R
 import com.junemon.gamesapi.base.BaseFragment
 import com.junemon.gamesapi.databinding.FragmentHomeBinding
 import com.junemon.gamesapi.feature.viewmodel.GameViewModel
-import com.junemon.gamesapi.util.adapter.AdapterConstant.listGameAdapterCallback
 import com.junemon.gamesapi.util.adapter.interfaces.RecyclerHelper
+import com.junemon.gamesapi.util.horizontalRecyclerviewInitializer
 import com.junemon.gamesapi.util.imageHelper.LoadImageHelper
 import com.junemon.gamesapi.util.viewModelProvider
 import com.junemon.model.ConsumeResult
-import kotlinx.android.synthetic.main.item_main_bind.view.*
+import com.junemon.model.games.GamesModel
 import javax.inject.Inject
 
 
@@ -24,14 +22,17 @@ import javax.inject.Inject
  * Github https://github.com/iandamping
  * Indonesia.
  */
-class HomeFragment : BaseFragment() {
+class HomeFragment : BaseFragment(), HomeSliderAdapter.HomeSliderAdapterListener {
     @Inject
     lateinit var recyclerHelper: RecyclerHelper
+
     @Inject
     lateinit var loadImageHelper: LoadImageHelper
+
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
+    private lateinit var homeAdapter: HomeSliderAdapter
     private lateinit var gameVm: GameViewModel
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
@@ -42,11 +43,13 @@ class HomeFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        homeAdapter = HomeSliderAdapter(this)
         gameVm = viewModelProvider(viewModelFactory)
         return binding.root
     }
 
     override fun viewCreated(view: View, savedInstanceState: Bundle?) {
+        binding.initView()
     }
 
     override fun destroyView() {
@@ -65,7 +68,11 @@ class HomeFragment : BaseFragment() {
                     gameVm.setupProgressBar(false)
                 }
                 is ConsumeResult.ConsumeData -> {
-                    onSuccessGetGame(it.data)
+                    homeAdapter.run {
+                        submitList(it.data)
+                        // Force a redraw in case the time zone has changed
+                        this.notifyDataSetChanged()
+                    }
                 }
                 is ConsumeResult.ErrorHappen -> {
                     onFailGetValue(it.exception)
@@ -78,30 +85,21 @@ class HomeFragment : BaseFragment() {
         })
     }
 
-    private fun observeState(){
-        gameVm.progressBar.observe(this,{
+    private fun observeState() {
+        gameVm.progressBar.observe(this, {
             setDialogShow(it)
         })
     }
 
-    private fun onFailGetValue(e: Exception) {
-        Snackbar.make(binding.root, e.message ?: "Error happen", Snackbar.LENGTH_SHORT).show()
+
+    private fun FragmentHomeBinding.initView() {
+        rvGames.apply {
+            horizontalRecyclerviewInitializer()
+            adapter = homeAdapter
+        }
     }
 
-    private fun onSuccessGetGame(data: List<com.junemon.model.games.GamesModel>) {
-        recyclerHelper.run {
-            binding.rvGames.setUpVerticalListAdapter(items = data,
-                diffUtil = listGameAdapterCallback,
-                layoutResId = R.layout.item_main,
-                bindHolder = {
-                    tvText.text = it.name
-                    loadImageHelper.run {
-                        ivImages.loadWithGlide(it.backgroundImage)
-                    }
-                }, itemClick = {
-                    gameVm.saveGames(this)
-                }
-            )
-        }
+    override fun onClicked(data: GamesModel) {
+        toastingMessage("data : ${data.name}")
     }
 }
