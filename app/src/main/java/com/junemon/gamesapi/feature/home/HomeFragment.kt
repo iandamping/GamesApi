@@ -43,7 +43,7 @@ class HomeFragment : BaseFragment(), HomeSliderAdapter.HomeSliderAdapterListener
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        homeAdapter = HomeSliderAdapter(this)
+        homeAdapter = HomeSliderAdapter(this,loadImageHelper)
         gameVm = viewModelProvider(viewModelFactory)
         return binding.root
     }

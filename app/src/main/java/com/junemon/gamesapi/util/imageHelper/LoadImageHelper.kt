@@ -8,5 +8,5 @@ import android.widget.ImageView
  * Indonesia.
  */
 interface LoadImageHelper {
-    fun ImageView.loadWithGlide(url: String?)
+    fun loadWithGlide(view:ImageView, url: String?)
 }

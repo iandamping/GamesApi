@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
+import com.junemon.gamesapi.R
 import com.junemon.gamesapi.base.BaseFragment
 import com.junemon.gamesapi.databinding.FragmentDetailBinding
 import com.junemon.gamesapi.feature.viewmodel.GameViewModel
@@ -95,9 +97,8 @@ class DetailFragment : BaseFragment() {
 
     private fun initData(data: GameDetail) {
         binding.run {
-            loadImageHelper.run {
-                ivDetailImages.loadWithGlide(data.backgroundImage)
-            }
+
+            loadImageHelper.loadWithGlide(ivDetailImages,data.backgroundImage)
             tvGameDetailName.text = data.name
             tvGameDetailRating.text = data.rating.toString()
             chipDetail.text = data.genres?.get(0)?.name

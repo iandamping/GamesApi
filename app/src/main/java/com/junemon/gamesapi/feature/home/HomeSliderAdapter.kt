@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.junemon.gamesapi.databinding.ItemSliderBinding
 import com.junemon.gamesapi.util.adapter.AdapterConstant
+import com.junemon.gamesapi.util.imageHelper.LoadImageHelper
 import com.junemon.model.games.GameData
 
 
@@ -13,7 +14,10 @@ import com.junemon.model.games.GameData
  * Github https://github.com/iandamping
  * Indonesia.
  */
-class HomeSliderAdapter(private val listener: HomeSliderAdapterListener) :
+class HomeSliderAdapter(
+    private val listener: HomeSliderAdapterListener,
+    private val loadImageHelper: LoadImageHelper
+) :
     ListAdapter<GameData, HomeSliderViewHolder>(AdapterConstant.listGameAdapterCallback) {
 
     interface HomeSliderAdapterListener {
@@ -26,7 +30,8 @@ class HomeSliderAdapter(private val listener: HomeSliderAdapterListener) :
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-            )
+            ),
+            loadImageHelper
         )
     }
 
