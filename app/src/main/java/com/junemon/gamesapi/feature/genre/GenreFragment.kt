@@ -6,11 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.NavDirections
+import androidx.navigation.fragment.findNavController
+import com.google.android.material.transition.MaterialSharedAxis
+import com.junemon.gamesapi.R
 import com.junemon.gamesapi.databinding.FragmentGenreBinding
 import com.junemon.gamesapi.databinding.FragmentHomeBinding
+import com.junemon.gamesapi.feature.home.HomeFragmentDirections
 import com.junemon.gamesapi.feature.viewmodel.SharedViewModel
 import com.junemon.gamesapi.util.gridRecyclerviewInitializer
 import com.junemon.gamesapi.util.horizontalRecyclerviewInitializer
+import com.junemon.model.games.GamesItem
 
 
 /**
@@ -18,11 +24,11 @@ import com.junemon.gamesapi.util.horizontalRecyclerviewInitializer
  * Github https://github.com/iandamping
  * Indonesia.
  */
-class GenreFragment : Fragment() {
+class GenreFragment : Fragment(), GenreRecycleAdapter.GenreRecycleAdapterListener {
     private val sharedVm: SharedViewModel by activityViewModels()
     private var _binding: FragmentGenreBinding? = null
     private val binding get() = _binding!!
-    private val genreAdapter:GenreRecycleAdapter = GenreRecycleAdapter()
+    private val genreAdapter:GenreRecycleAdapter = GenreRecycleAdapter(this)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -59,5 +65,26 @@ class GenreFragment : Fragment() {
             adapter = genreAdapter
         }
     }
+
+    override fun onClicked(data: GamesItem) {
+        setupExitEnterAxisTransition()
+        val directions = HomeFragmentDirections.actionHomeFragmentToDetailFragment(data.id)
+        navigate(directions)
+    }
+
+    private fun setupExitEnterAxisTransition() {
+        exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).apply {
+            duration = resources.getInteger(R.integer.motion_duration_large).toLong()
+        }
+        reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false).apply {
+            duration = resources.getInteger(R.integer.motion_duration_large).toLong()
+        }
+    }
+
+    private fun navigate(destination: NavDirections) =
+        with(findNavController()) {
+            currentDestination?.getAction(destination.actionId)
+                ?.let { navigate(destination) }
+        }
 
 }

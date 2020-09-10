@@ -13,19 +13,28 @@ import com.junemon.model.games.GamesItem
  * Github https://github.com/iandamping
  * Indonesia.
  */
-class GenreRecycleAdapter :
+class GenreRecycleAdapter(private val listener: GenreRecycleAdapterListener) :
     ListAdapter<GamesItem, GenreViewHolder>(AdapterConstant.listGameGenreAdapterCallback) {
+
+    interface GenreRecycleAdapterListener {
+        fun onClicked(data: GamesItem)
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GenreViewHolder {
         return GenreViewHolder(
             ItemGenreBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent, false
-            )
+            ),
+            listener
         )
     }
 
     override fun onBindViewHolder(holder: GenreViewHolder, position: Int) {
         val data = getItem(position)
         holder.bind(data)
+        holder.itemView.setOnClickListener {
+            listener.onClicked(data)
+        }
     }
 }

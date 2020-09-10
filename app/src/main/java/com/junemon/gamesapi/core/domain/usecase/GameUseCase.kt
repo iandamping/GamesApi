@@ -23,13 +23,9 @@ class GameUseCase @Inject constructor(private val repository: GameRepository) {
 
     fun getListGamesByGenres(): LiveData<ConsumeResult<GameGenre>> = repository.getListGamesByGenres().asLiveData()
 
-    fun getGenreAndGames() = combine(
-        flow= repository.getListGames(),
-        flow2 = repository.getListGamesByGenres()
-    ){ a,b -> GenericPair(a,b) }.asLiveData()
+    fun getGenreAndGames() = repository.getGenreAndGames().asLiveData()
 
     fun getDetailGames(gameId:Int): LiveData<ConsumeResult<GameDetail>> = repository.getDetailGames(gameId).asLiveData()
-
 
     fun saveGames(data: GameData) = repository.saveGames(data)
 
