@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.junemon.gamesapi.util.recycleviewhelper.RecyclerHorizontalSnapHelper
+import java.util.*
 
 /**
  * Created by Ian Damping on 16,May,2020
@@ -52,6 +53,15 @@ fun RecyclerView.gridRecyclerviewInitializer(size: Int) {
         this.context, size
     )
 
+}
+
+fun generateRandomHexColor():String{
+    // create object of Random class
+    val obj = Random()
+    val randomNumber = obj.nextInt(0xffffff + 1)
+    // format it as hexadecimal string and print
+
+    return String.format("#%06x", randomNumber)
 }
 
 

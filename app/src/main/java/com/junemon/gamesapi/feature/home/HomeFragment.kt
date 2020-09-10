@@ -49,7 +49,7 @@ class HomeFragment : BaseFragment(), HomeSliderAdapter.HomeSliderAdapterListener
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        homeAdapter = HomeSliderAdapter(this,loadImageHelper)
+        homeAdapter = HomeSliderAdapter(this, loadImageHelper)
         genrePagerAdapter = GenrePagerAdapter(this)
         gameVm = viewModelProvider(viewModelFactory)
         return binding.root
@@ -69,47 +69,46 @@ class HomeFragment : BaseFragment(), HomeSliderAdapter.HomeSliderAdapterListener
     }
 
     private fun getGames() {
-        gameVm.getGames().observe(viewLifecycleOwner, {
-            when (it) {
+        gameVm.getGenreAndGames().observe(viewLifecycleOwner, { result ->
+            when (val data1 = result.data1) {
                 is ConsumeResult.Loading -> {
                     gameVm.setupProgressBar(false)
                 }
                 is ConsumeResult.ConsumeData -> {
                     homeAdapter.run {
-                        submitList(it.data)
+                        submitList(data1.data)
                         // Force a redraw in case the time zone has changed
                         this.notifyDataSetChanged()
                     }
                 }
                 is ConsumeResult.ErrorHappen -> {
-                    onFailGetValue(it.exception)
+                    onFailGetValue(data1.exception)
                 }
                 is ConsumeResult.Complete -> {
                     gameVm.setupProgressBar(true)
 
                 }
             }
-        })
 
-        gameVm.getListGamesByGenres().observe(viewLifecycleOwner, {
-            when (it) {
+            when (val data2 = result.data2) {
                 is ConsumeResult.Loading -> {
                     gameVm.setupProgressBar(false)
                 }
                 is ConsumeResult.ConsumeData -> {
-                    sharedVm.setGames(it.data)
+                    sharedVm.setGames(data2.data)
                     TabLayoutMediator(binding.tabLayout, binding.pager) { tab, position ->
-                        tab.text = it.data[position].name
+                        tab.text = data2.data[position].name
                     }.attach()
                 }
                 is ConsumeResult.ErrorHappen -> {
-                    onFailGetValue(it.exception)
+                    onFailGetValue(data2.exception)
                 }
                 is ConsumeResult.Complete -> {
                     gameVm.setupProgressBar(true)
 
                 }
             }
+
         })
     }
 
@@ -131,7 +130,7 @@ class HomeFragment : BaseFragment(), HomeSliderAdapter.HomeSliderAdapterListener
 
     override fun onClicked(data: GameData) {
         setupExitEnterAxisTransition()
-       val directions = HomeFragmentDirections.actionHomeFragmentToDetailFragment(data.id)
+        val directions = HomeFragmentDirections.actionHomeFragmentToDetailFragment(data.id)
         navigate(directions)
     }
 }
