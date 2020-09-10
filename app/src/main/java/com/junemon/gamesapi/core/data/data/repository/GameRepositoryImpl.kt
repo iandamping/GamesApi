@@ -10,8 +10,10 @@ import com.junemon.model.GenericPair
 import com.junemon.model.games.GameData
 import com.junemon.model.games.GameDetail
 import com.junemon.model.games.GameGenre
+import com.junemon.model.games.GameSearch
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
@@ -21,6 +23,7 @@ import javax.inject.Inject
  * Indonesia.
  */
 @ExperimentalCoroutinesApi
+@FlowPreview
 class GameRepositoryImpl @Inject constructor(
     @DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher,
     private val remoteDataSource: GameRemoteDataSource,
@@ -57,6 +60,18 @@ class GameRepositoryImpl @Inject constructor(
             flow = getListGames(),
             flow2 = getListGamesByGenres()
         ) { a, b -> GenericPair(a, b) }
+
+    override fun getSearchGames(query: String): Flow<ConsumeResult<GameSearch>>  = flow {
+        when (val response = remoteDataSource.getSearchGames(query)) {
+            is DataHelper.RemoteSourceValue -> {
+                emit(ConsumeResult.ConsumeData(response.data))
+            }
+            is DataHelper.RemoteSourceError -> {
+                emit(ConsumeResult.ErrorHappen(response.exception))
+            }
+        }
+    }.debounce(1000).onStart { emit(ConsumeResult.Loading) }.onCompletion { emit(ConsumeResult.Complete) }
+        .flowOn(defaultDispatcher).conflate()
 
     override fun getDetailGames(gameId: Int): Flow<ConsumeResult<GameDetail>> = flow {
         when (val response = remoteDataSource.getDetailGames(gameId)) {

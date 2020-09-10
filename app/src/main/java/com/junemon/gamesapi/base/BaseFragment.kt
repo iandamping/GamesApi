@@ -144,12 +144,9 @@ abstract class BaseFragment : DaggerFragment() {
     }
 
     protected fun onFailGetValue(e: Exception) {
-        Snackbar.make(binding.root, e.message ?: "Error happen", Snackbar.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(),e.message, Toast.LENGTH_SHORT).show()
     }
 
-    protected fun toastingMessage(message:String){
-        Toast.makeText(requireContext(),message, Toast.LENGTH_SHORT).show()
-    }
 
     protected fun htmlReader(view:TextView, data:String){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {

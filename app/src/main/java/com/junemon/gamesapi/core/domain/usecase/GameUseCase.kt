@@ -25,6 +25,8 @@ class GameUseCase @Inject constructor(private val repository: GameRepository) {
 
     fun getGenreAndGames() = repository.getGenreAndGames().asLiveData()
 
+    fun getSearchGames(query:String) = repository.getSearchGames(query).asLiveData()
+
     fun getDetailGames(gameId:Int): LiveData<ConsumeResult<GameDetail>> = repository.getDetailGames(gameId).asLiveData()
 
     fun saveGames(data: GameData) = repository.saveGames(data)

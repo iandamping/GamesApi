@@ -15,6 +15,7 @@ import com.junemon.gamesapi.R
 import com.junemon.gamesapi.base.BaseFragment
 import com.junemon.gamesapi.databinding.FragmentDetailBinding
 import com.junemon.gamesapi.feature.viewmodel.GameViewModel
+import com.junemon.gamesapi.util.EventObserver
 import com.junemon.gamesapi.util.imageHelper.LoadImageHelper
 import com.junemon.gamesapi.util.viewModelProvider
 import com.junemon.model.ConsumeResult
@@ -101,7 +102,7 @@ class DetailFragment : BaseFragment() {
     }
 
     private fun observeState() {
-        gameVm.progressBar.observe(this, {
+        gameVm.progressBar.observe(this,EventObserver {
             setDialogShow(it)
         })
     }

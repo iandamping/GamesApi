@@ -13,7 +13,7 @@ import com.junemon.gamesapi.databinding.FragmentHomeBinding
 import com.junemon.gamesapi.feature.genre.GenrePagerAdapter
 import com.junemon.gamesapi.feature.viewmodel.GameViewModel
 import com.junemon.gamesapi.feature.viewmodel.SharedViewModel
-import com.junemon.gamesapi.util.adapter.interfaces.RecyclerHelper
+import com.junemon.gamesapi.util.EventObserver
 import com.junemon.gamesapi.util.horizontalRecyclerviewInitializer
 import com.junemon.gamesapi.util.imageHelper.LoadImageHelper
 import com.junemon.gamesapi.util.viewModelProvider
@@ -28,8 +28,6 @@ import javax.inject.Inject
  * Indonesia.
  */
 class HomeFragment : BaseFragment(), HomeSliderAdapter.HomeSliderAdapterListener {
-    @Inject
-    lateinit var recyclerHelper: RecyclerHelper
 
     @Inject
     lateinit var loadImageHelper: LoadImageHelper
@@ -113,7 +111,7 @@ class HomeFragment : BaseFragment(), HomeSliderAdapter.HomeSliderAdapterListener
     }
 
     private fun observeState() {
-        gameVm.progressBar.observe(viewLifecycleOwner, {
+        gameVm.progressBar.observe(viewLifecycleOwner, EventObserver{
             setDialogShow(it)
         })
     }
@@ -125,6 +123,11 @@ class HomeFragment : BaseFragment(), HomeSliderAdapter.HomeSliderAdapterListener
         rvGames.apply {
             horizontalRecyclerviewInitializer()
             adapter = homeAdapter
+        }
+        btnSearchMain.setOnClickListener {
+            setupExitEnterAxisTransition()
+            val directions = HomeFragmentDirections.actionHomeFragmentToSearchFragment()
+            navigate(directions)
         }
     }
 

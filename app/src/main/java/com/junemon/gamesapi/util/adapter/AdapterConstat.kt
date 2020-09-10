@@ -3,6 +3,7 @@ package com.junemon.gamesapi.util.adapter
 import androidx.recyclerview.widget.DiffUtil
 import com.junemon.model.games.GameData
 import com.junemon.model.games.GameGenre
+import com.junemon.model.games.GameSearch
 import com.junemon.model.games.GamesItem
 
 /**
@@ -28,6 +29,16 @@ object AdapterConstant {
         }
 
         override fun areContentsTheSame(oldItem: GamesItem, newItem: GamesItem): Boolean {
+            return oldItem.id == newItem.id
+        }
+    }
+
+    val listGameSearchAdapterCallback = object : DiffUtil.ItemCallback<GameSearch>() {
+        override fun areItemsTheSame(oldItem: GameSearch, newItem: GameSearch): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: GameSearch, newItem: GameSearch): Boolean {
             return oldItem.id == newItem.id
         }
     }

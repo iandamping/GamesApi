@@ -1,12 +1,10 @@
 package com.junemon.gamesapi.core.network
 
-import com.junemon.model.games.GameData
-import com.junemon.model.games.GameDetail
-import com.junemon.model.games.GameGenre
-import com.junemon.model.games.GameResponse
+import com.junemon.model.games.*
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 /**
  * Created by Ian Damping on 02,April,2020
@@ -19,6 +17,9 @@ interface ApiInterface {
 
     @GET("genres")
     suspend fun getListGamesByGenres(): Response<GameResponse<GameGenre>>
+
+    @GET("games")
+    suspend fun getSearchGames(@Query("search") searchQuery: String): Response<GameResponse<GameSearch>>
 
     @GET("games/{games_id}")
     suspend fun getDetailGames(@Path("games_id") gamesId: Int): Response<GameDetail>

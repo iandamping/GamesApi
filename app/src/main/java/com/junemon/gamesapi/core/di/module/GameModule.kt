@@ -5,6 +5,7 @@ import com.junemon.gamesapi.core.di.factory.ViewModelKey
 import com.junemon.gamesapi.core.di.scope.FeatureScope
 import com.junemon.gamesapi.feature.detail.DetailFragment
 import com.junemon.gamesapi.feature.home.HomeFragment
+import com.junemon.gamesapi.feature.search.SearchFragment
 import com.junemon.gamesapi.feature.viewmodel.GameViewModel
 import dagger.Binds
 import dagger.Module
@@ -27,6 +28,10 @@ abstract class GameModule {
     @FeatureScope
     @ContributesAndroidInjector
     abstract fun contributeDetailFragment(): DetailFragment
+
+    @FeatureScope
+    @ContributesAndroidInjector
+    abstract fun contributeSearchFragment(): SearchFragment
 
     @Binds
     @IntoMap

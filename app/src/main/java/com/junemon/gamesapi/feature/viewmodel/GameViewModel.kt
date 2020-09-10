@@ -23,6 +23,8 @@ class GameViewModel @Inject constructor(private val repo:GameUseCase): BaseViewM
 
     fun getDetailGames(data:Int) = repo.getDetailGames(data)
 
+    fun getSearchGames(query:String) = repo.getSearchGames(query)
+
     fun getGenreAndGames() = repo.getGenreAndGames()
 
     fun saveGames(data: GameData) = repo.saveGames(data)
