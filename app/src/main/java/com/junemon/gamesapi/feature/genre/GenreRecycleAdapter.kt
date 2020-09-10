@@ -1,0 +1,31 @@
+package com.junemon.gamesapi.feature.genre
+
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.ListAdapter
+import com.junemon.gamesapi.databinding.ItemGenreBinding
+import com.junemon.gamesapi.util.adapter.AdapterConstant
+import com.junemon.model.games.GamesItem
+
+
+/**
+ * Created by Ian Damping on 10,September,2020
+ * Github https://github.com/iandamping
+ * Indonesia.
+ */
+class GenreRecycleAdapter :
+    ListAdapter<GamesItem, GenreViewHolder>(AdapterConstant.listGameGenreAdapterCallback) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GenreViewHolder {
+        return GenreViewHolder(
+            ItemGenreBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent, false
+            )
+        )
+    }
+
+    override fun onBindViewHolder(holder: GenreViewHolder, position: Int) {
+        val data = getItem(position)
+        holder.bind(data)
+    }
+}

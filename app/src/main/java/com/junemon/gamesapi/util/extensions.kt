@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.junemon.gamesapi.util.recycleviewhelper.RecyclerHorizontalSnapHelper
@@ -46,7 +47,12 @@ fun RecyclerView.horizontalRecyclerviewInitializer() {
     }
 }
 
+fun RecyclerView.gridRecyclerviewInitializer(size: Int) {
+    layoutManager = GridLayoutManager(
+        this.context, size
+    )
 
+}
 
 
 /**

@@ -158,4 +158,5 @@ abstract class BaseFragment : DaggerFragment() {
             view.text = Html.fromHtml(data)
         }
     }
+
 }
