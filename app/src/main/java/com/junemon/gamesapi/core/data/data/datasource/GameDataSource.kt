@@ -3,6 +3,7 @@ package com.junemon.gamesapi.core.data.data.datasource
 import com.junemon.model.DataHelper
 import com.junemon.model.games.GameData
 import com.junemon.model.games.GameDetail
+import com.junemon.model.games.GameGenre
 
 /**
  * Created by Ian Damping on 16,May,2020
@@ -11,6 +12,8 @@ import com.junemon.model.games.GameDetail
  */
 interface GameRemoteDataSource {
     suspend fun getListGames(): DataHelper<List<GameData>>
+
+    suspend fun getListGamesByGenres(): DataHelper<List<GameGenre>>
 
     suspend fun getDetailGames(gameId: Int): DataHelper<GameDetail>
 }

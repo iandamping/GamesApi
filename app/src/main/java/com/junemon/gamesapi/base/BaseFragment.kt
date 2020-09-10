@@ -4,11 +4,14 @@ import android.app.AlertDialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.os.Bundle
 import android.os.StrictMode
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.FragmentNavigator
@@ -146,5 +149,13 @@ abstract class BaseFragment : DaggerFragment() {
 
     protected fun toastingMessage(message:String){
         Toast.makeText(requireContext(),message, Toast.LENGTH_SHORT).show()
+    }
+
+    protected fun htmlReader(view:TextView, data:String){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            view.text = Html.fromHtml(data, Html.FROM_HTML_MODE_COMPACT);
+        } else {
+            view.text = Html.fromHtml(data)
+        }
     }
 }

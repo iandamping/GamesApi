@@ -8,6 +8,7 @@ import com.junemon.model.ConsumeResult
 import com.junemon.model.DataHelper
 import com.junemon.model.games.GameData
 import com.junemon.model.games.GameDetail
+import com.junemon.model.games.GameGenre
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
@@ -26,6 +27,18 @@ class GameRepositoryImpl @Inject constructor(
 
     override fun getListGames() = flow {
         when (val response = remoteDataSource.getListGames()) {
+            is DataHelper.RemoteSourceValue -> {
+                emit(ConsumeResult.ConsumeData(response.data))
+            }
+            is DataHelper.RemoteSourceError -> {
+                emit(ConsumeResult.ErrorHappen(response.exception))
+            }
+        }
+    }.onStart { emit(ConsumeResult.Loading) }.onCompletion { emit(ConsumeResult.Complete) }
+        .flowOn(defaultDispatcher).conflate()
+
+    override fun getListGamesByGenres(): Flow<ConsumeResult<GameGenre>>  = flow {
+        when (val response = remoteDataSource.getListGamesByGenres()) {
             is DataHelper.RemoteSourceValue -> {
                 emit(ConsumeResult.ConsumeData(response.data))
             }

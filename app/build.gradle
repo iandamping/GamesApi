@@ -74,4 +74,6 @@ dependencies {
 
     implementation "androidx.navigation:navigation-fragment-ktx:$navigationVer"
     implementation "androidx.navigation:navigation-ui-ktx:$navigationVer"
+    //custom linearlayout
+//    implementation 'com.github.DingMouRen:LayoutManagerGroup:1e6f4f96eb'
 }

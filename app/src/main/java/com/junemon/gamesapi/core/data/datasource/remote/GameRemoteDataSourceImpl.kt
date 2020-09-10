@@ -8,6 +8,7 @@ import com.junemon.model.Results
 import com.junemon.gamesapi.core.network.ApiInterface
 import com.junemon.gamesapi.core.network.BaseSources
 import com.junemon.model.games.GameDetail
+import com.junemon.model.games.GameGenre
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
@@ -27,6 +28,21 @@ class GameRemoteDataSourceImpl @Inject constructor(
         val results:CompletableDeferred<DataHelper<List<GameData>>> = CompletableDeferred()
         withContext(defaultDispatcher){
             when (val responses = oneShotCalls { api.getListGames() }) {
+                is Results.Success -> {
+                    results.complete(DataHelper.RemoteSourceValue( responses.data.data))
+                }
+                is Results.Error -> {
+                    results.complete(DataHelper.RemoteSourceError(responses.exception))
+                }
+            }
+        }
+        return results.await()
+    }
+
+    override suspend fun getListGamesByGenres(): DataHelper<List<GameGenre>> {
+        val results:CompletableDeferred<DataHelper<List<GameGenre>>> = CompletableDeferred()
+        withContext(defaultDispatcher){
+            when (val responses = oneShotCalls { api.getListGamesByGenres() }) {
                 is Results.Success -> {
                     results.complete(DataHelper.RemoteSourceValue( responses.data.data))
                 }

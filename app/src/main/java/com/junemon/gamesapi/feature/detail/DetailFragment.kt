@@ -108,17 +108,11 @@ class DetailFragment : BaseFragment() {
 
     private fun initData(data: GameDetail) {
         binding.run {
-
             loadImageHelper.loadWithGlide(ivDetailImages,data.backgroundImage)
             tvGameDetailName.text = data.name
             tvGameDetailRating.text = data.rating.toString()
             chipDetail.text = data.genres?.get(0)?.name
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                tvGameDetail.text = Html.fromHtml(data.description, Html.FROM_HTML_MODE_COMPACT);
-            } else {
-                tvGameDetail.text = Html.fromHtml(data.description)
-            }
+            htmlReader(tvGameDetail,data.description)
         }
     }
 }

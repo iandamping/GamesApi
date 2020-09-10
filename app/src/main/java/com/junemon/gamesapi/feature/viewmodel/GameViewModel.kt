@@ -45,6 +45,8 @@ class GameViewModel @Inject constructor(private val repo:GameUseCase): ViewModel
 
     fun getGames() = repo.getListGames()
 
+    fun getListGamesByGenres() = repo.getListGamesByGenres()
+
     fun getDetailGames(data:Int) = repo.getDetailGames(data)
 
     /*fun getGames() =
