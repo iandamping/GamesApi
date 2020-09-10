@@ -11,6 +11,7 @@ import com.junemon.model.games.GameData
 import com.junemon.model.games.GameDetail
 import com.junemon.model.games.GameGenre
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
@@ -19,6 +20,7 @@ import javax.inject.Inject
  * Github https://github.com/iandamping
  * Indonesia.
  */
+@ExperimentalCoroutinesApi
 class GameRepositoryImpl @Inject constructor(
     @DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher,
     private val remoteDataSource: GameRemoteDataSource,
