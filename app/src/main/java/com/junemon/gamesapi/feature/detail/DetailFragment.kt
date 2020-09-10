@@ -1,5 +1,7 @@
 package com.junemon.gamesapi.feature.detail
 
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.text.Html
@@ -16,6 +18,7 @@ import com.junemon.gamesapi.base.BaseFragment
 import com.junemon.gamesapi.databinding.FragmentDetailBinding
 import com.junemon.gamesapi.feature.viewmodel.GameViewModel
 import com.junemon.gamesapi.util.EventObserver
+import com.junemon.gamesapi.util.generateRandomHexColor
 import com.junemon.gamesapi.util.imageHelper.LoadImageHelper
 import com.junemon.gamesapi.util.viewModelProvider
 import com.junemon.model.ConsumeResult
@@ -112,7 +115,13 @@ class DetailFragment : BaseFragment() {
             loadImageHelper.loadWithGlide(ivDetailImages,data.backgroundImage)
             tvGameDetailName.text = data.name
             tvGameDetailRating.text = data.rating.toString()
-            chipDetail.text = data.genres?.get(0)?.name
+            chipDetail.chipBackgroundColor =
+                ColorStateList.valueOf(Color.parseColor(generateRandomHexColor()))
+            if (!data.genres.isNullOrEmpty()){
+                chipDetail.text = data.genres?.get(0)?.name
+            } else{
+                chipDetail.visibility = View.GONE
+            }
             htmlReader(tvGameDetail,data.description)
         }
     }

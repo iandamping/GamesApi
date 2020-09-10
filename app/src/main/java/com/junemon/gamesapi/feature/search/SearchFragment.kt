@@ -10,8 +10,11 @@ import com.google.android.material.transition.MaterialSharedAxis
 import com.junemon.gamesapi.R
 import com.junemon.gamesapi.base.BaseFragment
 import com.junemon.gamesapi.databinding.FragmentSearchBinding
+import com.junemon.gamesapi.feature.home.HomeFragmentDirections
 import com.junemon.gamesapi.feature.viewmodel.GameViewModel
 import com.junemon.gamesapi.util.EventObserver
+import com.junemon.gamesapi.util.gridRecyclerviewInitializer
+import com.junemon.gamesapi.util.horizontalRecyclerviewInitializer
 import com.junemon.gamesapi.util.imageHelper.LoadImageHelper
 import com.junemon.gamesapi.util.viewModelProvider
 import com.junemon.model.ConsumeResult
@@ -66,10 +69,15 @@ class SearchFragment : BaseFragment(), SearchAdapter.SearchAdapterListener {
     }
 
     override fun activityCreated() {
-        observeState()
     }
 
     private fun FragmentSearchBinding.initView() {
+        rvSearchPlace.apply {
+            gridRecyclerviewInitializer(2)
+            adapter = searchAdapter
+        }
+
+
         searchViews.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
             androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -90,14 +98,18 @@ class SearchFragment : BaseFragment(), SearchAdapter.SearchAdapterListener {
         if (!s.isNullOrEmpty()) {
             gameVm.getSearchGames(s).observe(viewLifecycleOwner, {
                 when (it) {
-                    is ConsumeResult.Loading -> {
-                        gameVm.setupProgressBar(false)
-                    }
+
                     is ConsumeResult.ConsumeData -> {
                         if (it.data.isEmpty()) {
                             binding.lnSearchFailed.visibility = View.VISIBLE
                             binding.rvSearchPlace.visibility = View.GONE
                         } else {
+                            searchAdapter.run {
+                                submitList(it.data)
+                                // Force a redraw in case the time zone has changed
+                                this.notifyDataSetChanged()
+                            }
+
                             binding.lnSearchFailed.visibility = View.GONE
                             binding.rvSearchPlace.visibility = View.VISIBLE
                         }
@@ -105,23 +117,18 @@ class SearchFragment : BaseFragment(), SearchAdapter.SearchAdapterListener {
                     is ConsumeResult.ErrorHappen -> {
                         onFailGetValue(it.exception)
                     }
-                    is ConsumeResult.Complete -> {
-                        gameVm.setupProgressBar(true)
 
-                    }
                 }
 
             })
         }
     }
 
-    private fun observeState() {
-        gameVm.progressBar.observe(viewLifecycleOwner, EventObserver{
-            setDialogShow(it)
-        })
-    }
+
 
     override fun onClicked(data: GameSearch) {
-
+        setupExitEnterAxisTransition()
+        val directions = SearchFragmentDirections.actionSearchFragmentToDetailFragment(data.id)
+        navigate(directions)
     }
 }

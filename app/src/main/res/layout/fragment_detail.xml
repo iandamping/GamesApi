@@ -101,7 +101,7 @@
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/home_bg"
+                android:textColor="@color/white"
                 android:textStyle="bold"
                 app:chipBackgroundColor="@color/yellowTransparant"
                 tools:text="testing chips" />

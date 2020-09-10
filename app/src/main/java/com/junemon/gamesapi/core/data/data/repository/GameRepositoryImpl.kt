@@ -70,7 +70,7 @@ class GameRepositoryImpl @Inject constructor(
                 emit(ConsumeResult.ErrorHappen(response.exception))
             }
         }
-    }.debounce(1000).onStart { emit(ConsumeResult.Loading) }.onCompletion { emit(ConsumeResult.Complete) }
+    }.onStart { emit(ConsumeResult.Loading) }.onCompletion { emit(ConsumeResult.Complete) }
         .flowOn(defaultDispatcher).conflate()
 
     override fun getDetailGames(gameId: Int): Flow<ConsumeResult<GameDetail>> = flow {
