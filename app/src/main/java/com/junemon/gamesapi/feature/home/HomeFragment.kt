@@ -1,5 +1,6 @@
 package com.junemon.gamesapi.feature.home
 
+import android.opengl.Visibility
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -112,7 +113,19 @@ class HomeFragment : BaseFragment(), HomeSliderAdapter.HomeSliderAdapterListener
 
     private fun observeState() {
         gameVm.progressBar.observe(viewLifecycleOwner, EventObserver{
-            setDialogShow(it)
+            if (!it){
+                binding.shimmerSlider.apply {
+                    visibility = View.VISIBLE
+                    startShimmer()
+                }
+                binding.rvGames.visibility = View.GONE
+            }else{
+                binding.shimmerSlider.apply {
+                    visibility = View.GONE
+                    stopShimmer()
+                }
+                binding.rvGames.visibility = View.VISIBLE
+            }
         })
     }
 

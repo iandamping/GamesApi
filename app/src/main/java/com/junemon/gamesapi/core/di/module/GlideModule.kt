@@ -34,6 +34,7 @@ object GlideModule {
     fun provideGlideRequestOptions(): RequestOptions {
         return RequestOptions().diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
             .error(R.drawable.no_data)
+            .placeholder(R.color.placeholder_bg)
 //            .placeholder(R.drawable.empty_image)
     }
 }

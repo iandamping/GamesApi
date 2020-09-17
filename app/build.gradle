@@ -74,6 +74,7 @@ dependencies {
 
     implementation "androidx.navigation:navigation-fragment-ktx:$navigationVer"
     implementation "androidx.navigation:navigation-ui-ktx:$navigationVer"
+    implementation "com.facebook.shimmer:shimmer:$shimmerVer"
     //custom linearlayout
 //    implementation 'com.github.DingMouRen:LayoutManagerGroup:1e6f4f96eb'
 }
