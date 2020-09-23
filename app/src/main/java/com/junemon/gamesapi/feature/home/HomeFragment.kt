@@ -6,10 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.junemon.gamesapi.base.BaseFragment
 import com.junemon.gamesapi.core.cache.model.GameEntity
+import com.junemon.gamesapi.core.cache.preference.PreferenceHelper
+import com.junemon.gamesapi.core.cache.preference.StringPrefValueListener
 import com.junemon.gamesapi.databinding.FragmentHomeBinding
 import com.junemon.gamesapi.feature.genre.GenrePagerAdapter
 import com.junemon.gamesapi.feature.viewmodel.GameViewModel
@@ -21,6 +24,8 @@ import com.junemon.gamesapi.util.viewModelProvider
 import com.junemon.model.ConsumeCacheResult
 import com.junemon.model.ConsumeResult
 import com.junemon.model.games.GameData
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -32,10 +37,18 @@ import javax.inject.Inject
 class HomeFragment : BaseFragment(), HomeSliderAdapter.HomeSliderAdapterListener {
 
     @Inject
+    lateinit var preferenceHelper: PreferenceHelper
+
+    private val preferenceListener by lazy {
+        StringPrefValueListener()
+    }
+
+    @Inject
     lateinit var loadImageHelper: LoadImageHelper
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
+
     private val sharedVm: SharedViewModel by activityViewModels()
     private lateinit var genrePagerAdapter: GenrePagerAdapter
     private lateinit var homeAdapter: HomeSliderAdapter
@@ -49,6 +62,7 @@ class HomeFragment : BaseFragment(), HomeSliderAdapter.HomeSliderAdapterListener
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        preferenceHelper.registerListener(preferenceListener)
         homeAdapter = HomeSliderAdapter(this, loadImageHelper)
         genrePagerAdapter = GenrePagerAdapter(this)
         gameVm = viewModelProvider(viewModelFactory)
@@ -56,17 +70,32 @@ class HomeFragment : BaseFragment(), HomeSliderAdapter.HomeSliderAdapterListener
     }
 
     override fun viewCreated(view: View, savedInstanceState: Bundle?) {
+        val firstValue:String = preferenceHelper.getStringInSharedPreference("ayam")
+        Timber.e("value pertama : $firstValue")
         binding.initView()
     }
 
     override fun destroyView() {
         _binding = null
+        preferenceHelper.unregisterListener(preferenceListener)
     }
 
     override fun activityCreated() {
         getGames()
         getGenres()
         observeState()
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            preferenceListener.apply {
+                setListenKey("ayam")
+            }.run {
+                stringPreferenceValue.collect {value ->
+                    value?.let {
+                        Timber.e("value setelah di  listen : $it")
+                    }
+                }
+            }
+        }
     }
 
     private fun getGenres() {
@@ -96,7 +125,6 @@ class HomeFragment : BaseFragment(), HomeSliderAdapter.HomeSliderAdapterListener
         gameVm.getCachedListGames().observe(viewLifecycleOwner, {
             when (it) {
                 is ConsumeCacheResult.Loading -> {
-                    Timber.e("loading")
                     gameVm.setupProgressBar(false)
                     if (it.cache!=null){
                         homeAdapter.run {
@@ -108,7 +136,6 @@ class HomeFragment : BaseFragment(), HomeSliderAdapter.HomeSliderAdapterListener
                     }
                 }
                 is ConsumeCacheResult.ConsumeData -> {
-                    Timber.e("consume")
                     homeAdapter.run {
                         submitList(it.data)
                         // Force a redraw in case the time zone has changed
@@ -116,11 +143,9 @@ class HomeFragment : BaseFragment(), HomeSliderAdapter.HomeSliderAdapterListener
                     }
                 }
                 is ConsumeCacheResult.ErrorHappen -> {
-                    Timber.e("error")
                     onFailGetValue(it.exception)
                 }
                 is ConsumeCacheResult.Complete -> {
-                    Timber.e("complete")
                     gameVm.setupProgressBar(true)
                 }
             }
@@ -160,9 +185,9 @@ class HomeFragment : BaseFragment(), HomeSliderAdapter.HomeSliderAdapterListener
     }
 
     override fun onClicked(data: GameEntity) {
-        setupExitEnterAxisTransition()
-        Timber.e("game id : ${data.gameId}")
-        val directions = HomeFragmentDirections.actionHomeFragmentToDetailFragment(data.gameId)
-        navigate(directions)
+        preferenceHelper.saveStringInSharedPreference("ayam", data.gameName)
+        // setupExitEnterAxisTransition()
+        // val directions = HomeFragmentDirections.actionHomeFragmentToDetailFragment(data.gameId)
+        // navigate(directions)
     }
 }

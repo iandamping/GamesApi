@@ -25,6 +25,8 @@ import javax.inject.Singleton
         ActivityBindingModule::class,
         ViewModelModule::class,
         DatabaseModule::class,
+        SharedPreferenceModule::class,
+        SharedPreferenceHelperModule::class,
         DatabaseHelperModule::class,
         CoroutineModule::class,
         DataModule::class,
