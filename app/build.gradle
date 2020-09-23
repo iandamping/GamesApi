@@ -14,6 +14,15 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += [
+                        "room.schemaLocation":"$projectDir/schemas".toString(),
+                        "room.incremental":"true",
+                        "room.expandProjection":"true"]
+            }
+        }
     }
     buildTypes {
         release {
@@ -75,6 +84,7 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$navigationVer"
     implementation "androidx.navigation:navigation-ui-ktx:$navigationVer"
     implementation "com.facebook.shimmer:shimmer:$shimmerVer"
-    //custom linearlayout
-//    implementation 'com.github.DingMouRen:LayoutManagerGroup:1e6f4f96eb'
+    implementation "androidx.room:room-runtime:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
 }

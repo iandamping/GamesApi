@@ -1,5 +1,7 @@
 package com.junemon.gamesapi.core.domain.repository
 
+import com.junemon.gamesapi.core.cache.model.GameEntity
+import com.junemon.model.ConsumeCacheResult
 import com.junemon.model.ConsumeResult
 import com.junemon.model.GenericPair
 import com.junemon.model.games.GameData
@@ -14,11 +16,10 @@ import kotlinx.coroutines.flow.Flow
  * Indonesia.
  */
 interface GameRepository {
+    fun getCachedListGames(): Flow<ConsumeCacheResult<GameEntity>>
     fun getListGames(): Flow<ConsumeResult<GameData>>
     fun getListGamesByGenres(): Flow<ConsumeResult<GameGenre>>
     fun getGenreAndGames():Flow<GenericPair<ConsumeResult<GameData>,ConsumeResult<GameGenre>>>
     fun getSearchGames(query:String): Flow<ConsumeResult<GameSearch>>
     fun getDetailGames(gameId: Int): Flow<ConsumeResult<GameDetail>>
-    fun saveGames(data: GameData)
-    fun getCachedGames(): GameData
 }

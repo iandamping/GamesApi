@@ -1,10 +1,13 @@
 package com.junemon.gamesapi.core.data.data.datasource
 
+import com.junemon.gamesapi.core.cache.model.GameEntity
+import com.junemon.model.CachedDataHelper
 import com.junemon.model.DataHelper
 import com.junemon.model.games.GameData
 import com.junemon.model.games.GameDetail
 import com.junemon.model.games.GameGenre
 import com.junemon.model.games.GameSearch
+import kotlinx.coroutines.flow.Flow
 
 /**
  * Created by Ian Damping on 16,May,2020
@@ -12,6 +15,8 @@ import com.junemon.model.games.GameSearch
  * Indonesia.
  */
 interface GameRemoteDataSource {
+    fun getFlowListGames(): Flow<CachedDataHelper<List<GameData>>>
+
     suspend fun getListGames(): DataHelper<List<GameData>>
 
     suspend fun getListGamesByGenres(): DataHelper<List<GameGenre>>
@@ -23,7 +28,9 @@ interface GameRemoteDataSource {
 
 interface GameCacheDataSource {
 
-    fun saveGames(data: GameData)
+    suspend fun saveGames(data: List<GameData>)
 
-    fun getGames(): GameData
+    fun getGames(): Flow<List<GameEntity>>
+
+    suspend fun clearAllGames()
 }

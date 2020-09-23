@@ -7,11 +7,18 @@ import com.junemon.model.games.GameData
 import com.junemon.model.Results
 import com.junemon.gamesapi.core.network.ApiInterface
 import com.junemon.gamesapi.core.network.BaseSources
+import com.junemon.model.CachedDataHelper
 import com.junemon.model.games.GameDetail
 import com.junemon.model.games.GameGenre
 import com.junemon.model.games.GameSearch
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.conflate
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.onCompletion
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -24,6 +31,20 @@ class GameRemoteDataSourceImpl @Inject constructor(
     private val api: ApiInterface,
     @DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher
 ) : BaseSources(), GameRemoteDataSource {
+
+    override fun getFlowListGames(): Flow<CachedDataHelper<List<GameData>>> {
+       return flow {
+           when (val responses = oneShotCalls { api.getListGames() }) {
+               is Results.Success -> {
+                   emit(CachedDataHelper.RemoteSourceValue( responses.data.data))
+               }
+               is Results.Error -> {
+                   emit(CachedDataHelper.RemoteSourceError(responses.exception))
+               }
+           }
+       }.flowOn(defaultDispatcher).conflate().onStart { emit(CachedDataHelper.Loading) }
+           .onCompletion { emit(CachedDataHelper.Complete) }
+    }
 
     override suspend fun getListGames(): DataHelper<List<GameData>> {
         val results:CompletableDeferred<DataHelper<List<GameData>>> = CompletableDeferred()

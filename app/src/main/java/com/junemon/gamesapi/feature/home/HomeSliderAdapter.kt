@@ -3,6 +3,7 @@ package com.junemon.gamesapi.feature.home
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
+import com.junemon.gamesapi.core.cache.model.GameEntity
 import com.junemon.gamesapi.databinding.ItemSliderBinding
 import com.junemon.gamesapi.util.adapter.AdapterConstant
 import com.junemon.gamesapi.util.imageHelper.LoadImageHelper
@@ -18,10 +19,10 @@ class HomeSliderAdapter(
     private val listener: HomeSliderAdapterListener,
     private val loadImageHelper: LoadImageHelper
 ) :
-    ListAdapter<GameData, HomeSliderViewHolder>(AdapterConstant.listGameAdapterCallback) {
+    ListAdapter<GameEntity, HomeSliderViewHolder>(AdapterConstant.listGameAdapterCallback) {
 
     interface HomeSliderAdapterListener {
-        fun onClicked(data: GameData)
+        fun onClicked(data: GameEntity)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeSliderViewHolder {

@@ -1,9 +1,12 @@
 package com.junemon.gamesapi.core.data.data.repository
 
+import com.junemon.gamesapi.core.cache.model.GameEntity
 import com.junemon.gamesapi.core.data.data.datasource.GameCacheDataSource
 import com.junemon.gamesapi.core.data.data.datasource.GameRemoteDataSource
 import com.junemon.gamesapi.core.di.module.DefaultDispatcher
 import com.junemon.gamesapi.core.domain.repository.GameRepository
+import com.junemon.model.CachedDataHelper
+import com.junemon.model.ConsumeCacheResult
 import com.junemon.model.ConsumeResult
 import com.junemon.model.DataHelper
 import com.junemon.model.GenericPair
@@ -14,7 +17,14 @@ import com.junemon.model.games.GameSearch
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.conflate
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.onCompletion
+import kotlinx.coroutines.flow.onStart
 import javax.inject.Inject
 
 /**
@@ -30,6 +40,30 @@ class GameRepositoryImpl @Inject constructor(
     private val cacheDataSource: GameCacheDataSource
 ) : GameRepository {
 
+    override fun getCachedListGames(): Flow<ConsumeCacheResult<GameEntity>> {
+
+        return flow {
+            cacheDataSource.getGames().combine(remoteDataSource.getFlowListGames()) { a, b ->
+                GenericPair(a, b)
+            }.collect {
+                when (val remoteResponse = it.data2) {
+                    is CachedDataHelper.RemoteSourceValue -> {
+                        cacheDataSource.saveGames(remoteResponse.data)
+                        emit(ConsumeCacheResult.ConsumeData(it.data1))
+                    }
+                    is CachedDataHelper.RemoteSourceError -> {
+                        emit(ConsumeCacheResult.ErrorHappen(remoteResponse.exception))
+                    }
+                    is CachedDataHelper.Loading -> {
+                        emit(ConsumeCacheResult.Loading(it.data1))
+                    }
+                    is CachedDataHelper.Complete -> {
+                        emit(ConsumeCacheResult.Complete)
+                    }
+                }
+            }
+        }
+    }
 
     override fun getListGames() = flow {
         when (val response = remoteDataSource.getListGames()) {
@@ -61,7 +95,7 @@ class GameRepositoryImpl @Inject constructor(
             flow2 = getListGamesByGenres()
         ) { a, b -> GenericPair(a, b) }
 
-    override fun getSearchGames(query: String): Flow<ConsumeResult<GameSearch>>  = flow {
+    override fun getSearchGames(query: String): Flow<ConsumeResult<GameSearch>> = flow {
         when (val response = remoteDataSource.getSearchGames(query)) {
             is DataHelper.RemoteSourceValue -> {
                 emit(ConsumeResult.ConsumeData(response.data))
@@ -84,12 +118,4 @@ class GameRepositoryImpl @Inject constructor(
         }
     }.onStart { emit(ConsumeResult.Loading) }.onCompletion { emit(ConsumeResult.Complete) }
         .flowOn(defaultDispatcher).conflate()
-
-    override fun saveGames(data: GameData) {
-        cacheDataSource.saveGames(data)
-    }
-
-    override fun getCachedGames(): GameData {
-        return cacheDataSource.getGames()
-    }
 }

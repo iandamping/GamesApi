@@ -1,6 +1,8 @@
 package com.junemon.gamesapi.core.di.component
 
 import com.junemon.gamesapi.MainApplication
+import com.junemon.gamesapi.core.cache.di.DatabaseHelperModule
+import com.junemon.gamesapi.core.cache.di.DatabaseModule
 import com.junemon.gamesapi.core.di.module.*
 import com.junemon.gamesapi.core.di.scope.ApplicationScope
 import com.junemon.gamesapi.core.domain.repository.GameRepository
@@ -22,7 +24,8 @@ import javax.inject.Singleton
         ContextModule::class,
         ActivityBindingModule::class,
         ViewModelModule::class,
-        CacheModule::class,
+        DatabaseModule::class,
+        DatabaseHelperModule::class,
         CoroutineModule::class,
         DataModule::class,
         DomainModule::class,

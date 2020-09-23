@@ -21,7 +21,6 @@ buildscript {
         recyclerhelper_version = '0.0.5-alpha04d'
         commonHelper_version = '0.0.15-alpha07d'
         legacySupport = "1.0.0"
-        room_version="2.2.0"
         mockitoVersion = '2.25.0'
         robolectricVersion = '4.3-beta-1'
         espressoVersion = '3.2.0-beta01'

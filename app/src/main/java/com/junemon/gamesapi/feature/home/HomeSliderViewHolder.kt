@@ -2,6 +2,7 @@ package com.junemon.gamesapi.feature.home
 
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.junemon.gamesapi.core.cache.model.GameEntity
 import com.junemon.gamesapi.databinding.ItemSliderBinding
 import com.junemon.gamesapi.util.imageHelper.LoadImageHelper
 import com.junemon.model.games.GameData
@@ -17,11 +18,11 @@ class HomeSliderViewHolder(
     private val loadImageHelper: LoadImageHelper
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(data: GameData) {
+    fun bind(data: GameEntity) {
         binding.run {
-            loadImageHelper.loadWithGlide(ivItemGameImage,data.backgroundImage)
-            tvItemGameName.text = data.name
-            tvItemGameGenre.text = data.genres?.get(0)?.name
+            loadImageHelper.loadWithGlide(ivItemGameImage,data.gameImage)
+            tvItemGameName.text = data.gameName
+            tvItemGameGenre.text = data.gameGenre
         }
     }
 }
