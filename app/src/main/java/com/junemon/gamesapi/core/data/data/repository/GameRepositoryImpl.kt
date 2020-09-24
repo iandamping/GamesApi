@@ -1,6 +1,7 @@
 package com.junemon.gamesapi.core.data.data.repository
 
 import com.junemon.gamesapi.core.cache.model.GameEntity
+import com.junemon.gamesapi.core.cache.preference.listener.BaseSharedPreferenceListener
 import com.junemon.gamesapi.core.data.data.datasource.GameCacheDataSource
 import com.junemon.gamesapi.core.data.data.datasource.GameRemoteDataSource
 import com.junemon.gamesapi.core.di.module.DefaultDispatcher
@@ -118,4 +119,44 @@ class GameRepositoryImpl @Inject constructor(
         }
     }.onStart { emit(ConsumeResult.Loading) }.onCompletion { emit(ConsumeResult.Complete) }
         .flowOn(defaultDispatcher).conflate()
+
+    override fun registerPreferenceListener() {
+        cacheDataSource.registerPreferenceListener()
+    }
+
+    override fun unregisterPreferenceListener() {
+        cacheDataSource.unregisterPreferenceListener()
+    }
+
+    override fun saveStringInSharedPreference(key: String, value: String?) {
+       cacheDataSource.saveStringInSharedPreference(key, value)
+    }
+
+    override fun getStringInSharedPreference(key: String): Flow<String?> {
+        return cacheDataSource.getStringInSharedPreference(key)
+    }
+
+    override fun saveIntInSharedPreference(key: String, value: Int?) {
+        cacheDataSource.saveIntInSharedPreference(key, value)
+    }
+
+    override fun getIntInSharedPreference(key: String): Flow<Int?> {
+        return cacheDataSource.getIntInSharedPreference(key)
+    }
+
+    override fun saveBooleanInSharedPreference(key: String, value: Boolean) {
+        cacheDataSource.saveBooleanInSharedPreference(key, value)
+    }
+
+    override fun getBooleanInSharedPreference(key: String): Flow<Boolean> {
+        return cacheDataSource.getBooleanInSharedPreference(key)
+    }
+
+    override fun deleteSharedPreference(key: String) {
+        cacheDataSource.deleteAllSharedPrefrence()
+    }
+
+    override fun deleteAllSharedPrefrence() {
+        cacheDataSource.deleteAllSharedPrefrence()
+    }
 }

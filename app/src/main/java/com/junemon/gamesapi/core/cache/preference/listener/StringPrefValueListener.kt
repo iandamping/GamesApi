@@ -1,4 +1,4 @@
-package com.junemon.gamesapi.core.cache.preference
+package com.junemon.gamesapi.core.cache.preference.listener
 
 import android.content.SharedPreferences
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,8 +19,8 @@ class StringPrefValueListener : BaseSharedPreferenceListener() {
         setKey(key)
     }
 
-    fun destroyListenKey() {
-        destroyKey()
+    fun resetListenKey() {
+        resetKey()
     }
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {

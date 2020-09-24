@@ -1,4 +1,4 @@
-package com.junemon.gamesapi.core.cache.preference
+package com.junemon.gamesapi.core.cache.preference.listener
 
 import android.content.SharedPreferences
 
@@ -14,7 +14,7 @@ abstract class BaseSharedPreferenceListener : SharedPreferences.OnSharedPreferen
         _key = key
     }
 
-    protected fun destroyKey(){
+    protected fun resetKey(){
         _key = ""
     }
 

@@ -1,6 +1,7 @@
 package com.junemon.gamesapi.core.cache.preference
 
 import android.content.SharedPreferences
+import com.junemon.gamesapi.core.cache.preference.listener.BaseSharedPreferenceListener
 import javax.inject.Inject
 
 /**
@@ -15,20 +16,40 @@ class PreferenceHelperImpl @Inject constructor(private val sharedPreferences: Sh
         sharedPreferences.edit()
     }
 
-    override fun registerListener(listenerClass:BaseSharedPreferenceListener) {
+    override fun registerListener(listenerClass: BaseSharedPreferenceListener) {
        sharedPreferences.registerOnSharedPreferenceChangeListener(listenerClass)
     }
 
-    override fun unregisterListener(listenerClass:BaseSharedPreferenceListener) {
+    override fun unregisterListener(listenerClass: BaseSharedPreferenceListener) {
        sharedPreferences.unregisterOnSharedPreferenceChangeListener(listenerClass)
     }
 
     override fun saveStringInSharedPreference(key: String?, value: String?) {
-        preHelperEditor.putString(key, value).apply()
+        if (value != null){
+            preHelperEditor.putString(key, value).apply()
+        }
     }
 
     override fun getStringInSharedPreference(key: String?): String {
         return sharedPreferences.getString(key,"") ?: ""
+    }
+
+    override fun saveIntInSharedPreference(key: String?, value: Int?) {
+        if (value != null) {
+            preHelperEditor.putInt(key, value).apply()
+        }
+    }
+
+    override fun getIntInSharedPreference(key: String?): Int {
+        return sharedPreferences.getInt(key, 0)
+    }
+
+    override fun saveBooleanInSharedPreference(key: String, value: Boolean) {
+        preHelperEditor.putBoolean(key, value).apply()
+    }
+
+    override fun getBooleanInSharedPreference(key: String): Boolean {
+        return sharedPreferences.getBoolean(key, false)
     }
 
     override fun deleteSharedPreference(key: String) {

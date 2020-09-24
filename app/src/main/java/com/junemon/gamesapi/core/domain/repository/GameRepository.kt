@@ -1,6 +1,7 @@
 package com.junemon.gamesapi.core.domain.repository
 
 import com.junemon.gamesapi.core.cache.model.GameEntity
+import com.junemon.gamesapi.core.cache.preference.listener.BaseSharedPreferenceListener
 import com.junemon.model.ConsumeCacheResult
 import com.junemon.model.ConsumeResult
 import com.junemon.model.GenericPair
@@ -22,4 +23,14 @@ interface GameRepository {
     fun getGenreAndGames():Flow<GenericPair<ConsumeResult<GameData>,ConsumeResult<GameGenre>>>
     fun getSearchGames(query:String): Flow<ConsumeResult<GameSearch>>
     fun getDetailGames(gameId: Int): Flow<ConsumeResult<GameDetail>>
+    fun registerPreferenceListener()
+    fun unregisterPreferenceListener()
+    fun saveStringInSharedPreference(key: String, value: String?)
+    fun getStringInSharedPreference(key: String): Flow<String?>
+    fun saveIntInSharedPreference(key: String, value: Int?)
+    fun getIntInSharedPreference(key: String): Flow<Int?>
+    fun saveBooleanInSharedPreference(key: String, value: Boolean)
+    fun getBooleanInSharedPreference(key: String): Flow<Boolean>
+    fun deleteSharedPreference(key: String)
+    fun deleteAllSharedPrefrence()
 }

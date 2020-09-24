@@ -11,8 +11,6 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.junemon.gamesapi.base.BaseFragment
 import com.junemon.gamesapi.core.cache.model.GameEntity
-import com.junemon.gamesapi.core.cache.preference.PreferenceHelper
-import com.junemon.gamesapi.core.cache.preference.StringPrefValueListener
 import com.junemon.gamesapi.databinding.FragmentHomeBinding
 import com.junemon.gamesapi.feature.genre.GenrePagerAdapter
 import com.junemon.gamesapi.feature.viewmodel.GameViewModel
@@ -23,7 +21,6 @@ import com.junemon.gamesapi.util.imageHelper.LoadImageHelper
 import com.junemon.gamesapi.util.viewModelProvider
 import com.junemon.model.ConsumeCacheResult
 import com.junemon.model.ConsumeResult
-import com.junemon.model.games.GameData
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -35,13 +32,6 @@ import javax.inject.Inject
  * Indonesia.
  */
 class HomeFragment : BaseFragment(), HomeSliderAdapter.HomeSliderAdapterListener {
-
-    @Inject
-    lateinit var preferenceHelper: PreferenceHelper
-
-    private val preferenceListener by lazy {
-        StringPrefValueListener()
-    }
 
     @Inject
     lateinit var loadImageHelper: LoadImageHelper
@@ -62,7 +52,6 @@ class HomeFragment : BaseFragment(), HomeSliderAdapter.HomeSliderAdapterListener
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        preferenceHelper.registerListener(preferenceListener)
         homeAdapter = HomeSliderAdapter(this, loadImageHelper)
         genrePagerAdapter = GenrePagerAdapter(this)
         gameVm = viewModelProvider(viewModelFactory)
@@ -70,29 +59,21 @@ class HomeFragment : BaseFragment(), HomeSliderAdapter.HomeSliderAdapterListener
     }
 
     override fun viewCreated(view: View, savedInstanceState: Bundle?) {
-        val firstValue:String = preferenceHelper.getStringInSharedPreference("ayam")
-        Timber.e("value pertama : $firstValue")
         binding.initView()
     }
 
     override fun destroyView() {
         _binding = null
-        preferenceHelper.unregisterListener(preferenceListener)
     }
 
     override fun activityCreated() {
         getGames()
         getGenres()
         observeState()
-
         viewLifecycleOwner.lifecycleScope.launch {
-            preferenceListener.apply {
-                setListenKey("ayam")
-            }.run {
-                stringPreferenceValue.collect {value ->
-                    value?.let {
-                        Timber.e("value setelah di  listen : $it")
-                    }
+            gameVm.observeStringPreference("ayam").collect {value ->
+                value?.let {
+                    Timber.e("value setelah di  listen : $it")
                 }
             }
         }
@@ -185,7 +166,7 @@ class HomeFragment : BaseFragment(), HomeSliderAdapter.HomeSliderAdapterListener
     }
 
     override fun onClicked(data: GameEntity) {
-        preferenceHelper.saveStringInSharedPreference("ayam", data.gameName)
+        gameVm.setStringPreferenceValue("ayam", data.gameName)
         // setupExitEnterAxisTransition()
         // val directions = HomeFragmentDirections.actionHomeFragmentToDetailFragment(data.gameId)
         // navigate(directions)

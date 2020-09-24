@@ -1,14 +1,24 @@
 package com.junemon.gamesapi.core.cache.preference
 
+import com.junemon.gamesapi.core.cache.preference.listener.BaseSharedPreferenceListener
+
 interface PreferenceHelper {
 
-    fun registerListener(listenerClass:BaseSharedPreferenceListener)
+    fun registerListener(listenerClass: BaseSharedPreferenceListener)
 
-    fun unregisterListener(listenerClass:BaseSharedPreferenceListener)
+    fun unregisterListener(listenerClass: BaseSharedPreferenceListener)
 
     fun saveStringInSharedPreference(key: String?, value: String?)
 
     fun getStringInSharedPreference(key: String?): String
+
+    fun saveIntInSharedPreference(key: String?, value: Int?)
+
+    fun getIntInSharedPreference(key: String?): Int
+
+    fun saveBooleanInSharedPreference(key: String, value: Boolean)
+
+    fun getBooleanInSharedPreference(key: String): Boolean
 
     fun deleteSharedPreference(key: String)
 

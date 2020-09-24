@@ -1,6 +1,7 @@
 package com.junemon.gamesapi.core.data.data.datasource
 
 import com.junemon.gamesapi.core.cache.model.GameEntity
+import com.junemon.gamesapi.core.cache.preference.listener.BaseSharedPreferenceListener
 import com.junemon.model.CachedDataHelper
 import com.junemon.model.DataHelper
 import com.junemon.model.games.GameData
@@ -27,6 +28,26 @@ interface GameRemoteDataSource {
 }
 
 interface GameCacheDataSource {
+
+    fun registerPreferenceListener()
+
+    fun unregisterPreferenceListener()
+
+    fun saveStringInSharedPreference(key: String, value: String?)
+
+    fun getStringInSharedPreference(key: String): Flow<String?>
+
+    fun saveIntInSharedPreference(key: String, value: Int?)
+
+    fun getIntInSharedPreference(key: String): Flow<Int?>
+
+    fun saveBooleanInSharedPreference(key: String, value: Boolean)
+
+    fun getBooleanInSharedPreference(key: String): Flow<Boolean>
+
+    fun deleteSharedPreference(key: String)
+
+    fun deleteAllSharedPrefrence()
 
     suspend fun saveGames(data: List<GameData>)
 

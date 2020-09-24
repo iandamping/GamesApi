@@ -27,6 +27,7 @@ import javax.inject.Singleton
         DatabaseModule::class,
         SharedPreferenceModule::class,
         SharedPreferenceHelperModule::class,
+        SharedPreferenceListenerModule::class,
         DatabaseHelperModule::class,
         CoroutineModule::class,
         DataModule::class,
