@@ -1,7 +1,6 @@
 package com.junemon.gamesapi.feature.viewmodel
 
 import com.junemon.gamesapi.core.domain.usecase.GameUseCase
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 /**
@@ -13,18 +12,9 @@ class GameViewModel @Inject constructor(
     private val repo: GameUseCase
 ) : BaseViewModel() {
 
-    init {
-        repo.registerPreferenceListener()
-    }
-
-    fun observeStringPreference(key: String): Flow<String?> {
-        return repo.getStringInSharedPreference(key)
-    }
-
-    fun setStringPreferenceValue(key: String, value: String) =
-        repo.saveStringInSharedPreference(key, value)
-
     fun getCachedListGames() = repo.getCachedListGames()
+
+    fun getListGames() = repo.getListGames()
 
     fun getListGamesByGenres() = repo.getListGamesByGenres()
 
@@ -33,9 +23,4 @@ class GameViewModel @Inject constructor(
     fun getSearchGames(query: String) = repo.getSearchGames(query)
 
     fun getGenreAndGames() = repo.getGenreAndGames()
-
-    override fun onCleared() {
-        super.onCleared()
-        repo.unregisterPreferenceListener()
-    }
 }

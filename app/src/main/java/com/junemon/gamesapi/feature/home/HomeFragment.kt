@@ -21,9 +21,6 @@ import com.junemon.gamesapi.util.imageHelper.LoadImageHelper
 import com.junemon.gamesapi.util.viewModelProvider
 import com.junemon.model.ConsumeCacheResult
 import com.junemon.model.ConsumeResult
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
-import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -70,13 +67,6 @@ class HomeFragment : BaseFragment(), HomeSliderAdapter.HomeSliderAdapterListener
         getGames()
         getGenres()
         observeState()
-        viewLifecycleOwner.lifecycleScope.launch {
-            gameVm.observeStringPreference("ayam").collect {value ->
-                value?.let {
-                    Timber.e("value setelah di  listen : $it")
-                }
-            }
-        }
     }
 
     private fun getGenres() {
@@ -166,9 +156,8 @@ class HomeFragment : BaseFragment(), HomeSliderAdapter.HomeSliderAdapterListener
     }
 
     override fun onClicked(data: GameEntity) {
-        gameVm.setStringPreferenceValue("ayam", data.gameName)
-        // setupExitEnterAxisTransition()
-        // val directions = HomeFragmentDirections.actionHomeFragmentToDetailFragment(data.gameId)
-        // navigate(directions)
+        setupExitEnterAxisTransition()
+        val directions = HomeFragmentDirections.actionHomeFragmentToDetailFragment(data.gameId)
+        navigate(directions)
     }
 }
