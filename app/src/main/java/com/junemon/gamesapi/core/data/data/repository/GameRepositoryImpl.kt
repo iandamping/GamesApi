@@ -1,7 +1,6 @@
 package com.junemon.gamesapi.core.data.data.repository
 
 import com.junemon.gamesapi.core.cache.model.GameEntity
-import com.junemon.gamesapi.core.cache.preference.listener.BaseSharedPreferenceListener
 import com.junemon.gamesapi.core.data.data.datasource.GameCacheDataSource
 import com.junemon.gamesapi.core.data.data.datasource.GameRemoteDataSource
 import com.junemon.gamesapi.core.di.module.DefaultDispatcher
@@ -15,17 +14,21 @@ import com.junemon.model.games.GameData
 import com.junemon.model.games.GameDetail
 import com.junemon.model.games.GameGenre
 import com.junemon.model.games.GameSearch
+import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.conflate
+import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onStart
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -50,7 +53,14 @@ class GameRepositoryImpl @Inject constructor(
                 when (val remoteResponse = it.data2) {
                     is CachedDataHelper.RemoteSourceValue -> {
                         cacheDataSource.saveGames(remoteResponse.data)
-                        emit(ConsumeCacheResult.ConsumeData(it.data1))
+                        emit(ConsumeCacheResult.ConsumeData(remoteResponse.data.map { remoteResult ->
+                            GameEntity(
+                                gameId = remoteResult.id,
+                                gameName = remoteResult.name,
+                                gameGenre = remoteResult.genres?.get(0)?.name,
+                                gameImage = remoteResult.backgroundImage
+                            )
+                        }))
                     }
                     is CachedDataHelper.RemoteSourceError -> {
                         emit(ConsumeCacheResult.ErrorHappen(remoteResponse.exception))
@@ -129,7 +139,7 @@ class GameRepositoryImpl @Inject constructor(
     }
 
     override fun saveStringInSharedPreference(key: String, value: String?) {
-       cacheDataSource.saveStringInSharedPreference(key, value)
+        cacheDataSource.saveStringInSharedPreference(key, value)
     }
 
     override fun getStringInSharedPreference(key: String): Flow<String?> {
