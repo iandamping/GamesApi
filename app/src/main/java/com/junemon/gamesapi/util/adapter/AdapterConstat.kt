@@ -43,4 +43,12 @@ object AdapterConstant {
             return oldItem.id == newItem.id
         }
     }
+
+    val listGamePaginationAdapterCallback = object : DiffUtil.ItemCallback<GameData>() {
+        override fun areItemsTheSame(oldItem: GameData, newItem: GameData): Boolean =
+            oldItem.id == newItem.id
+
+        override fun areContentsTheSame(oldItem: GameData, newItem: GameData): Boolean =
+            oldItem == newItem
+    }
 }

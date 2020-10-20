@@ -23,4 +23,7 @@ interface ApiInterface {
 
     @GET("games/{games_id}")
     suspend fun getDetailGames(@Path("games_id") gamesId: Int): Response<GameDetail>
+
+    @GET("games")
+    suspend fun getPaginationListGames(@Query("page") page: Int): Response<GameResponse<GameData>>
 }

@@ -1,7 +1,7 @@
 package com.junemon.gamesapi.core.domain.repository
 
+import androidx.paging.PagingData
 import com.junemon.gamesapi.core.cache.model.GameEntity
-import com.junemon.gamesapi.core.cache.preference.listener.BaseSharedPreferenceListener
 import com.junemon.model.ConsumeCacheResult
 import com.junemon.model.ConsumeResult
 import com.junemon.model.GenericPair
@@ -23,6 +23,7 @@ interface GameRepository {
     fun getGenreAndGames():Flow<GenericPair<ConsumeResult<GameData>,ConsumeResult<GameGenre>>>
     fun getSearchGames(query:String): Flow<ConsumeResult<GameSearch>>
     fun getDetailGames(gameId: Int): Flow<ConsumeResult<GameDetail>>
+    fun getPagingListGames(): Flow<PagingData<GameData>>
     fun registerPreferenceListener()
     fun unregisterPreferenceListener()
     fun saveStringInSharedPreference(key: String, value: String?)

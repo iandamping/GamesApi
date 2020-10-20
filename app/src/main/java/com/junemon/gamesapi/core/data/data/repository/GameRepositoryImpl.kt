@@ -1,8 +1,12 @@
 package com.junemon.gamesapi.core.data.data.repository
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.junemon.gamesapi.core.cache.model.GameEntity
 import com.junemon.gamesapi.core.data.data.datasource.GameCacheDataSource
 import com.junemon.gamesapi.core.data.data.datasource.GameRemoteDataSource
+import com.junemon.gamesapi.core.data.datasource.remote.GamePaginationRemoteDataSource
 import com.junemon.gamesapi.core.di.module.DefaultDispatcher
 import com.junemon.gamesapi.core.domain.repository.GameRepository
 import com.junemon.model.CachedDataHelper
@@ -36,11 +40,14 @@ import javax.inject.Inject
  * Github https://github.com/iandamping
  * Indonesia.
  */
+private const val NETWORK_PAGE_SIZE = 20
+
 @ExperimentalCoroutinesApi
 @FlowPreview
 class GameRepositoryImpl @Inject constructor(
     @DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher,
     private val remoteDataSource: GameRemoteDataSource,
+    private val pagingRemoteDataSource: GamePaginationRemoteDataSource,
     private val cacheDataSource: GameCacheDataSource
 ) : GameRepository {
 
@@ -129,6 +136,13 @@ class GameRepositoryImpl @Inject constructor(
         }
     }.onStart { emit(ConsumeResult.Loading) }.onCompletion { emit(ConsumeResult.Complete) }
         .flowOn(defaultDispatcher).conflate()
+
+    override fun getPagingListGames(): Flow<PagingData<GameData>> {
+        return Pager(
+            config = PagingConfig(pageSize = NETWORK_PAGE_SIZE, enablePlaceholders = false),
+            pagingSourceFactory = { pagingRemoteDataSource }
+        ).flow
+    }
 
     override fun registerPreferenceListener() {
         cacheDataSource.registerPreferenceListener()

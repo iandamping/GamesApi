@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_homeFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_pagingFragment"
+            app:destination="@id/pagingFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
@@ -28,6 +31,17 @@
         android:label="SearchFragment" >
         <action
             android:id="@+id/action_searchFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/pagingFragment"
+        android:name="com.junemon.gamesapi.feature.paging.PagingFragment"
+        android:label="PagingFragment" >
+        <action
+            android:id="@+id/action_pagingFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_pagingFragment_to_detailFragment"
             app:destination="@id/detailFragment" />
     </fragment>
 </navigation>

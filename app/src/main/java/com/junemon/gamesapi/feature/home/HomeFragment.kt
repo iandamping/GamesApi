@@ -148,6 +148,11 @@ class HomeFragment : BaseFragment(), HomeSliderAdapter.HomeSliderAdapterListener
             horizontalRecyclerviewInitializer()
             adapter = homeAdapter
         }
+        ivMain.setOnClickListener{
+            setupExitEnterAxisTransition()
+            val directions =HomeFragmentDirections.actionHomeFragmentToPagingFragment()
+            navigate(directions)
+        }
         btnSearchMain.setOnClickListener {
             setupExitEnterAxisTransition()
             val directions = HomeFragmentDirections.actionHomeFragmentToSearchFragment()

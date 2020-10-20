@@ -3,6 +3,7 @@ package com.junemon.gamesapi.core.di.module
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.junemon.gamesapi.BuildConfig
+import com.junemon.gamesapi.core.data.datasource.remote.GamePaginationRemoteDataSource
 import com.junemon.gamesapi.core.network.ApiInterface
 import com.junemon.gamesapi.util.AppConstant.baseUrl
 import dagger.Module
@@ -80,5 +81,10 @@ object NetworkModule {
     fun provideGson(): Gson {
         return Gson()
     }
+
+    @Provides
+    @JvmStatic
+    fun providePaginationDataSource(api:ApiInterface)= GamePaginationRemoteDataSource(api)
+
 
 }
