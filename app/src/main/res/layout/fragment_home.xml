@@ -105,15 +105,27 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvGames"
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                />
-        </LinearLayout>
+                android:visibility="gone" />
 
+            <TextView
+                android:id="@+id/tvPaging"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:gravity="end"
+                android:text="See More Games"
+                android:textColor="@color/white"
+                android:textSize="@dimen/letter_xlarge"
+                android:textStyle="bold" />
+        </LinearLayout>
 
 
         <LinearLayout
@@ -126,10 +138,10 @@
                 android:id="@+id/tab_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/home_bg"
                 app:tabIndicatorColor="@color/mainYellow"
                 app:tabSelectedTextColor="@color/mainYellow"
-                app:tabTextColor="@color/textGray"
-                android:background="@color/home_bg" />
+                app:tabTextColor="@color/textGray" />
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/pager"
