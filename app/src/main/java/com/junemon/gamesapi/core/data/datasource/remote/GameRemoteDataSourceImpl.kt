@@ -4,6 +4,7 @@ import com.junemon.gamesapi.core.data.data.datasource.GameRemoteDataSource
 import com.junemon.gamesapi.core.di.module.DefaultDispatcher
 import com.junemon.gamesapi.core.network.ApiInterface
 import com.junemon.gamesapi.core.network.BaseSources
+import com.junemon.gamesapi.util.CacheOnSuccess
 import com.junemon.model.CachedDataHelper
 import com.junemon.model.DataHelper
 import com.junemon.model.Results
@@ -49,7 +50,10 @@ class GameRemoteDataSourceImpl @Inject constructor(
         withContext(defaultDispatcher) {
             when (val responses = oneShotCalls { api.getListGames() }) {
                 is Results.Success -> {
-                    DataHelper.RemoteSourceValue(responses.data.data)
+                    val resultMemoryCache = CacheOnSuccess(onErrorFallback = { listOf<GameData>() }) {
+                        responses.data.data
+                    }
+                    DataHelper.RemoteSourceValue(resultMemoryCache.getOrAwait())
                 }
                 is Results.Error -> {
                     DataHelper.RemoteSourceError(responses.exception)
@@ -61,7 +65,11 @@ class GameRemoteDataSourceImpl @Inject constructor(
         withContext(defaultDispatcher) {
             when (val responses = oneShotCalls { api.getListGamesByGenres() }) {
                 is Results.Success -> {
-                    DataHelper.RemoteSourceValue(responses.data.data)
+                    //trying to use memory cache
+                    val resultMemoryCache = CacheOnSuccess(onErrorFallback = { listOf<GameGenre>() }) {
+                        responses.data.data
+                    }
+                    DataHelper.RemoteSourceValue(resultMemoryCache.getOrAwait())
                 }
                 is Results.Error -> {
                     DataHelper.RemoteSourceError(responses.exception)

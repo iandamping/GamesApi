@@ -20,7 +20,7 @@ object AdapterConstant {
         }
 
         override fun areContentsTheSame(oldItem: GameEntity, newItem: GameEntity): Boolean {
-            return oldItem.gameId == newItem.gameId
+            return oldItem == newItem
         }
     }
 
@@ -30,7 +30,7 @@ object AdapterConstant {
         }
 
         override fun areContentsTheSame(oldItem: GamesItem, newItem: GamesItem): Boolean {
-            return oldItem.id == newItem.id
+            return oldItem == newItem
         }
     }
 
@@ -40,7 +40,7 @@ object AdapterConstant {
         }
 
         override fun areContentsTheSame(oldItem: GameSearch, newItem: GameSearch): Boolean {
-            return oldItem.id == newItem.id
+            return oldItem == newItem
         }
     }
 

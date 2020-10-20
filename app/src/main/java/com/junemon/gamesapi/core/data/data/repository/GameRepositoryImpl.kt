@@ -40,7 +40,6 @@ import javax.inject.Inject
  * Github https://github.com/iandamping
  * Indonesia.
  */
-private const val NETWORK_PAGE_SIZE = 20
 
 @ExperimentalCoroutinesApi
 @FlowPreview
@@ -138,6 +137,7 @@ class GameRepositoryImpl @Inject constructor(
         .flowOn(defaultDispatcher).conflate()
 
     override fun getPagingListGames(): Flow<PagingData<GameData>> {
+        val NETWORK_PAGE_SIZE = 20
         return Pager(
             config = PagingConfig(pageSize = NETWORK_PAGE_SIZE, enablePlaceholders = false),
             pagingSourceFactory = { pagingRemoteDataSource }
