@@ -4,21 +4,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import com.google.android.material.tabs.TabLayout
+import androidx.paging.LoadState
 import com.junemon.gamesapi.base.BaseFragment
 import com.junemon.gamesapi.databinding.FragmentPagingBinding
-import com.junemon.gamesapi.feature.home.HomeFragmentDirections
+import com.junemon.gamesapi.feature.footer.FooterLoadingAdapter
 import com.junemon.gamesapi.feature.viewmodel.GameViewModel
-import com.junemon.gamesapi.util.gridRecyclerviewInitializer
-import com.junemon.gamesapi.util.horizontalRecyclerviewInitializer
 import com.junemon.gamesapi.util.imageHelper.LoadImageHelper
+import com.junemon.gamesapi.util.verticalRecyclerviewInitializer
 import com.junemon.gamesapi.util.viewModelProvider
 import com.junemon.model.games.GameData
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -50,7 +49,7 @@ class PagingFragment : BaseFragment(), PagingAdapter.PagingAdapterListener {
     }
 
     override fun viewCreated(view: View, savedInstanceState: Bundle?) {
-       binding.initView()
+        binding.initView()
     }
 
     override fun destroyView() {
@@ -58,39 +57,35 @@ class PagingFragment : BaseFragment(), PagingAdapter.PagingAdapterListener {
     }
 
     override fun activityCreated() {
-       getPaging()
+        getPaging()
     }
 
     override fun onClicked(data: GameData) {
-        Timber.e("clicked at : $data")
+        val directions = PagingFragmentDirections.actionPagingFragmentToDetailFragment(data.id)
+        navigate(directions)
     }
 
     private fun getPaging() {
-       lifecycleScope.launch {
+        lifecycleScope.launch {
             gameVm.getPagingListGames().collectLatest {
-                with(binding){
-                    shimmerSlider.apply {
-                        visibility = View.GONE
-                        stopShimmer()
-                    }
-                    rvGames.visibility = View.VISIBLE
-                }
                 pagingAdapter.submitData(it)
             }
         }
     }
 
     private fun FragmentPagingBinding.initView() {
-        shimmerSlider.apply {
-            visibility = View.VISIBLE
-            startShimmer()
-        }
-        rvGames.visibility = View.GONE
-
-
         rvGames.apply {
-            gridRecyclerviewInitializer(2)
-            adapter = pagingAdapter
+            verticalRecyclerviewInitializer()
+            adapter = pagingAdapter.withLoadStateFooter(
+                footer = FooterLoadingAdapter { pagingAdapter.retry() }
+            )
+            pagingAdapter.addLoadStateListener { loadState ->
+
+                // Only show the list if refresh succeeds.
+                rvGames.isVisible = loadState.source.refresh is LoadState.NotLoading
+                // Show loading spinner during initial load or refresh.
+                shimmerSlider.isVisible = loadState.source.refresh is LoadState.Loading
+            }
         }
         btnSearchMain.setOnClickListener {
             setupExitEnterAxisTransition()

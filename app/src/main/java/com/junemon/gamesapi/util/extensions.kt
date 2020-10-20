@@ -48,6 +48,13 @@ fun RecyclerView.horizontalRecyclerviewInitializer() {
     }
 }
 
+fun RecyclerView.verticalRecyclerviewInitializer() {
+    layoutManager = LinearLayoutManager(
+        this.context, LinearLayoutManager.VERTICAL,
+        false
+    )
+}
+
 fun RecyclerView.gridRecyclerviewInitializer(size: Int) {
     layoutManager = GridLayoutManager(
         this.context, size
