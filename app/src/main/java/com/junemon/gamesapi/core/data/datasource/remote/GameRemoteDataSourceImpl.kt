@@ -69,7 +69,7 @@ class GameRemoteDataSourceImpl @Inject constructor(
                     val resultMemoryCache = CacheOnSuccess(onErrorFallback = { listOf<GameGenre>() }) {
                         responses.data.data
                     }
-                    DataHelper.RemoteSourceValue(resultMemoryCache.getOrAwait())
+                    DataHelper.RemoteSourceValue(responses.data.data)
                 }
                 is Results.Error -> {
                     DataHelper.RemoteSourceError(responses.exception)

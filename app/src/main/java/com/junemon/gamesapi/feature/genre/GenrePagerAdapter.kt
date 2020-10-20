@@ -19,7 +19,6 @@ class GenrePagerAdapter (fragment:Fragment):FragmentStateAdapter(fragment){
         // Return a NEW fragment instance in createFragment(int)
         val fragment = GenreFragment()
         fragment.arguments = Bundle().apply {
-            // Our object is just an integer :-P
             putInt("object", position)
         }
         return fragment

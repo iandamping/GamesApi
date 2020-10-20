@@ -43,6 +43,7 @@ class GenreFragment : Fragment(), GenreRecycleAdapter.GenreRecycleAdapterListene
         super.onViewCreated(view, savedInstanceState)
         binding.initView()
         requireArguments().takeIf { it.containsKey("object") }?.apply {
+
             sharedVm.listGameGenre.observe(viewLifecycleOwner, {
                 genreAdapter.run {
                     submitList(it[getInt("object")].games)
