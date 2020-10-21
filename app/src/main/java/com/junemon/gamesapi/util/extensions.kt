@@ -30,6 +30,13 @@ const val FLAGS_FULLSCREEN =
             View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
 
 
+inline var View.loadingVisibility: Boolean
+    get() = visibility == View.VISIBLE
+    set(value) {
+        visibility = if (!value) View.VISIBLE else View.GONE
+    }
+
+
 fun ViewGroup.inflates(layout: Int): View {
     return LayoutInflater.from(context).inflate(layout, this, false)
 }

@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.junemon.gamesapi.base.BaseFragment
@@ -18,9 +18,11 @@ import com.junemon.gamesapi.feature.viewmodel.SharedViewModel
 import com.junemon.gamesapi.util.EventObserver
 import com.junemon.gamesapi.util.horizontalRecyclerviewInitializer
 import com.junemon.gamesapi.util.imageHelper.LoadImageHelper
+import com.junemon.gamesapi.util.loadingVisibility
 import com.junemon.gamesapi.util.viewModelProvider
 import com.junemon.model.ConsumeCacheResult
 import com.junemon.model.ConsumeResult
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -103,7 +105,6 @@ class HomeFragment : BaseFragment(), HomeSliderAdapter.HomeSliderAdapterListener
                             // Force a redraw in case the time zone has changed
                             this.notifyDataSetChanged()
                         }
-                        gameVm.setupProgressBar(true)
                     }
                 }
                 is ConsumeCacheResult.ConsumeData -> {
@@ -125,18 +126,9 @@ class HomeFragment : BaseFragment(), HomeSliderAdapter.HomeSliderAdapterListener
 
     private fun observeState() {
         gameVm.progressBar.observe(viewLifecycleOwner, EventObserver {
-            if (!it) {
-                binding.shimmerSlider.apply {
-                    visibility = View.VISIBLE
-                    startShimmer()
-                }
-                binding.rvGames.visibility = View.GONE
-            } else {
-                binding.shimmerSlider.apply {
-                    visibility = View.GONE
-                    stopShimmer()
-                }
-                binding.rvGames.visibility = View.VISIBLE
+            with(binding){
+                shimmerSlider.loadingVisibility = it
+                rvGames.isVisible = it
             }
         })
     }
