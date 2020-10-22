@@ -1,13 +1,12 @@
 package com.junemon.gamesapi.core.data.data.datasource
 
 import com.junemon.gamesapi.core.cache.model.GameEntity
-import com.junemon.gamesapi.core.cache.preference.listener.BaseSharedPreferenceListener
 import com.junemon.model.CachedDataHelper
 import com.junemon.model.DataHelper
-import com.junemon.model.games.GameData
-import com.junemon.model.games.GameDetail
-import com.junemon.model.games.GameGenre
-import com.junemon.model.games.GameSearch
+import com.junemon.gamesapi.core.data.model.GameData
+import com.junemon.gamesapi.core.data.model.GameDetail
+import com.junemon.gamesapi.core.data.model.GameGenre
+import com.junemon.gamesapi.core.data.model.GameSearch
 import kotlinx.coroutines.flow.Flow
 
 /**

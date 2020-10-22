@@ -10,12 +10,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import com.junemon.gamesapi.base.BaseFragment
 import com.junemon.gamesapi.databinding.FragmentPagingBinding
-import com.junemon.gamesapi.feature.footer.FooterLoadingAdapter
 import com.junemon.gamesapi.feature.viewmodel.GameViewModel
 import com.junemon.gamesapi.util.imageHelper.LoadImageHelper
-import com.junemon.gamesapi.util.verticalRecyclerviewInitializer
 import com.junemon.gamesapi.util.viewModelProvider
-import com.junemon.model.games.GameData
+import com.junemon.gamesapi.core.data.model.GameData
+import com.junemon.gamesapi.feature.footer.FooterLoadingAdapter
+import com.junemon.gamesapi.util.verticalRecyclerviewInitializer
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject

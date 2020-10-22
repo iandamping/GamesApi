@@ -10,16 +10,12 @@ import com.google.android.material.transition.MaterialSharedAxis
 import com.junemon.gamesapi.R
 import com.junemon.gamesapi.base.BaseFragment
 import com.junemon.gamesapi.databinding.FragmentSearchBinding
-import com.junemon.gamesapi.feature.home.HomeFragmentDirections
 import com.junemon.gamesapi.feature.viewmodel.GameViewModel
-import com.junemon.gamesapi.util.EventObserver
-import com.junemon.gamesapi.util.gridRecyclerviewInitializer
-import com.junemon.gamesapi.util.horizontalRecyclerviewInitializer
 import com.junemon.gamesapi.util.imageHelper.LoadImageHelper
 import com.junemon.gamesapi.util.viewModelProvider
 import com.junemon.model.ConsumeResult
-import com.junemon.model.games.GameSearch
-import timber.log.Timber
+import com.junemon.gamesapi.core.data.model.GameSearch
+import com.junemon.gamesapi.util.gridRecyclerviewInitializer
 import javax.inject.Inject
 
 

@@ -2,7 +2,7 @@ package com.junemon.gamesapi.feature.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.junemon.model.games.GameGenre
+import com.junemon.gamesapi.core.data.model.GameGenre
 
 
 /**

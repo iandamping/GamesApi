@@ -3,7 +3,7 @@ package com.junemon.gamesapi.feature.search
 import androidx.recyclerview.widget.RecyclerView
 import com.junemon.gamesapi.databinding.ItemSearchBinding
 import com.junemon.gamesapi.util.imageHelper.LoadImageHelper
-import com.junemon.model.games.GameSearch
+import com.junemon.gamesapi.core.data.model.GameSearch
 
 
 /**

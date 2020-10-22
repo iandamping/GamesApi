@@ -8,10 +8,10 @@ import com.junemon.gamesapi.util.CacheOnSuccess
 import com.junemon.model.CachedDataHelper
 import com.junemon.model.DataHelper
 import com.junemon.model.Results
-import com.junemon.model.games.GameData
-import com.junemon.model.games.GameDetail
-import com.junemon.model.games.GameGenre
-import com.junemon.model.games.GameSearch
+import com.junemon.gamesapi.core.data.model.GameData
+import com.junemon.gamesapi.core.data.model.GameDetail
+import com.junemon.gamesapi.core.data.model.GameGenre
+import com.junemon.gamesapi.core.data.model.GameSearch
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.conflate

@@ -3,7 +3,7 @@ package com.junemon.gamesapi.feature.paging
 import androidx.recyclerview.widget.RecyclerView
 import com.junemon.gamesapi.databinding.ItemPagingBinding
 import com.junemon.gamesapi.util.imageHelper.LoadImageHelper
-import com.junemon.model.games.GameData
+import com.junemon.gamesapi.core.data.model.GameData
 
 /**
  * Created by Ian Damping on 20,October,2020

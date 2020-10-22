@@ -14,25 +14,21 @@ import com.junemon.model.ConsumeCacheResult
 import com.junemon.model.ConsumeResult
 import com.junemon.model.DataHelper
 import com.junemon.model.GenericPair
-import com.junemon.model.games.GameData
-import com.junemon.model.games.GameDetail
-import com.junemon.model.games.GameGenre
-import com.junemon.model.games.GameSearch
-import kotlinx.coroutines.CompletableDeferred
+import com.junemon.gamesapi.core.data.model.GameData
+import com.junemon.gamesapi.core.data.model.GameDetail
+import com.junemon.gamesapi.core.data.model.GameGenre
+import com.junemon.gamesapi.core.data.model.GameSearch
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.conflate
-import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onStart
-import timber.log.Timber
 import javax.inject.Inject
 
 /**

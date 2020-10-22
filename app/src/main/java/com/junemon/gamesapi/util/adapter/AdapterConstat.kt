@@ -2,10 +2,9 @@ package com.junemon.gamesapi.util.adapter
 
 import androidx.recyclerview.widget.DiffUtil
 import com.junemon.gamesapi.core.cache.model.GameEntity
-import com.junemon.model.games.GameData
-import com.junemon.model.games.GameGenre
-import com.junemon.model.games.GameSearch
-import com.junemon.model.games.GamesItem
+import com.junemon.gamesapi.core.data.model.GameData
+import com.junemon.gamesapi.core.data.model.GameSearch
+import com.junemon.gamesapi.core.data.model.GamesItem
 
 /**
  * Created by Ian Damping on 22,January,2020

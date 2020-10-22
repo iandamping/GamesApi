@@ -2,16 +2,13 @@ package com.junemon.gamesapi.feature.detail
 
 import android.content.res.ColorStateList
 import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
-import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.bumptech.glide.Glide
 import com.google.android.material.transition.MaterialSharedAxis
 import com.junemon.gamesapi.R
 import com.junemon.gamesapi.base.BaseFragment
@@ -22,7 +19,7 @@ import com.junemon.gamesapi.util.generateRandomHexColor
 import com.junemon.gamesapi.util.imageHelper.LoadImageHelper
 import com.junemon.gamesapi.util.viewModelProvider
 import com.junemon.model.ConsumeResult
-import com.junemon.model.games.GameDetail
+import com.junemon.gamesapi.core.data.model.GameDetail
 import javax.inject.Inject
 
 

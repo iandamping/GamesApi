@@ -5,10 +5,10 @@ import com.junemon.gamesapi.core.cache.model.GameEntity
 import com.junemon.model.ConsumeCacheResult
 import com.junemon.model.ConsumeResult
 import com.junemon.model.GenericPair
-import com.junemon.model.games.GameData
-import com.junemon.model.games.GameDetail
-import com.junemon.model.games.GameGenre
-import com.junemon.model.games.GameSearch
+import com.junemon.gamesapi.core.data.model.GameData
+import com.junemon.gamesapi.core.data.model.GameDetail
+import com.junemon.gamesapi.core.data.model.GameGenre
+import com.junemon.gamesapi.core.data.model.GameSearch
 import kotlinx.coroutines.flow.Flow
 
 /**

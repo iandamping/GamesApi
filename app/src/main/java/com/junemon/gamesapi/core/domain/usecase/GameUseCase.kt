@@ -2,7 +2,7 @@ package com.junemon.gamesapi.core.domain.usecase
 
 import androidx.paging.PagingData
 import com.junemon.gamesapi.core.domain.repository.GameRepository
-import com.junemon.model.games.GameData
+import com.junemon.gamesapi.core.data.model.GameData
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

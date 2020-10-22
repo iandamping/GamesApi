@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.ListAdapter
 import com.junemon.gamesapi.databinding.ItemSearchBinding
 import com.junemon.gamesapi.util.adapter.AdapterConstant
 import com.junemon.gamesapi.util.imageHelper.LoadImageHelper
-import com.junemon.model.games.GameSearch
+import com.junemon.gamesapi.core.data.model.GameSearch
 
 
 /**

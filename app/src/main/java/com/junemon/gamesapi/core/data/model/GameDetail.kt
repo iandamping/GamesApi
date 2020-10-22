@@ -1,4 +1,4 @@
-package com.junemon.model.games
+package com.junemon.gamesapi.core.data.model
 
 import com.google.gson.annotations.SerializedName
 
@@ -103,7 +103,8 @@ data class GameDetail(@SerializedName("added")
                       @SerializedName("screenshots_count")
                       val screenshotsCount: Int = 0,
                       @SerializedName("clip")
-                      val clip: Clip)
+                      val clip: Clip
+)
 
 
 

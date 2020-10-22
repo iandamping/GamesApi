@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.junemon.gamesapi.core.domain.usecase.GameUseCase
-import com.junemon.model.games.GameData
+import com.junemon.gamesapi.core.data.model.GameData
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

@@ -1,4 +1,4 @@
-package com.junemon.model.games
+package com.junemon.gamesapi.core.data.model
 
 import com.google.gson.annotations.SerializedName
 
@@ -21,7 +21,8 @@ data class MetacriticPlatformsItem(@SerializedName("metascore")
                                    @SerializedName("url")
                                    val url: String = "",
                                    @SerializedName("platform")
-                                   val platform: Platform)
+                                   val platform: Platform
+)
 
 data class Platform(@SerializedName("name")
                     val name: String = "",
@@ -35,7 +36,8 @@ data class PlatformsItem(@SerializedName("requirements")
                          @SerializedName("released_at")
                          val releasedAt: String = "",
                          @SerializedName("platform")
-                         val platform: Platform)
+                         val platform: Platform
+)
 
 data class Requirements(@SerializedName("minimum")
                         val minimum: String = "",

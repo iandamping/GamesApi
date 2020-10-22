@@ -1,6 +1,10 @@
 package com.junemon.gamesapi.core.network
 
-import com.junemon.model.games.*
+import com.junemon.gamesapi.core.data.model.GameData
+import com.junemon.gamesapi.core.data.model.GameDetail
+import com.junemon.gamesapi.core.data.model.GameGenre
+import com.junemon.gamesapi.core.data.model.GameResponse
+import com.junemon.gamesapi.core.data.model.GameSearch
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path

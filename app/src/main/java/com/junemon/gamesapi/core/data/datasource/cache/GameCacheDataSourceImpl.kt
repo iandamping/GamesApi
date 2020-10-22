@@ -2,13 +2,12 @@ package com.junemon.gamesapi.core.data.datasource.cache
 
 import com.junemon.gamesapi.core.cache.model.GameEntity
 import com.junemon.gamesapi.core.cache.preference.PreferenceHelper
-import com.junemon.gamesapi.core.cache.preference.listener.BaseSharedPreferenceListener
 import com.junemon.gamesapi.core.cache.preference.listener.BooleanPrefValueListener
 import com.junemon.gamesapi.core.cache.preference.listener.IntPrefValueListener
 import com.junemon.gamesapi.core.cache.preference.listener.StringPrefValueListener
 import com.junemon.gamesapi.core.cache.util.GameDaoHelper
 import com.junemon.gamesapi.core.data.data.datasource.GameCacheDataSource
-import com.junemon.model.games.GameData
+import com.junemon.gamesapi.core.data.model.GameData
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flowOf
