@@ -6,8 +6,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
-import com.junemon.gamesapi.R
-
+import com.junemon.gamesapi.core.R
 
 /**
  * Created by Ian Damping on 25,May,2020
@@ -24,7 +23,7 @@ object BindingImageLoaderClass {
                 .load(url)
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .apply(requestOptions)
-                .placeholder(R.drawable.empty_image).thumbnail(0.25f).into(view)
+                .error(R.drawable.empty_image).thumbnail(0.25f).into(view)
         }
     }
 }

@@ -7,14 +7,13 @@ import androidx.paging.cachedIn
 import com.junemon.gamesapi.core.domain.usecase.GameUseCase
 import com.junemon.gamesapi.core.data.model.GameData
 import kotlinx.coroutines.flow.Flow
-import javax.inject.Inject
 
 /**
  * Created by Ian Damping on 18,May,2020
  * Github https://github.com/iandamping
  * Indonesia.
  */
-class GameViewModel @Inject constructor(
+class GameViewModel(
     private val repo: GameUseCase
 ) : BaseViewModel() {
 

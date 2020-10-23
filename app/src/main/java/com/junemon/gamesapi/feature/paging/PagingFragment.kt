@@ -5,20 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import com.junemon.gamesapi.base.BaseFragment
 import com.junemon.gamesapi.databinding.FragmentPagingBinding
 import com.junemon.gamesapi.feature.viewmodel.GameViewModel
-import com.junemon.gamesapi.util.imageHelper.LoadImageHelper
-import com.junemon.gamesapi.util.viewModelProvider
+import com.junemon.gamesapi.core.presentation.imageHelper.LoadImageHelper
 import com.junemon.gamesapi.core.data.model.GameData
 import com.junemon.gamesapi.feature.footer.FooterLoadingAdapter
-import com.junemon.gamesapi.util.verticalRecyclerviewInitializer
+import com.junemon.gamesapi.core.util.verticalRecyclerviewInitializer
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import javax.inject.Inject
+import org.koin.android.ext.android.inject
+import org.koin.androidx.scope.lifecycleScope as koinLifecycleScope
 
 /**
  * Created by Ian Damping on 20,October,2020
@@ -26,14 +25,11 @@ import javax.inject.Inject
  * Indonesia.
  */
 class PagingFragment : BaseFragment(), PagingAdapter.PagingAdapterListener {
-    @Inject
-    lateinit var loadImageHelper: LoadImageHelper
+    private val loadImageHelper: LoadImageHelper by inject()
+    private val gameVm: GameViewModel by koinLifecycleScope.inject()
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private lateinit var pagingAdapter: PagingAdapter
-    private lateinit var gameVm: GameViewModel
     private var _binding: FragmentPagingBinding? = null
     private val binding get() = _binding!!
 
@@ -44,7 +40,6 @@ class PagingFragment : BaseFragment(), PagingAdapter.PagingAdapterListener {
     ): View? {
         _binding = FragmentPagingBinding.inflate(inflater, container, false)
         pagingAdapter = PagingAdapter(this, loadImageHelper)
-        gameVm = viewModelProvider(viewModelFactory)
         return binding.root
     }
 

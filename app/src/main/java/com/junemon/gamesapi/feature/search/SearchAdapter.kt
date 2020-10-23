@@ -4,8 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.junemon.gamesapi.databinding.ItemSearchBinding
-import com.junemon.gamesapi.util.adapter.AdapterConstant
-import com.junemon.gamesapi.util.imageHelper.LoadImageHelper
+import com.junemon.gamesapi.core.presentation.adapter.AdapterConstant
+import com.junemon.gamesapi.core.presentation.imageHelper.LoadImageHelper
 import com.junemon.gamesapi.core.data.model.GameSearch
 
 

@@ -1,8 +1,9 @@
 package com.junemon.gamesapi
 
-import com.junemon.gamesapi.core.di.component.*
-import dagger.android.AndroidInjector
-import dagger.android.DaggerApplication
+import android.app.Application
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
 import timber.log.Timber
 
 /**
@@ -10,19 +11,16 @@ import timber.log.Timber
  * Github https://github.com/iandamping
  * Indonesia.
  */
-class MainApplication: DaggerApplication()  {
+class MainApplication : Application() {
 
+    @ExperimentalCoroutinesApi
     override fun onCreate() {
         super.onCreate()
-
+        startKoin {
+            androidContext(this@MainApplication)
+        }
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }
     }
-
-    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
-        return DaggerAppComponent.builder().create(this)
-    }
-
-
 }

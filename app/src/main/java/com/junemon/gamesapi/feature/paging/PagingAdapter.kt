@@ -4,8 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import com.junemon.gamesapi.databinding.ItemPagingBinding
-import com.junemon.gamesapi.util.adapter.AdapterConstant.listGamePaginationAdapterCallback
-import com.junemon.gamesapi.util.imageHelper.LoadImageHelper
+import com.junemon.gamesapi.core.presentation.adapter.AdapterConstant.listGamePaginationAdapterCallback
+import com.junemon.gamesapi.core.presentation.imageHelper.LoadImageHelper
 import com.junemon.gamesapi.core.data.model.GameData
 
 /**

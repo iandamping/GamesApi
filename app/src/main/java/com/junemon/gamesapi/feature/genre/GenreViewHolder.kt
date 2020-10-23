@@ -4,7 +4,7 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import androidx.recyclerview.widget.RecyclerView
 import com.junemon.gamesapi.databinding.ItemGenreBinding
-import com.junemon.gamesapi.util.generateRandomHexColor
+import com.junemon.gamesapi.core.util.generateRandomHexColor
 import com.junemon.gamesapi.core.data.model.GamesItem
 
 

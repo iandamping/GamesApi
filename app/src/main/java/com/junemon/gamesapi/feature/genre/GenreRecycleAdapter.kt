@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.junemon.gamesapi.databinding.ItemGenreBinding
-import com.junemon.gamesapi.util.adapter.AdapterConstant
+import com.junemon.gamesapi.core.presentation.adapter.AdapterConstant
 import com.junemon.gamesapi.core.data.model.GamesItem
 
 

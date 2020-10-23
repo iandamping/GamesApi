@@ -11,11 +11,10 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.transition.MaterialSharedAxis
 import com.junemon.gamesapi.R
 import com.junemon.gamesapi.databinding.FragmentGenreBinding
-import com.junemon.gamesapi.databinding.FragmentHomeBinding
 import com.junemon.gamesapi.feature.home.HomeFragmentDirections
 import com.junemon.gamesapi.feature.viewmodel.SharedViewModel
 import com.junemon.gamesapi.core.data.model.GamesItem
-import com.junemon.gamesapi.util.gridRecyclerviewInitializer
+import com.junemon.gamesapi.core.util.gridRecyclerviewInitializer
 
 /**
  * Created by Ian Damping on 10,September,2020

@@ -13,25 +13,24 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.Hold
 import com.google.android.material.transition.MaterialElevationScale
 import com.google.android.material.transition.MaterialFadeThrough
 import com.google.android.material.transition.MaterialSharedAxis
 import com.junemon.gamesapi.R
 import com.junemon.gamesapi.databinding.CustomLoadingBinding
-import com.junemon.gamesapi.util.layoutInflater
-import dagger.android.support.DaggerFragment
+import com.junemon.gamesapi.core.util.layoutInflater
 
 /**
  * Created by Ian Damping on 05,August,2020
  * Github https://github.com/iandamping
  * Indonesia.
  */
-abstract class BaseFragment : DaggerFragment() {
+abstract class BaseFragment : Fragment() {
     private var _binding: CustomLoadingBinding? = null
     private val binding get() = _binding!!
     private lateinit var alert: AlertDialog
@@ -54,6 +53,11 @@ abstract class BaseFragment : DaggerFragment() {
         with(findNavController()) {
             currentDestination?.getAction(destination.actionId)
                 ?.let { navigate(destination) }
+        }
+
+    protected fun navigateUp() =
+        with(findNavController()) {
+            navigateUp()
         }
 
 

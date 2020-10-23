@@ -5,18 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
-import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.transition.MaterialSharedAxis
 import com.junemon.gamesapi.R
 import com.junemon.gamesapi.base.BaseFragment
 import com.junemon.gamesapi.databinding.FragmentSearchBinding
 import com.junemon.gamesapi.feature.viewmodel.GameViewModel
-import com.junemon.gamesapi.util.imageHelper.LoadImageHelper
-import com.junemon.gamesapi.util.viewModelProvider
+import com.junemon.gamesapi.core.presentation.imageHelper.LoadImageHelper
 import com.junemon.model.ConsumeResult
 import com.junemon.gamesapi.core.data.model.GameSearch
-import com.junemon.gamesapi.util.gridRecyclerviewInitializer
-import javax.inject.Inject
+import com.junemon.gamesapi.core.util.gridRecyclerviewInitializer
+import org.koin.android.ext.android.inject
+import org.koin.androidx.scope.lifecycleScope
 
 
 /**
@@ -25,13 +24,10 @@ import javax.inject.Inject
  * Indonesia.
  */
 class SearchFragment : BaseFragment(), SearchAdapter.SearchAdapterListener {
-    @Inject
-    lateinit var loadImageHelper: LoadImageHelper
+    private val loadImageHelper: LoadImageHelper by inject()
+    private val gameVm: GameViewModel by lifecycleScope.inject()
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
     private lateinit var searchAdapter: SearchAdapter
-    private lateinit var gameVm: GameViewModel
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
 
@@ -52,7 +48,6 @@ class SearchFragment : BaseFragment(), SearchAdapter.SearchAdapterListener {
     ): View? {
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
         searchAdapter = SearchAdapter(this, loadImageHelper)
-        gameVm = viewModelProvider(viewModelFactory)
         return binding.root
     }
 

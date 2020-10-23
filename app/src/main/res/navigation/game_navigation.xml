@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_homeFragment_to_pagingFragment"
             app:destination="@id/pagingFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_developersFragment"
+            app:destination="@id/developersFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
@@ -44,4 +47,10 @@
             android:id="@+id/action_pagingFragment_to_detailFragment"
             app:destination="@id/detailFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/developersFragment"
+        android:name="com.junemon.gamesapi.developers.feature.DevelopersFragment"
+        app:moduleName="GamesApi.developers"
+        android:label="DevelopersFragment" />
 </navigation>

@@ -6,21 +6,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.transition.MaterialSharedAxis
 import com.junemon.gamesapi.R
 import com.junemon.gamesapi.base.BaseFragment
 import com.junemon.gamesapi.databinding.FragmentDetailBinding
 import com.junemon.gamesapi.feature.viewmodel.GameViewModel
-import com.junemon.gamesapi.util.EventObserver
-import com.junemon.gamesapi.util.generateRandomHexColor
-import com.junemon.gamesapi.util.imageHelper.LoadImageHelper
-import com.junemon.gamesapi.util.viewModelProvider
+import com.junemon.gamesapi.core.util.EventObserver
+import com.junemon.gamesapi.core.util.generateRandomHexColor
+import com.junemon.gamesapi.core.presentation.imageHelper.LoadImageHelper
 import com.junemon.model.ConsumeResult
 import com.junemon.gamesapi.core.data.model.GameDetail
-import javax.inject.Inject
+import org.koin.android.ext.android.inject
+import org.koin.androidx.scope.lifecycleScope
 
 
 /**
@@ -30,15 +28,12 @@ import javax.inject.Inject
  */
 class DetailFragment : BaseFragment() {
 
-    @Inject
-    lateinit var loadImageHelper: LoadImageHelper
-
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
+    private val loadImageHelper: LoadImageHelper by inject()
 
     private val args: DetailFragmentArgs by navArgs()
 
-    private lateinit var gameVm: GameViewModel
+    private val gameVm: GameViewModel by lifecycleScope.inject()
+
     private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!
     private val gameId: Int by lazy {
@@ -62,13 +57,13 @@ class DetailFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentDetailBinding.inflate(inflater, container, false)
-        gameVm = viewModelProvider(viewModelFactory)
+
         return binding.root
     }
 
     override fun viewCreated(view: View, savedInstanceState: Bundle?) {
         binding.ivBack.setOnClickListener {
-            findNavController().navigateUp()
+            navigateUp()
         }
     }
 
@@ -102,7 +97,7 @@ class DetailFragment : BaseFragment() {
     }
 
     private fun observeState() {
-        gameVm.progressBar.observe(this,EventObserver {
+        gameVm.progressBar.observe(this, EventObserver {
             setDialogShow(it)
         })
     }

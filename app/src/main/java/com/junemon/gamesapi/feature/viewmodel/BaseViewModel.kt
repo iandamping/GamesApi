@@ -3,11 +3,7 @@ package com.junemon.gamesapi.feature.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.junemon.gamesapi.util.Event
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
-
+import com.junemon.gamesapi.core.util.Event
 
 /**
  * Created by Ian Damping on 10,September,2020

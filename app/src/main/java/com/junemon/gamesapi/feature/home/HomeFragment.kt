@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.junemon.gamesapi.base.BaseFragment
@@ -15,15 +14,14 @@ import com.junemon.gamesapi.databinding.FragmentHomeBinding
 import com.junemon.gamesapi.feature.genre.GenrePagerAdapter
 import com.junemon.gamesapi.feature.viewmodel.GameViewModel
 import com.junemon.gamesapi.feature.viewmodel.SharedViewModel
-import com.junemon.gamesapi.util.EventObserver
-import com.junemon.gamesapi.util.horizontalRecyclerviewInitializer
-import com.junemon.gamesapi.util.imageHelper.LoadImageHelper
-import com.junemon.gamesapi.util.loadingVisibility
-import com.junemon.gamesapi.util.viewModelProvider
+import com.junemon.gamesapi.core.util.EventObserver
+import com.junemon.gamesapi.core.util.horizontalRecyclerviewInitializer
+import com.junemon.gamesapi.core.presentation.imageHelper.LoadImageHelper
+import com.junemon.gamesapi.core.util.loadingVisibility
 import com.junemon.model.ConsumeCacheResult
 import com.junemon.model.ConsumeResult
-import timber.log.Timber
-import javax.inject.Inject
+import org.koin.android.ext.android.inject
+import org.koin.androidx.scope.lifecycleScope
 
 /**
  * Created by Ian Damping on 08,September,2020
@@ -32,16 +30,12 @@ import javax.inject.Inject
  */
 class HomeFragment : BaseFragment(), HomeSliderAdapter.HomeSliderAdapterListener {
 
-    @Inject
-    lateinit var loadImageHelper: LoadImageHelper
-
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-
+    private val loadImageHelper: LoadImageHelper by inject()
     private val sharedVm: SharedViewModel by activityViewModels()
+    private val gameVm: GameViewModel by lifecycleScope.inject()
+
     private lateinit var genrePagerAdapter: GenrePagerAdapter
     private lateinit var homeAdapter: HomeSliderAdapter
-    private lateinit var gameVm: GameViewModel
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
@@ -53,7 +47,6 @@ class HomeFragment : BaseFragment(), HomeSliderAdapter.HomeSliderAdapterListener
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         homeAdapter = HomeSliderAdapter(this, loadImageHelper)
         genrePagerAdapter = GenrePagerAdapter(this)
-        gameVm = viewModelProvider(viewModelFactory)
         return binding.root
     }
 
@@ -139,6 +132,11 @@ class HomeFragment : BaseFragment(), HomeSliderAdapter.HomeSliderAdapterListener
         rvGames.apply {
             horizontalRecyclerviewInitializer()
             adapter = homeAdapter
+        }
+        tvdeveloper.setOnClickListener {
+            setupExitEnterAxisTransition()
+            val directions =HomeFragmentDirections.actionHomeFragmentToDevelopersFragment()
+            navigate(directions)
         }
         tvPaging.setOnClickListener{
             setupExitEnterAxisTransition()
