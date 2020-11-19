@@ -118,20 +118,6 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/tvdeveloper"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:gravity="start"
-                    android:text="Find Dev !"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/letter_xlarge"
-                    android:textStyle="bold" />
-
-                <TextView
                     android:id="@+id/tvPaging"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

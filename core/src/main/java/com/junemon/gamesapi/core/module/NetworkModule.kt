@@ -2,7 +2,7 @@ package com.junemon.gamesapi.core.module
 
 import com.google.gson.GsonBuilder
 import com.junemon.gamesapi.core.data.datasource.remote.GamePaginationRemoteDataSource
-import com.junemon.gamesapi.core.network.ApiInterface
+import com.junemon.gamesapi.core.data.datasource.remote.network.ApiInterface
 import okhttp3.Dispatcher
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

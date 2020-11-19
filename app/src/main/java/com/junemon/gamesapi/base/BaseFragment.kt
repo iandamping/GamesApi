@@ -38,9 +38,6 @@ abstract class BaseFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         setBaseDialog(context)
-        // dont use this, but i had to
-        val builder = StrictMode.VmPolicy.Builder()
-        StrictMode.setVmPolicy(builder.build())
     }
 
     protected fun navigate(destination: NavDirections, extraInfo: FragmentNavigator.Extras) =

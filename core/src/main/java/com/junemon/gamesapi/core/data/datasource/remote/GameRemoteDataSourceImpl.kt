@@ -1,16 +1,14 @@
 package com.junemon.gamesapi.core.data.datasource.remote
 
-import com.junemon.gamesapi.core.data.data.datasource.GameRemoteDataSource
-import com.junemon.gamesapi.core.network.ApiInterface
-import com.junemon.gamesapi.core.network.BaseSources
-import com.junemon.model.CachedDataHelper
-import com.junemon.model.DataHelper
-import com.junemon.model.Results
-import com.junemon.gamesapi.core.data.model.GameData
-import com.junemon.gamesapi.core.data.model.GameDetail
-import com.junemon.gamesapi.core.data.model.GameGenre
-import com.junemon.gamesapi.core.data.model.GameSearch
-import com.junemon.gamesapi.core.util.CacheOnSuccess
+import com.junemon.gamesapi.core.data.datasource.remote.network.ApiInterface
+import com.junemon.gamesapi.core.data.datasource.remote.network.BaseSources
+import com.junemon.gamesapi.core.domain.model.CachedDataHelper
+import com.junemon.gamesapi.core.domain.model.DataHelper
+import com.junemon.gamesapi.core.domain.model.GameData
+import com.junemon.gamesapi.core.domain.model.GameDetail
+import com.junemon.gamesapi.core.domain.model.GameGenre
+import com.junemon.gamesapi.core.domain.model.GameSearch
+import com.junemon.gamesapi.core.domain.model.Results
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.conflate
@@ -20,7 +18,6 @@ import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.withContext
 
-
 /**
  * Created by Ian Damping on 16,May,2020
  * Github https://github.com/iandamping
@@ -28,7 +25,7 @@ import kotlinx.coroutines.withContext
  */
 class GameRemoteDataSourceImpl(
     private val api: ApiInterface,
-     private val defaultDispatcher: CoroutineDispatcher
+    private val defaultDispatcher: CoroutineDispatcher
 ) : BaseSources(), GameRemoteDataSource {
 
     override fun getFlowListGames(): Flow<CachedDataHelper<List<GameData>>> {
@@ -41,7 +38,9 @@ class GameRemoteDataSourceImpl(
                     emit(CachedDataHelper.RemoteSourceError(responses.exception))
                 }
             }
-        }.flowOn(defaultDispatcher).conflate().onStart { emit(CachedDataHelper.Loading) }
+        }.flowOn(defaultDispatcher)
+            .conflate()
+            .onStart { emit(CachedDataHelper.Loading) }
             .onCompletion { emit(CachedDataHelper.Complete) }
     }
 
@@ -49,10 +48,7 @@ class GameRemoteDataSourceImpl(
         withContext(defaultDispatcher) {
             when (val responses = oneShotCalls { api.getListGames() }) {
                 is Results.Success -> {
-                    val resultMemoryCache = CacheOnSuccess(onErrorFallback = { listOf<GameData>() }) {
-                        responses.data.data
-                    }
-                    DataHelper.RemoteSourceValue(resultMemoryCache.getOrAwait())
+                    DataHelper.RemoteSourceValue(responses.data.data)
                 }
                 is Results.Error -> {
                     DataHelper.RemoteSourceError(responses.exception)
@@ -64,10 +60,6 @@ class GameRemoteDataSourceImpl(
         withContext(defaultDispatcher) {
             when (val responses = oneShotCalls { api.getListGamesByGenres() }) {
                 is Results.Success -> {
-                    //trying to use memory cache
-                    val resultMemoryCache = CacheOnSuccess(onErrorFallback = { listOf<GameGenre>() }) {
-                        responses.data.data
-                    }
                     DataHelper.RemoteSourceValue(responses.data.data)
                 }
                 is Results.Error -> {

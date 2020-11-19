@@ -10,9 +10,9 @@ import com.junemon.gamesapi.R
 import com.junemon.gamesapi.base.BaseFragment
 import com.junemon.gamesapi.databinding.FragmentSearchBinding
 import com.junemon.gamesapi.feature.viewmodel.GameViewModel
-import com.junemon.gamesapi.core.presentation.imageHelper.LoadImageHelper
-import com.junemon.model.ConsumeResult
-import com.junemon.gamesapi.core.data.model.GameSearch
+import com.junemon.gamesapi.util.imageHelper.LoadImageHelper
+import com.junemon.gamesapi.core.domain.model.ConsumeResult
+import com.junemon.gamesapi.core.domain.model.GameSearch
 import com.junemon.gamesapi.core.util.gridRecyclerviewInitializer
 import org.koin.android.ext.android.inject
 import org.koin.androidx.scope.lifecycleScope

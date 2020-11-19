@@ -19,16 +19,6 @@ import java.util.*
  * Indonesia.
  */
 
-/** Combination of all flags required to put activity into immersive mode */
-const val FLAGS_FULLSCREEN =
-    View.SYSTEM_UI_FLAG_LOW_PROFILE or
-            View.SYSTEM_UI_FLAG_FULLSCREEN or
-            View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
-            View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY or
-            View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
-            View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-
-
 inline var View.loadingVisibility: Boolean
     get() = visibility == View.VISIBLE
     set(value) {
@@ -76,16 +66,4 @@ fun generateRandomHexColor():String{
 
     return String.format("#%06x", randomNumber)
 }
-
-
-/**
- * For Fragments, allows declarations like
- * ```
- * val myViewModel = viewModelProvider(myViewModelFactory)
- * ```
- */
-inline fun <reified VM : ViewModel> Fragment.viewModelProvider(
-    provider: ViewModelProvider.Factory
-) =
-    ViewModelProviders.of(this, provider).get(VM::class.java)
 

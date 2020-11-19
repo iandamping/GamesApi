@@ -19,7 +19,6 @@ class MainActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
-        injectData()
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)

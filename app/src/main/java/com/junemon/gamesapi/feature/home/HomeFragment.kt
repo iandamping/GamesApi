@@ -9,17 +9,17 @@ import androidx.fragment.app.activityViewModels
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.junemon.gamesapi.base.BaseFragment
-import com.junemon.gamesapi.core.cache.model.GameEntity
+import com.junemon.gamesapi.core.data.datasource.cache.entity.GameEntity
 import com.junemon.gamesapi.databinding.FragmentHomeBinding
 import com.junemon.gamesapi.feature.genre.GenrePagerAdapter
 import com.junemon.gamesapi.feature.viewmodel.GameViewModel
 import com.junemon.gamesapi.feature.viewmodel.SharedViewModel
 import com.junemon.gamesapi.core.util.EventObserver
 import com.junemon.gamesapi.core.util.horizontalRecyclerviewInitializer
-import com.junemon.gamesapi.core.presentation.imageHelper.LoadImageHelper
+import com.junemon.gamesapi.util.imageHelper.LoadImageHelper
 import com.junemon.gamesapi.core.util.loadingVisibility
-import com.junemon.model.ConsumeCacheResult
-import com.junemon.model.ConsumeResult
+import com.junemon.gamesapi.core.domain.model.ConsumeCacheResult
+import com.junemon.gamesapi.core.domain.model.ConsumeResult
 import org.koin.android.ext.android.inject
 import org.koin.androidx.scope.lifecycleScope
 
@@ -133,11 +133,7 @@ class HomeFragment : BaseFragment(), HomeSliderAdapter.HomeSliderAdapterListener
             horizontalRecyclerviewInitializer()
             adapter = homeAdapter
         }
-        tvdeveloper.setOnClickListener {
-            setupExitEnterAxisTransition()
-            val directions =HomeFragmentDirections.actionHomeFragmentToDevelopersFragment()
-            navigate(directions)
-        }
+
         tvPaging.setOnClickListener{
             setupExitEnterAxisTransition()
             val directions =HomeFragmentDirections.actionHomeFragmentToPagingFragment()

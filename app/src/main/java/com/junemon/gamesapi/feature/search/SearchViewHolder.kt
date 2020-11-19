@@ -2,8 +2,8 @@ package com.junemon.gamesapi.feature.search
 
 import androidx.recyclerview.widget.RecyclerView
 import com.junemon.gamesapi.databinding.ItemSearchBinding
-import com.junemon.gamesapi.core.presentation.imageHelper.LoadImageHelper
-import com.junemon.gamesapi.core.data.model.GameSearch
+import com.junemon.gamesapi.util.imageHelper.LoadImageHelper
+import com.junemon.gamesapi.core.domain.model.GameSearch
 
 
 /**

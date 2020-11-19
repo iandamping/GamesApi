@@ -1,4 +1,3 @@
 include ':core'
-include ':developers'
-include ':app', ':model'
+include ':app'
 rootProject.name='GamesApi'

@@ -1,9 +1,9 @@
 package com.junemon.gamesapi.core.data.datasource.remote
 
 import androidx.paging.PagingSource
-import com.junemon.gamesapi.core.network.ApiInterface
-import com.junemon.model.Results
-import com.junemon.gamesapi.core.data.model.GameData
+import com.junemon.gamesapi.core.data.datasource.remote.network.ApiInterface
+import com.junemon.gamesapi.core.domain.model.Results
+import com.junemon.gamesapi.core.domain.model.GameData
 import retrofit2.HttpException
 import retrofit2.Response
 import java.io.IOException

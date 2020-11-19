@@ -14,7 +14,7 @@ abstract class BaseViewModel: ViewModel() {
 
     private val _progressBar = MutableLiveData<Event<Boolean>>()
     /**
-     * Show a loading spinner if true
+     * Show a loading shimmer if true
      */
      val progressBar: LiveData<Event<Boolean>>
         get() = _progressBar

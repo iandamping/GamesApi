@@ -1,6 +1,7 @@
 package com.junemon.gamesapi
 
 import android.app.Application
+import com.junemon.gamesapi.di.injectData
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -18,6 +19,8 @@ class MainApplication : Application() {
         super.onCreate()
         startKoin {
             androidContext(this@MainApplication)
+            injectData()
+
         }
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())

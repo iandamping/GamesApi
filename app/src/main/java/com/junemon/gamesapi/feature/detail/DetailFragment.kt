@@ -14,9 +14,9 @@ import com.junemon.gamesapi.databinding.FragmentDetailBinding
 import com.junemon.gamesapi.feature.viewmodel.GameViewModel
 import com.junemon.gamesapi.core.util.EventObserver
 import com.junemon.gamesapi.core.util.generateRandomHexColor
-import com.junemon.gamesapi.core.presentation.imageHelper.LoadImageHelper
-import com.junemon.model.ConsumeResult
-import com.junemon.gamesapi.core.data.model.GameDetail
+import com.junemon.gamesapi.util.imageHelper.LoadImageHelper
+import com.junemon.gamesapi.core.domain.model.ConsumeResult
+import com.junemon.gamesapi.core.domain.model.GameDetail
 import org.koin.android.ext.android.inject
 import org.koin.androidx.scope.lifecycleScope
 
