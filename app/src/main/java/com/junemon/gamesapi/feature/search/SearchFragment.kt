@@ -96,7 +96,7 @@ class SearchFragment : BaseFragment(), SearchAdapter.SearchAdapterListener {
                         } else {
                             searchAdapter.run {
                                 submitList(it.data)
-                                // Force a redraw in case the time zone has changed
+                                // Force a redraw
                                 this.notifyDataSetChanged()
                             }
 

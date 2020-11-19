@@ -6,11 +6,13 @@ import com.junemon.gamesapi.core.data.datasource.remote.response.GameGenreRespon
 import com.junemon.gamesapi.core.data.datasource.remote.response.GameResponse
 import com.junemon.gamesapi.core.data.datasource.remote.response.GameSearchResponse
 import com.junemon.gamesapi.core.data.datasource.remote.response.GamesItemResponse
+import com.junemon.gamesapi.core.data.datasource.remote.response.GenresItemResponse
 import com.junemon.gamesapi.core.domain.model.Game
 import com.junemon.gamesapi.core.domain.model.GameDetail
 import com.junemon.gamesapi.core.domain.model.GameGenre
 import com.junemon.gamesapi.core.domain.model.GameSearch
 import com.junemon.gamesapi.core.domain.model.GamesItem
+import com.junemon.gamesapi.core.domain.model.GenresItem
 
 /**
  * Created by Ian Damping on 19,November,2020
@@ -57,6 +59,13 @@ fun GameGenreResponse.mapSingleRemoteGenreDataToDomain(): GameGenre = GameGenre(
 fun List<GameGenreResponse>.mapRemoteGenresDataToDomain(): List<GameGenre> =
     this.map { it.mapSingleRemoteGenreDataToDomain() }
 
+fun GenresItemResponse.mapSingleRemoteGenreItemDataToDomain():GenresItem = GenresItem(name)
+
+fun List<GenresItemResponse>.mapRemoteGenreItemDataToDomain(): List<GenresItem> =
+    this.map { it.mapSingleRemoteGenreItemDataToDomain() }
+
+
+
 fun GameSearchResponse.mapSingleRemoteSearchDataToDomain(): GameSearch =
     GameSearch(id, name, backgroundImage)
 
@@ -64,4 +73,4 @@ fun List<GameSearchResponse>.mapRemoteSearchDataToDomain(): List<GameSearch> =
     this.map { it.mapSingleRemoteSearchDataToDomain() }
 
 fun GameDetailResponse.mapSingleRemoteDetailGameDataToDomain(): GameDetail =
-    GameDetail(backgroundImage, description, genres, rating, name)
+    GameDetail(backgroundImage, description, genres?.mapRemoteGenreItemDataToDomain(), rating, name)

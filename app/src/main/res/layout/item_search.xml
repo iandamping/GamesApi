@@ -35,7 +35,7 @@
             android:fontFamily="@font/lato"
             android:textColor="@color/white"
             android:textSize="@dimen/letter_small"
-            app:layout_constraintBottom_toTopOf="@+id/tvItemGameSearchType"
+            app:layout_constraintBottom_toBottomOf="@+id/ivItemGameSearchImage"
             app:layout_constraintStart_toStartOf="parent"
             tools:text="Islamic Center" />
 

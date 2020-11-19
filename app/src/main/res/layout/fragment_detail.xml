@@ -30,7 +30,8 @@
             android:layout_marginTop="16dp"
             android:src="@drawable/ic_baseline_arrow_white_24"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/image_description" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/linearLayout2"
@@ -82,7 +83,8 @@
                 android:layout_marginEnd="16dp"
                 android:src="@drawable/ic_round_star_yellow_24"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="@string/image_description" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -125,7 +127,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/spacing_large"
-            android:text="Introduction"
+            android:text="@string/introduction"
             android:textColor="@color/white"
             android:textSize="@dimen/letter_large"
             android:textStyle="bold"

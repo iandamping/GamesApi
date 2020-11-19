@@ -8,5 +8,5 @@ package com.junemon.gamesapi.core.domain.model
 data class GameSearch(
     val id: Int,
     val name: String,
-    val backgroundImage: String
+    val backgroundImage: String?
 )

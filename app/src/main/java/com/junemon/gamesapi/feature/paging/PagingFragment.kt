@@ -11,10 +11,8 @@ import com.junemon.gamesapi.base.BaseFragment
 import com.junemon.gamesapi.databinding.FragmentPagingBinding
 import com.junemon.gamesapi.feature.viewmodel.GameViewModel
 import com.junemon.gamesapi.util.imageHelper.LoadImageHelper
-import com.junemon.gamesapi.core.data.datasource.remote.response.GameResponse
 import com.junemon.gamesapi.core.domain.model.Game
 import com.junemon.gamesapi.core.util.verticalRecyclerviewInitializer
-import com.junemon.gamesapi.feature.footer.FooterLoadingAdapter
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
@@ -72,9 +70,7 @@ class PagingFragment : BaseFragment(), PagingAdapter.PagingAdapterListener {
     private fun FragmentPagingBinding.initView() {
         with(rvGames) {
             verticalRecyclerviewInitializer()
-            adapter = pagingAdapter.withLoadStateFooter(
-                footer = FooterLoadingAdapter { pagingAdapter.retry() }
-            )
+            adapter = pagingAdapter
             pagingAdapter.addLoadStateListener { loadState ->
 
                 // Only show the list if refresh succeeds.

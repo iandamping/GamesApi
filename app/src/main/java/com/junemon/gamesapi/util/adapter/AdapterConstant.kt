@@ -18,7 +18,7 @@ object AdapterConstant {
 
     val listGameAdapterCallback = object : DiffUtil.ItemCallback<Game>() {
         override fun areItemsTheSame(oldItem: Game, newItem: Game): Boolean {
-            return oldItem.gameId == newItem.gameId
+            return oldItem.gameGenre == newItem.gameGenre
         }
 
         override fun areContentsTheSame(oldItem: Game, newItem: Game): Boolean {

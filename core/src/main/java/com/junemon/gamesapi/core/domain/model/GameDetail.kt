@@ -8,9 +8,9 @@ import com.junemon.gamesapi.core.data.datasource.remote.response.GenresItemRespo
  * Indonesia.
  */
 data class GameDetail(
-    val backgroundImage: String,
+    val backgroundImage: String?,
     val description: String,
-    val genres: List<GenresItemResponse>?,
+    val genres: List<GenresItem>?,
     val rating: Double,
     val name: String
 )

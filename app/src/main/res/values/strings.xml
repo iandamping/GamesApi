@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">GamesApi</string>
-    <string name="title_developers">Developers</string>
+    <string name="search_games">Search Games</string>
+    <string name="games_not_found">Games not found</string>
+    <string name="image_description">Games api image</string>
+    <string name="all_games">All Games</string>
+    <string name="see_more_games">See More Games</string>
+    <string name="home">Home</string>
+    <string name="introduction">Introduction</string>
 </resources>

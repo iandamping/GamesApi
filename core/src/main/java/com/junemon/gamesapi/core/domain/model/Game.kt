@@ -9,5 +9,5 @@ data class Game(
     val gameName: String,
     val gameId: Int,
     val gameGenre: String?,
-    val gameImage: String
+    val gameImage: String?
 )

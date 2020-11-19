@@ -96,7 +96,7 @@ class HomeFragment : BaseFragment(), HomeSliderAdapter.HomeSliderAdapterListener
                     if (it.cache!=null){
                         homeAdapter.run {
                             submitList(it.cache)
-                            // Force a redraw in case the time zone has changed
+                            // Force a redraw
                             this.notifyDataSetChanged()
                         }
                     }
@@ -104,7 +104,7 @@ class HomeFragment : BaseFragment(), HomeSliderAdapter.HomeSliderAdapterListener
                 is ConsumeCacheResult.ConsumeData -> {
                     homeAdapter.run {
                         submitList(it.data)
-                        // Force a redraw in case the time zone has changed
+                        // Force a redraw
                         this.notifyDataSetChanged()
                     }
                 }
