@@ -3,7 +3,7 @@ package com.junemon.gamesapi.core.data.datasource.remote
 import androidx.paging.PagingSource
 import com.junemon.gamesapi.core.data.datasource.remote.network.ApiInterface
 import com.junemon.gamesapi.core.domain.model.Results
-import com.junemon.gamesapi.core.domain.model.GameData
+import com.junemon.gamesapi.core.domain.model.GameRemoteData
 import retrofit2.HttpException
 import retrofit2.Response
 import java.io.IOException
@@ -18,9 +18,9 @@ private const val GAMEAPI_STARTING_PAGE_INDEX = 1
 
 class GamePaginationRemoteDataSource (
     private val api: ApiInterface
-) : PagingSource<Int, GameData>() {
+) : PagingSource<Int, GameRemoteData>() {
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, GameData> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, GameRemoteData> {
         val position = params.key ?: GAMEAPI_STARTING_PAGE_INDEX
         return try {
             when (val response = oneShotCalls { api.getPaginationListGames(position) }) {

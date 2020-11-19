@@ -13,7 +13,7 @@ import com.junemon.gamesapi.core.domain.model.ConsumeCacheResult
 import com.junemon.gamesapi.core.domain.model.ConsumeResult
 import com.junemon.gamesapi.core.domain.model.DataHelper
 import com.junemon.gamesapi.core.domain.model.GenericPair
-import com.junemon.gamesapi.core.domain.model.GameData
+import com.junemon.gamesapi.core.domain.model.GameRemoteData
 import com.junemon.gamesapi.core.domain.model.GameDetail
 import com.junemon.gamesapi.core.domain.model.GameGenre
 import com.junemon.gamesapi.core.domain.model.GameSearch
@@ -110,7 +110,7 @@ class GameRepositoryImpl (
     }.onStart { emit(ConsumeResult.Loading) }.onCompletion { emit(ConsumeResult.Complete) }
         .flowOn(defaultDispatcher).conflate()
 
-    override fun getPagingListGames(): Flow<PagingData<GameData>> {
+    override fun getPagingListGames(): Flow<PagingData<GameRemoteData>> {
         return Pager(
             config = PagingConfig(pageSize = NETWORK_PAGE_SIZE, enablePlaceholders = false),
             pagingSourceFactory = { pagingRemoteDataSource }

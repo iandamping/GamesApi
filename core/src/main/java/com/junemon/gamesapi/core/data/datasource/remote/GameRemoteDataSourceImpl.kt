@@ -4,7 +4,7 @@ import com.junemon.gamesapi.core.data.datasource.remote.network.ApiInterface
 import com.junemon.gamesapi.core.data.datasource.remote.network.BaseSources
 import com.junemon.gamesapi.core.domain.model.CachedDataHelper
 import com.junemon.gamesapi.core.domain.model.DataHelper
-import com.junemon.gamesapi.core.domain.model.GameData
+import com.junemon.gamesapi.core.domain.model.GameRemoteData
 import com.junemon.gamesapi.core.domain.model.GameDetail
 import com.junemon.gamesapi.core.domain.model.GameGenre
 import com.junemon.gamesapi.core.domain.model.GameSearch
@@ -28,7 +28,7 @@ class GameRemoteDataSourceImpl(
     private val defaultDispatcher: CoroutineDispatcher
 ) : BaseSources(), GameRemoteDataSource {
 
-    override fun getFlowListGames(): Flow<CachedDataHelper<List<GameData>>> {
+    override fun getFlowListGames(): Flow<CachedDataHelper<List<GameRemoteData>>> {
         return flow {
             when (val responses = oneShotCalls { api.getListGames() }) {
                 is Results.Success -> {
@@ -44,7 +44,7 @@ class GameRemoteDataSourceImpl(
             .onCompletion { emit(CachedDataHelper.Complete) }
     }
 
-    override suspend fun getListGames(): DataHelper<List<GameData>> =
+    override suspend fun getListGames(): DataHelper<List<GameRemoteData>> =
         withContext(defaultDispatcher) {
             when (val responses = oneShotCalls { api.getListGames() }) {
                 is Results.Success -> {

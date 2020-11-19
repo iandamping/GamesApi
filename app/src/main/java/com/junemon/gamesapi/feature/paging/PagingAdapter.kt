@@ -6,7 +6,7 @@ import androidx.paging.PagingDataAdapter
 import com.junemon.gamesapi.databinding.ItemPagingBinding
 import com.junemon.gamesapi.util.adapter.AdapterConstant.listGamePaginationAdapterCallback
 import com.junemon.gamesapi.util.imageHelper.LoadImageHelper
-import com.junemon.gamesapi.core.domain.model.GameData
+import com.junemon.gamesapi.core.domain.model.GameRemoteData
 
 /**
  * Created by Ian Damping on 20,October,2020
@@ -17,10 +17,10 @@ class PagingAdapter(
     private val listener: PagingAdapterListener,
     private val loadImageHelper: LoadImageHelper
 ) :
-    PagingDataAdapter<GameData, PagingViewHolder>(listGamePaginationAdapterCallback) {
+    PagingDataAdapter<GameRemoteData, PagingViewHolder>(listGamePaginationAdapterCallback) {
 
     interface PagingAdapterListener {
-        fun onClicked(data: GameData)
+        fun onClicked(data: GameRemoteData)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PagingViewHolder {

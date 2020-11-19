@@ -2,7 +2,7 @@ package com.junemon.gamesapi.core.data.datasource.cache
 
 import com.junemon.gamesapi.core.data.datasource.cache.entity.GameEntity
 import com.junemon.gamesapi.core.data.datasource.cache.room.GameDao
-import com.junemon.gamesapi.core.domain.model.GameData
+import com.junemon.gamesapi.core.domain.model.GameRemoteData
 import com.junemon.gamesapi.core.util.mapRemoteDataToCache
 import kotlinx.coroutines.flow.Flow
 
@@ -15,7 +15,7 @@ class GameCacheDataSourceImpl(
     private val gameDaoHelper: GameDao
 ) : GameCacheDataSource {
 
-    override suspend fun saveGames(data: List<GameData>) {
+    override suspend fun saveGames(data: List<GameRemoteData>) {
         gameDaoHelper.insertAllGame(*data.map {
             it.mapRemoteDataToCache()
         }.toTypedArray())

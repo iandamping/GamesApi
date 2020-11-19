@@ -2,7 +2,7 @@ package com.junemon.gamesapi.util.adapter
 
 import androidx.recyclerview.widget.DiffUtil
 import com.junemon.gamesapi.core.data.datasource.cache.entity.GameEntity
-import com.junemon.gamesapi.core.domain.model.GameData
+import com.junemon.gamesapi.core.domain.model.GameRemoteData
 import com.junemon.gamesapi.core.domain.model.GameSearch
 import com.junemon.gamesapi.core.domain.model.GamesItem
 
@@ -43,11 +43,11 @@ object AdapterConstant {
         }
     }
 
-    val listGamePaginationAdapterCallback = object : DiffUtil.ItemCallback<GameData>() {
-        override fun areItemsTheSame(oldItem: GameData, newItem: GameData): Boolean =
+    val listGamePaginationAdapterCallback = object : DiffUtil.ItemCallback<GameRemoteData>() {
+        override fun areItemsTheSame(oldItem: GameRemoteData, newItem: GameRemoteData): Boolean =
             oldItem.id == newItem.id
 
-        override fun areContentsTheSame(oldItem: GameData, newItem: GameData): Boolean =
+        override fun areContentsTheSame(oldItem: GameRemoteData, newItem: GameRemoteData): Boolean =
             oldItem == newItem
     }
 }

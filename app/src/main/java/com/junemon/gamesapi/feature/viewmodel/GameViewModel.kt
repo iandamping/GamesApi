@@ -4,9 +4,8 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.junemon.gamesapi.core.domain.model.GameData
+import com.junemon.gamesapi.core.domain.model.GameRemoteData
 import com.junemon.gamesapi.core.domain.usecase.GameUseCase
-import com.junemon.gamesapi.core.domain.usecase.GameUseCaseImpl
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -26,6 +25,6 @@ class GameViewModel(
 
     fun getSearchGames(query: String) = repo.getSearchGames(query).asLiveData()
 
-    fun getPagingListGames(): Flow<PagingData<GameData>> =
+    fun getPagingListGames(): Flow<PagingData<GameRemoteData>> =
         repo.getPagingListGames().cachedIn(viewModelScope)
 }

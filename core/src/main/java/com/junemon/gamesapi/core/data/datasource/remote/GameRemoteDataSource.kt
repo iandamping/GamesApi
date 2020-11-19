@@ -1,6 +1,6 @@
 package com.junemon.gamesapi.core.data.datasource.remote
 
-import com.junemon.gamesapi.core.domain.model.GameData
+import com.junemon.gamesapi.core.domain.model.GameRemoteData
 import com.junemon.gamesapi.core.domain.model.GameDetail
 import com.junemon.gamesapi.core.domain.model.GameGenre
 import com.junemon.gamesapi.core.domain.model.GameSearch
@@ -9,9 +9,9 @@ import com.junemon.gamesapi.core.domain.model.DataHelper
 import kotlinx.coroutines.flow.Flow
 
 interface GameRemoteDataSource {
-    fun getFlowListGames(): Flow<CachedDataHelper<List<GameData>>>
+    fun getFlowListGames(): Flow<CachedDataHelper<List<GameRemoteData>>>
 
-    suspend fun getListGames(): DataHelper<List<GameData>>
+    suspend fun getListGames(): DataHelper<List<GameRemoteData>>
 
     suspend fun getListGamesByGenres(): DataHelper<List<GameGenre>>
 

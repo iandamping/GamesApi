@@ -11,9 +11,9 @@ import com.junemon.gamesapi.base.BaseFragment
 import com.junemon.gamesapi.databinding.FragmentPagingBinding
 import com.junemon.gamesapi.feature.viewmodel.GameViewModel
 import com.junemon.gamesapi.util.imageHelper.LoadImageHelper
-import com.junemon.gamesapi.core.domain.model.GameData
-import com.junemon.gamesapi.feature.footer.FooterLoadingAdapter
+import com.junemon.gamesapi.core.domain.model.GameRemoteData
 import com.junemon.gamesapi.core.util.verticalRecyclerviewInitializer
+import com.junemon.gamesapi.feature.footer.FooterLoadingAdapter
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
@@ -55,7 +55,7 @@ class PagingFragment : BaseFragment(), PagingAdapter.PagingAdapterListener {
         getPaging()
     }
 
-    override fun onClicked(data: GameData) {
+    override fun onClicked(data: GameRemoteData) {
         val directions = PagingFragmentDirections.actionPagingFragmentToDetailFragment(data.id)
         navigate(directions)
     }
@@ -69,7 +69,7 @@ class PagingFragment : BaseFragment(), PagingAdapter.PagingAdapterListener {
     }
 
     private fun FragmentPagingBinding.initView() {
-        rvGames.apply {
+        with(rvGames) {
             verticalRecyclerviewInitializer()
             adapter = pagingAdapter.withLoadStateFooter(
                 footer = FooterLoadingAdapter { pagingAdapter.retry() }
@@ -77,7 +77,7 @@ class PagingFragment : BaseFragment(), PagingAdapter.PagingAdapterListener {
             pagingAdapter.addLoadStateListener { loadState ->
 
                 // Only show the list if refresh succeeds.
-                rvGames.isVisible = loadState.source.refresh is LoadState.NotLoading
+                isVisible = loadState.source.refresh is LoadState.NotLoading
                 // Show loading spinner during initial load or refresh.
                 shimmerSlider.isVisible = loadState.source.refresh is LoadState.Loading
             }

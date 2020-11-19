@@ -1,7 +1,7 @@
 package com.junemon.gamesapi.core.domain.usecase
 
 import androidx.paging.PagingData
-import com.junemon.gamesapi.core.domain.model.GameData
+import com.junemon.gamesapi.core.domain.model.GameRemoteData
 import com.junemon.gamesapi.core.domain.repository.GameRepository
 import kotlinx.coroutines.flow.Flow
 
@@ -20,5 +20,5 @@ class GameUseCaseImpl(private val repository: GameRepository) : GameUseCase {
 
     override fun getDetailGames(gameId: Int) = repository.getDetailGames(gameId)
 
-    override fun getPagingListGames(): Flow<PagingData<GameData>> = repository.getPagingListGames()
+    override fun getPagingListGames(): Flow<PagingData<GameRemoteData>> = repository.getPagingListGames()
 }
