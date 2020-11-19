@@ -28,7 +28,7 @@ private fun ScopeDSL.bindRemoteDataSource() =
 private fun ScopeDSL.bindCacheDataSource() =
     scoped<GameCacheDataSource> {
         GameCacheDataSourceImpl(
-            get()
+            get(),get()
         )
     }
 

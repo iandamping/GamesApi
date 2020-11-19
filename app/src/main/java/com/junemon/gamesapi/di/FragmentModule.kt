@@ -4,6 +4,7 @@ import com.junemon.gamesapi.feature.detail.DetailFragment
 import com.junemon.gamesapi.feature.home.HomeFragment
 import com.junemon.gamesapi.feature.paging.PagingFragment
 import com.junemon.gamesapi.feature.search.SearchFragment
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.koin.dsl.module
 
 /**
@@ -11,6 +12,7 @@ import org.koin.dsl.module
  * Github https://github.com/iandamping
  * Indonesia.
  */
+@ExperimentalCoroutinesApi
 val fragmentModule = module {
 
     scope<HomeFragment> {

@@ -21,6 +21,7 @@ val databaseModule = module {
             .build()
     }
     single { get<GameDatabase>().gameDao() }
+    single { get<GameDatabase>().gameFavoriteDao() }
 }
 
 val sharedPreferenceModule = module {

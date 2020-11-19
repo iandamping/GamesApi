@@ -1,8 +1,9 @@
 package com.junemon.gamesapi.core.domain.usecase
 
 import androidx.paging.PagingData
-import com.junemon.gamesapi.core.data.datasource.remote.response.GameResponse
 import com.junemon.gamesapi.core.domain.model.Game
+import com.junemon.gamesapi.core.domain.model.GameDetail
+import com.junemon.gamesapi.core.domain.model.GameFavorite
 import com.junemon.gamesapi.core.domain.repository.GameRepository
 import kotlinx.coroutines.flow.Flow
 
@@ -22,4 +23,10 @@ class GameUseCaseImpl(private val repository: GameRepository) : GameUseCase {
     override fun getDetailGames(gameId: Int) = repository.getDetailGames(gameId)
 
     override fun getPagingListGames(): Flow<PagingData<Game>> = repository.getPagingListGames()
+
+    override suspend fun saveFavoriteGames(data: GameDetail) = repository.saveFavoriteGames(data)
+
+    override fun getFavoriteGames():Flow<List<GameFavorite>> = repository.getFavoriteGames()
+
+    override suspend fun clearFavoriteGameById(id: Int) = repository.clearFavoriteGameById(id)
 }

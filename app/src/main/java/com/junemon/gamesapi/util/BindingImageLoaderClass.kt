@@ -1,5 +1,6 @@
 package com.junemon.gamesapi.util
 
+import android.widget.ImageButton
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
@@ -25,5 +26,13 @@ object BindingImageLoaderClass {
                 .apply(requestOptions)
                 .error(R.drawable.empty_image).thumbnail(0.25f).into(view)
         }
+    }
+
+    @JvmStatic
+    @BindingAdapter("initBookmark")
+    fun initBookmarkHelper(view: ImageButton, state: Boolean) {
+        if (state) {
+            view.setImageResource(R.drawable.ic_bookmarked)
+        } else view.setImageResource(R.drawable.ic_unbookmark)
     }
 }

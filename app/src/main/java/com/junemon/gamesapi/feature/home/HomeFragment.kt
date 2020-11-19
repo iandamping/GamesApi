@@ -97,7 +97,7 @@ class HomeFragment : BaseFragment(), HomeSliderAdapter.HomeSliderAdapterListener
                         homeAdapter.run {
                             submitList(it.cache)
                             // Force a redraw
-                            this.notifyDataSetChanged()
+                            // this.notifyDataSetChanged()
                         }
                     }
                 }
@@ -105,7 +105,7 @@ class HomeFragment : BaseFragment(), HomeSliderAdapter.HomeSliderAdapterListener
                     homeAdapter.run {
                         submitList(it.data)
                         // Force a redraw
-                        this.notifyDataSetChanged()
+                        // this.notifyDataSetChanged()
                     }
                 }
                 is ConsumeCacheResult.ErrorHappen -> {

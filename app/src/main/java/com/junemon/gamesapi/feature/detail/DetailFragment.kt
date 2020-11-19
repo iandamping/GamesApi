@@ -37,6 +37,10 @@ class DetailFragment : BaseFragment() {
 
     private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!
+
+    private var idForDeleteItem: Int? = null
+    private var isFavorite: Boolean = false
+    private var gameToSave:GameDetail? = null
     private val gameId: Int by lazy {
         args.gameId
     }
@@ -66,6 +70,13 @@ class DetailFragment : BaseFragment() {
         binding.ivBack.setOnClickListener {
             navigateUp()
         }
+        binding.btnBookmark.setOnClickListener {
+            if (isFavorite) {
+                if (idForDeleteItem != null) gameVm.clearFavoriteGameById(idForDeleteItem)
+            } else {
+                gameVm.saveFavoriteGames(gameToSave)
+            }
+        }
     }
 
     override fun destroyView() {
@@ -84,7 +95,9 @@ class DetailFragment : BaseFragment() {
                     gameVm.setupProgressBar(false)
                 }
                 is ConsumeResult.ConsumeSingleData -> {
+                    gameToSave = it.data
                     initData(it.data)
+                    observeBookmarkState(it.data.name)
                 }
                 is ConsumeResult.ErrorHappen -> {
                     onFailGetValue(it.exception)
@@ -103,15 +116,30 @@ class DetailFragment : BaseFragment() {
         })
     }
 
+    private fun observeBookmarkState(gameName:String){
+        gameVm.getFavoriteGames().observe(viewLifecycleOwner){favData ->
+            favData.firstOrNull { it.name == gameName }.let { singleData ->
+              if (singleData!=null){
+                  isFavorite = singleData.name == gameName
+                  idForDeleteItem = singleData.gameFavoriteId
+              } else{
+                  isFavorite = false
+                  idForDeleteItem = null
+              }
+                binding.bookmarkedState = isFavorite
+            }
+        }
+    }
+
     private fun initData(data: GameDetail) {
-        binding.run {
+        with(binding) {
             loadImageHelper.loadWithGlide(ivDetailImages,data.backgroundImage)
             tvGameDetailName.text = data.name
             tvGameDetailRating.text = data.rating.toString()
             chipDetail.chipBackgroundColor =
                 ColorStateList.valueOf(Color.parseColor(generateRandomHexColor()))
             if (!data.genres.isNullOrEmpty()){
-                chipDetail.text = data.genres?.get(0)?.name
+                chipDetail.text = data.genres
             } else{
                 chipDetail.visibility = View.GONE
             }
