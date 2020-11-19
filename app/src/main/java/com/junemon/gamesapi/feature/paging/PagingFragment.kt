@@ -11,7 +11,8 @@ import com.junemon.gamesapi.base.BaseFragment
 import com.junemon.gamesapi.databinding.FragmentPagingBinding
 import com.junemon.gamesapi.feature.viewmodel.GameViewModel
 import com.junemon.gamesapi.util.imageHelper.LoadImageHelper
-import com.junemon.gamesapi.core.domain.model.GameRemoteData
+import com.junemon.gamesapi.core.data.datasource.remote.response.GameResponse
+import com.junemon.gamesapi.core.domain.model.Game
 import com.junemon.gamesapi.core.util.verticalRecyclerviewInitializer
 import com.junemon.gamesapi.feature.footer.FooterLoadingAdapter
 import kotlinx.coroutines.flow.collectLatest
@@ -55,8 +56,8 @@ class PagingFragment : BaseFragment(), PagingAdapter.PagingAdapterListener {
         getPaging()
     }
 
-    override fun onClicked(data: GameRemoteData) {
-        val directions = PagingFragmentDirections.actionPagingFragmentToDetailFragment(data.id)
+    override fun onClicked(data: Game) {
+        val directions = PagingFragmentDirections.actionPagingFragmentToDetailFragment(data.gameId)
         navigate(directions)
     }
 

@@ -13,6 +13,7 @@ import com.junemon.gamesapi.R
 import com.junemon.gamesapi.databinding.FragmentGenreBinding
 import com.junemon.gamesapi.feature.home.HomeFragmentDirections
 import com.junemon.gamesapi.feature.viewmodel.SharedViewModel
+import com.junemon.gamesapi.core.data.datasource.remote.response.GamesItemResponse
 import com.junemon.gamesapi.core.domain.model.GamesItem
 import com.junemon.gamesapi.core.util.gridRecyclerviewInitializer
 

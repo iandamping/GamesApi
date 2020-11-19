@@ -5,13 +5,9 @@ package com.junemon.gamesapi.core.domain.model
  * Github https://github.com/iandamping
  * Indonesia.
  */
-
-data class GamesItem(
-    val name: String,
-    val id: Int = 0
-)
-
-data class GameGenre(
-    val name: String,
-    val games: List<GamesItem>?
+data class Game(
+    val gameName: String,
+    val gameId: Int,
+    val gameGenre: String?,
+    val gameImage: String
 )

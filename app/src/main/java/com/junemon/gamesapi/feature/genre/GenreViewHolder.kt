@@ -5,8 +5,8 @@ import android.graphics.Color
 import androidx.recyclerview.widget.RecyclerView
 import com.junemon.gamesapi.databinding.ItemGenreBinding
 import com.junemon.gamesapi.core.util.generateRandomHexColor
+import com.junemon.gamesapi.core.data.datasource.remote.response.GamesItemResponse
 import com.junemon.gamesapi.core.domain.model.GamesItem
-
 
 /**
  * Created by Ian Damping on 10,September,2020

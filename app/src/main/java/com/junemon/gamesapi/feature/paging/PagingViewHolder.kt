@@ -3,7 +3,8 @@ package com.junemon.gamesapi.feature.paging
 import androidx.recyclerview.widget.RecyclerView
 import com.junemon.gamesapi.databinding.ItemPagingBinding
 import com.junemon.gamesapi.util.imageHelper.LoadImageHelper
-import com.junemon.gamesapi.core.domain.model.GameRemoteData
+import com.junemon.gamesapi.core.data.datasource.remote.response.GameResponse
+import com.junemon.gamesapi.core.domain.model.Game
 
 /**
  * Created by Ian Damping on 20,October,2020
@@ -15,11 +16,11 @@ class PagingViewHolder(
     private val loadImageHelper: LoadImageHelper
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(data: GameRemoteData) {
+    fun bind(data: Game) {
         binding.run {
-            loadImageHelper.loadWithGlide(ivItemGameImage, data.backgroundImage)
-            tvItemGameName.text = data.name
-            tvItemGameGenre.text = data.genres?.get(0)?.name
+            loadImageHelper.loadWithGlide(ivItemGameImage, data.gameImage)
+            tvItemGameName.text = data.gameName
+            tvItemGameGenre.text = data.gameGenre
         }
     }
 }

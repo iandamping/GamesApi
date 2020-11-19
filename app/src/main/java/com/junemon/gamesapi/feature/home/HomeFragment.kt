@@ -20,6 +20,7 @@ import com.junemon.gamesapi.util.imageHelper.LoadImageHelper
 import com.junemon.gamesapi.core.util.loadingVisibility
 import com.junemon.gamesapi.core.domain.model.ConsumeCacheResult
 import com.junemon.gamesapi.core.domain.model.ConsumeResult
+import com.junemon.gamesapi.core.domain.model.Game
 import org.koin.android.ext.android.inject
 import org.koin.androidx.scope.lifecycleScope
 
@@ -146,7 +147,7 @@ class HomeFragment : BaseFragment(), HomeSliderAdapter.HomeSliderAdapterListener
         }
     }
 
-    override fun onClicked(data: GameEntity) {
+    override fun onClicked(data: Game) {
         setupExitEnterAxisTransition()
         val directions = HomeFragmentDirections.actionHomeFragmentToDetailFragment(data.gameId)
         navigate(directions)

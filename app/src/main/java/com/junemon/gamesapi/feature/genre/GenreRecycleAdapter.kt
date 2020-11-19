@@ -7,7 +7,6 @@ import com.junemon.gamesapi.databinding.ItemGenreBinding
 import com.junemon.gamesapi.util.adapter.AdapterConstant
 import com.junemon.gamesapi.core.domain.model.GamesItem
 
-
 /**
  * Created by Ian Damping on 10,September,2020
  * Github https://github.com/iandamping

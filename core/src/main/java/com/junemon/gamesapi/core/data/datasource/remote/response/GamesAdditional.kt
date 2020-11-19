@@ -1,4 +1,4 @@
-package com.junemon.gamesapi.core.domain.model
+package com.junemon.gamesapi.core.data.datasource.remote.response
 
 import com.google.gson.annotations.SerializedName
 
@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName
  * Indonesia.
  */
 
-data class GenresItem(
+data class GenresItemResponse(
     @SerializedName("name")
     val name: String = ""
 )

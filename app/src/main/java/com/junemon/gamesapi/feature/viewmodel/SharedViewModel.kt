@@ -2,8 +2,8 @@ package com.junemon.gamesapi.feature.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.junemon.gamesapi.core.data.datasource.remote.response.GameGenreResponse
 import com.junemon.gamesapi.core.domain.model.GameGenre
-
 
 /**
  * Created by Ian Damping on 10,September,2020

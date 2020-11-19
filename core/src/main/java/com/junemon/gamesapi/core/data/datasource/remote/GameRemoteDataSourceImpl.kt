@@ -4,10 +4,10 @@ import com.junemon.gamesapi.core.data.datasource.remote.network.ApiInterface
 import com.junemon.gamesapi.core.data.datasource.remote.network.BaseSources
 import com.junemon.gamesapi.core.domain.model.CachedDataHelper
 import com.junemon.gamesapi.core.domain.model.DataHelper
-import com.junemon.gamesapi.core.domain.model.GameRemoteData
-import com.junemon.gamesapi.core.domain.model.GameDetail
-import com.junemon.gamesapi.core.domain.model.GameGenre
-import com.junemon.gamesapi.core.domain.model.GameSearch
+import com.junemon.gamesapi.core.data.datasource.remote.response.GameResponse
+import com.junemon.gamesapi.core.data.datasource.remote.response.GameDetailResponse
+import com.junemon.gamesapi.core.data.datasource.remote.response.GameGenreResponse
+import com.junemon.gamesapi.core.data.datasource.remote.response.GameSearchResponse
 import com.junemon.gamesapi.core.domain.model.Results
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
@@ -28,7 +28,7 @@ class GameRemoteDataSourceImpl(
     private val defaultDispatcher: CoroutineDispatcher
 ) : BaseSources(), GameRemoteDataSource {
 
-    override fun getFlowListGames(): Flow<CachedDataHelper<List<GameRemoteData>>> {
+    override fun getFlowListGames(): Flow<CachedDataHelper<List<GameResponse>>> {
         return flow {
             when (val responses = oneShotCalls { api.getListGames() }) {
                 is Results.Success -> {
@@ -44,7 +44,7 @@ class GameRemoteDataSourceImpl(
             .onCompletion { emit(CachedDataHelper.Complete) }
     }
 
-    override suspend fun getListGames(): DataHelper<List<GameRemoteData>> =
+    override suspend fun getListGames(): DataHelper<List<GameResponse>> =
         withContext(defaultDispatcher) {
             when (val responses = oneShotCalls { api.getListGames() }) {
                 is Results.Success -> {
@@ -56,7 +56,7 @@ class GameRemoteDataSourceImpl(
             }
         }
 
-    override suspend fun getListGamesByGenres(): DataHelper<List<GameGenre>> =
+    override suspend fun getListGamesByGenres(): DataHelper<List<GameGenreResponse>> =
         withContext(defaultDispatcher) {
             when (val responses = oneShotCalls { api.getListGamesByGenres() }) {
                 is Results.Success -> {
@@ -68,7 +68,7 @@ class GameRemoteDataSourceImpl(
             }
         }
 
-    override suspend fun getDetailGames(gameId: Int): DataHelper<GameDetail> =
+    override suspend fun getDetailGames(gameId: Int): DataHelper<GameDetailResponse> =
         withContext(defaultDispatcher) {
             when (val responses = oneShotCalls { api.getDetailGames(gameId) }) {
                 is Results.Success -> {
@@ -80,7 +80,7 @@ class GameRemoteDataSourceImpl(
             }
         }
 
-    override suspend fun getSearchGames(query: String): DataHelper<List<GameSearch>> =
+    override suspend fun getSearchGames(query: String): DataHelper<List<GameSearchResponse>> =
         withContext(defaultDispatcher) {
             when (val responses = oneShotCalls { api.getSearchGames(query) }) {
                 is Results.Success -> {

@@ -2,7 +2,10 @@ package com.junemon.gamesapi.util.adapter
 
 import androidx.recyclerview.widget.DiffUtil
 import com.junemon.gamesapi.core.data.datasource.cache.entity.GameEntity
-import com.junemon.gamesapi.core.domain.model.GameRemoteData
+import com.junemon.gamesapi.core.data.datasource.remote.response.GameResponse
+import com.junemon.gamesapi.core.data.datasource.remote.response.GameSearchResponse
+import com.junemon.gamesapi.core.data.datasource.remote.response.GamesItemResponse
+import com.junemon.gamesapi.core.domain.model.Game
 import com.junemon.gamesapi.core.domain.model.GameSearch
 import com.junemon.gamesapi.core.domain.model.GamesItem
 
@@ -13,12 +16,12 @@ import com.junemon.gamesapi.core.domain.model.GamesItem
  */
 object AdapterConstant {
 
-    val listGameAdapterCallback = object : DiffUtil.ItemCallback<GameEntity>() {
-        override fun areItemsTheSame(oldItem: GameEntity, newItem: GameEntity): Boolean {
+    val listGameAdapterCallback = object : DiffUtil.ItemCallback<Game>() {
+        override fun areItemsTheSame(oldItem: Game, newItem: Game): Boolean {
             return oldItem.gameId == newItem.gameId
         }
 
-        override fun areContentsTheSame(oldItem: GameEntity, newItem: GameEntity): Boolean {
+        override fun areContentsTheSame(oldItem: Game, newItem: Game): Boolean {
             return oldItem == newItem
         }
     }
@@ -43,11 +46,11 @@ object AdapterConstant {
         }
     }
 
-    val listGamePaginationAdapterCallback = object : DiffUtil.ItemCallback<GameRemoteData>() {
-        override fun areItemsTheSame(oldItem: GameRemoteData, newItem: GameRemoteData): Boolean =
-            oldItem.id == newItem.id
+    val listGamePaginationAdapterCallback = object : DiffUtil.ItemCallback<Game>() {
+        override fun areItemsTheSame(oldItem: Game, newItem: Game): Boolean =
+            oldItem.gameId == newItem.gameId
 
-        override fun areContentsTheSame(oldItem: GameRemoteData, newItem: GameRemoteData): Boolean =
+        override fun areContentsTheSame(oldItem: Game, newItem: Game): Boolean =
             oldItem == newItem
     }
 }

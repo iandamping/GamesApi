@@ -2,6 +2,7 @@ package com.junemon.gamesapi.feature.home
 
 import androidx.recyclerview.widget.RecyclerView
 import com.junemon.gamesapi.core.data.datasource.cache.entity.GameEntity
+import com.junemon.gamesapi.core.domain.model.Game
 import com.junemon.gamesapi.databinding.ItemSliderBinding
 import com.junemon.gamesapi.util.imageHelper.LoadImageHelper
 
@@ -15,7 +16,7 @@ class HomeSliderViewHolder(
     private val loadImageHelper: LoadImageHelper
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(data: GameEntity) {
+    fun bind(data: Game) {
         binding.run {
             loadImageHelper.loadWithGlide(ivItemGameImage,data.gameImage)
             tvItemGameName.text = data.gameName

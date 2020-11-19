@@ -6,7 +6,7 @@
     <data>
         <variable
             name="itemData"
-            type="com.junemon.gamesapi.core.domain.model.GameRemoteData" />
+            type="com.junemon.gamesapi.core.data.datasource.remote.response.GameResponse" />
     </data>
 
     <LinearLayout

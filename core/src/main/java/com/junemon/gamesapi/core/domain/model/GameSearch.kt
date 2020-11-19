@@ -1,16 +1,12 @@
 package com.junemon.gamesapi.core.domain.model
 
-
-import com.google.gson.annotations.SerializedName
-
-
+/**
+ * Created by Ian Damping on 19,November,2020
+ * Github https://github.com/iandamping
+ * Indonesia.
+ */
 data class GameSearch(
-    @SerializedName("id")
-    val id: Int = 0,
-    @SerializedName("name")
-    val name: String = "",
-    @SerializedName("background_image")
-    val backgroundImage: String = ""
+    val id: Int,
+    val name: String,
+    val backgroundImage: String
 )
-
-

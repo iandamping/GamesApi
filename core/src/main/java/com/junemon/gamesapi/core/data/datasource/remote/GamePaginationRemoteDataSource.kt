@@ -2,8 +2,9 @@ package com.junemon.gamesapi.core.data.datasource.remote
 
 import androidx.paging.PagingSource
 import com.junemon.gamesapi.core.data.datasource.remote.network.ApiInterface
+import com.junemon.gamesapi.core.domain.model.Game
 import com.junemon.gamesapi.core.domain.model.Results
-import com.junemon.gamesapi.core.domain.model.GameRemoteData
+import com.junemon.gamesapi.core.util.mapRemoteGameDataToDomain
 import retrofit2.HttpException
 import retrofit2.Response
 import java.io.IOException
@@ -16,17 +17,17 @@ import java.net.SocketTimeoutException
  */
 private const val GAMEAPI_STARTING_PAGE_INDEX = 1
 
-class GamePaginationRemoteDataSource (
+class GamePaginationRemoteDataSource(
     private val api: ApiInterface
-) : PagingSource<Int, GameRemoteData>() {
+) : PagingSource<Int, Game>() {
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, GameRemoteData> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Game> {
         val position = params.key ?: GAMEAPI_STARTING_PAGE_INDEX
         return try {
             when (val response = oneShotCalls { api.getPaginationListGames(position) }) {
                 is Results.Success -> {
                     LoadResult.Page(
-                        data = response.data.data,
+                        data = response.data.data.mapRemoteGameDataToDomain(),
                         prevKey = if (position == GAMEAPI_STARTING_PAGE_INDEX) null else position - 1,
                         nextKey = if (response.data.data.isEmpty()) null else position + 1
                     )
@@ -35,14 +36,12 @@ class GamePaginationRemoteDataSource (
                     LoadResult.Error(response.exception)
                 }
             }
-
         } catch (exception: IOException) {
             LoadResult.Error(exception)
         } catch (exception: HttpException) {
             LoadResult.Error(exception)
         }
     }
-
 
     private inline fun <T> oneShotCalls(call: () -> Response<T>): Results<T> {
         try {
@@ -51,19 +50,19 @@ class GamePaginationRemoteDataSource (
                 val body = response.body()
                 if (body != null) {
                     Results.Success(body)
-                }else{
+                } else {
                     Results.Error(Exception("body is null"))
                 }
             } else return Results.Error(Exception("response not success"))
         } catch (e: Exception) {
-            return when(e){
-                is IOException ->{
+            return when (e) {
+                is IOException -> {
                     Results.Error(e)
                 }
-                is SocketTimeoutException ->{
+                is SocketTimeoutException -> {
                     Results.Error(e)
                 }
-                else ->{
+                else -> {
                     Results.Error(e)
                 }
             }

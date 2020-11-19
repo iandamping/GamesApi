@@ -8,15 +8,14 @@ import android.widget.SearchView
 import com.google.android.material.transition.MaterialSharedAxis
 import com.junemon.gamesapi.R
 import com.junemon.gamesapi.base.BaseFragment
-import com.junemon.gamesapi.databinding.FragmentSearchBinding
-import com.junemon.gamesapi.feature.viewmodel.GameViewModel
-import com.junemon.gamesapi.util.imageHelper.LoadImageHelper
 import com.junemon.gamesapi.core.domain.model.ConsumeResult
 import com.junemon.gamesapi.core.domain.model.GameSearch
 import com.junemon.gamesapi.core.util.gridRecyclerviewInitializer
+import com.junemon.gamesapi.databinding.FragmentSearchBinding
+import com.junemon.gamesapi.feature.viewmodel.GameViewModel
+import com.junemon.gamesapi.util.imageHelper.LoadImageHelper
 import org.koin.android.ext.android.inject
 import org.koin.androidx.scope.lifecycleScope
-
 
 /**
  * Created by Ian Damping on 10,September,2020
@@ -114,8 +113,6 @@ class SearchFragment : BaseFragment(), SearchAdapter.SearchAdapterListener {
             })
         }
     }
-
-
 
     override fun onClicked(data: GameSearch) {
         setupExitEnterAxisTransition()

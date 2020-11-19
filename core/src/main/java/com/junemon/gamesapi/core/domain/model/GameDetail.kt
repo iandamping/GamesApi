@@ -1,20 +1,16 @@
 package com.junemon.gamesapi.core.domain.model
 
-import com.google.gson.annotations.SerializedName
+import com.junemon.gamesapi.core.data.datasource.remote.response.GenresItemResponse
 
+/**
+ * Created by Ian Damping on 19,November,2020
+ * Github https://github.com/iandamping
+ * Indonesia.
+ */
 data class GameDetail(
-    @SerializedName("background_image")
-    val backgroundImage: String = "",
-    @SerializedName("description")
-    val description: String = "",
-    @SerializedName("genres")
-    val genres: List<GenresItem>?,
-    @SerializedName("rating")
-    val rating: Double = 0.0,
-    @SerializedName("name")
-    val name: String = ""
+    val backgroundImage: String,
+    val description: String,
+    val genres: List<GenresItemResponse>?,
+    val rating: Double,
+    val name: String
 )
-
-
-
-
