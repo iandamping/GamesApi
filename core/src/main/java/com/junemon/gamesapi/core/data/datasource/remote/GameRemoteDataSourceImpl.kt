@@ -2,7 +2,6 @@ package com.junemon.gamesapi.core.data.datasource.remote
 
 import com.junemon.gamesapi.core.data.datasource.remote.network.ApiInterface
 import com.junemon.gamesapi.core.data.datasource.remote.network.BaseSources
-import com.junemon.gamesapi.core.domain.model.CachedDataHelper
 import com.junemon.gamesapi.core.domain.model.DataHelper
 import com.junemon.gamesapi.core.data.datasource.remote.response.GameResponse
 import com.junemon.gamesapi.core.data.datasource.remote.response.GameDetailResponse
@@ -14,8 +13,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.conflate
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.onCompletion
-import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.withContext
 
 /**
@@ -28,27 +25,29 @@ class GameRemoteDataSourceImpl(
     private val defaultDispatcher: CoroutineDispatcher
 ) : BaseSources(), GameRemoteDataSource {
 
-    override fun getFlowListGames(): Flow<CachedDataHelper<List<GameResponse>>> {
+    override fun getFlowListGames(): Flow<DataHelper<List<GameResponse>>> {
         return flow {
             when (val responses = oneShotCalls { api.getListGames() }) {
                 is Results.Success -> {
-                    emit(CachedDataHelper.RemoteSourceValue(responses.data.data))
+                    if (responses.data.data.isNotEmpty()){
+                        emit(DataHelper.RemoteSourceValue(responses.data.data))
+                    }else emit(DataHelper.RemoteSourceEmpty)
                 }
                 is Results.Error -> {
-                    emit(CachedDataHelper.RemoteSourceError(responses.exception))
+                    emit(DataHelper.RemoteSourceError(responses.exception))
                 }
             }
-        }.flowOn(defaultDispatcher)
-            .conflate()
-            .onStart { emit(CachedDataHelper.Loading) }
-            .onCompletion { emit(CachedDataHelper.Complete) }
+        }.flowOn(defaultDispatcher).conflate()
     }
+
 
     override suspend fun getListGames(): DataHelper<List<GameResponse>> =
         withContext(defaultDispatcher) {
             when (val responses = oneShotCalls { api.getListGames() }) {
                 is Results.Success -> {
-                    DataHelper.RemoteSourceValue(responses.data.data)
+                    if (responses.data.data.isNotEmpty()){
+                        DataHelper.RemoteSourceValue(responses.data.data)
+                    }else DataHelper.RemoteSourceEmpty
                 }
                 is Results.Error -> {
                     DataHelper.RemoteSourceError(responses.exception)
@@ -60,7 +59,10 @@ class GameRemoteDataSourceImpl(
         withContext(defaultDispatcher) {
             when (val responses = oneShotCalls { api.getListGamesByGenres() }) {
                 is Results.Success -> {
-                    DataHelper.RemoteSourceValue(responses.data.data)
+                    if (responses.data.data.isNotEmpty()){
+                        DataHelper.RemoteSourceValue(responses.data.data)
+                    }else DataHelper.RemoteSourceEmpty
+
                 }
                 is Results.Error -> {
                     DataHelper.RemoteSourceError(responses.exception)
@@ -84,7 +86,9 @@ class GameRemoteDataSourceImpl(
         withContext(defaultDispatcher) {
             when (val responses = oneShotCalls { api.getSearchGames(query) }) {
                 is Results.Success -> {
-                    DataHelper.RemoteSourceValue(responses.data.data)
+                    if (responses.data.data.isNotEmpty()){
+                        DataHelper.RemoteSourceValue(responses.data.data)
+                    }else DataHelper.RemoteSourceEmpty
                 }
                 is Results.Error -> {
                     DataHelper.RemoteSourceError(responses.exception)

@@ -36,7 +36,6 @@ val repositoryModule = module {
         GameRepositoryImpl(
             remoteDataSource = get(),
             pagingRemoteDataSource = get(),
-            defaultDispatcher = get(named("default")),
             cacheDataSource = get()
         )
     }

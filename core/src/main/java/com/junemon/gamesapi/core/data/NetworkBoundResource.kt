@@ -1,8 +1,7 @@
 package com.junemon.gamesapi.core.data
 
+import com.junemon.gamesapi.core.domain.model.ConsumeResult
 import com.junemon.gamesapi.core.domain.model.DataHelper
-import com.junemon.gamesapi.core.domain.model.Resources
-
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.first
@@ -11,26 +10,24 @@ import kotlinx.coroutines.flow.map
 
 abstract class NetworkBoundResource<ResultType, RequestType> {
 
-    private var result: Flow<Resources<ResultType>> = flow {
-        emit(Resources.Loading())
+    private var result: Flow<ConsumeResult<ResultType>> = flow {
 
         val dbSource = loadFromDB().first()
 
         if (shouldFetch(dbSource)) {
-            emit(Resources.Loading())
             when (val apiResponse = createCall().first()) {
 
                 is DataHelper.RemoteSourceValue -> {
                     saveCallResult(apiResponse.data)
                     emitAll(loadFromDB().map {
-                        Resources.Success(
+                        ConsumeResult.ConsumeData(
                             it
                         )
                     })
                 }
                 is DataHelper.RemoteSourceEmpty -> {
                     emitAll(loadFromDB().map {
-                        Resources.Success(
+                        ConsumeResult.ConsumeData(
                             it
                         )
                     })
@@ -38,7 +35,7 @@ abstract class NetworkBoundResource<ResultType, RequestType> {
                 is DataHelper.RemoteSourceError -> {
                     onFetchFailed()
                     emit(
-                        Resources.Error(
+                        ConsumeResult.ErrorHappen(
                             apiResponse.exception
                         )
                     )
@@ -46,7 +43,7 @@ abstract class NetworkBoundResource<ResultType, RequestType> {
             }
         } else {
             emitAll(loadFromDB().map {
-                Resources.Success(
+                ConsumeResult.ConsumeData(
                     it
                 )
             })
@@ -63,5 +60,5 @@ abstract class NetworkBoundResource<ResultType, RequestType> {
 
     protected abstract suspend fun saveCallResult(data: RequestType)
 
-    fun asFlow(): Flow<Resources<ResultType>> = result
+    fun asFlow(): Flow<ConsumeResult<ResultType>> = result
 }

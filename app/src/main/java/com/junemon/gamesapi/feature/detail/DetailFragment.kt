@@ -94,7 +94,7 @@ class DetailFragment : BaseFragment() {
                 is ConsumeResult.Loading -> {
                     gameVm.setupProgressBar(false)
                 }
-                is ConsumeResult.ConsumeSingleData -> {
+                is ConsumeResult.ConsumeData -> {
                     gameToSave = it.data
                     initData(it.data)
                     observeBookmarkState(it.data.name)
