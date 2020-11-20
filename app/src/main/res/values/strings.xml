@@ -9,4 +9,5 @@
     <string name="fav">Favorite</string>
     <string name="introduction">Introduction</string>
     <string name="title_favorite">Favorite</string>
+    <string name="no_favorite_data">No Favorite Data</string>
 </resources>

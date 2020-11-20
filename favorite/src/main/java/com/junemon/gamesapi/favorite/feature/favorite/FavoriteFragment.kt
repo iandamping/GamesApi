@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import com.google.gson.Gson
 import com.junemon.gamesapi.base.BaseFragment
 import com.junemon.gamesapi.core.domain.model.GameFavorite
@@ -54,6 +55,7 @@ class FavoriteFragment : BaseFragment(), FavoriteAdapter.FavoriteAdapterListener
             favoriteGameAdapter.run {
                 submitList(it)
             }
+            binding.tvFavorite.isVisible = it.isNullOrEmpty()
         }
     }
 
