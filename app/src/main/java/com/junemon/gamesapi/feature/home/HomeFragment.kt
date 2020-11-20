@@ -1,5 +1,7 @@
 package com.junemon.gamesapi.feature.home
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -23,6 +25,8 @@ import com.junemon.gamesapi.core.domain.model.ConsumeResult
 import com.junemon.gamesapi.core.domain.model.Game
 import org.koin.android.ext.android.inject
 import org.koin.androidx.scope.lifecycleScope
+import org.koin.androidx.viewmodel.compat.ViewModelCompat.viewModel
+import org.koin.androidx.viewmodel.scope.viewModel
 
 /**
  * Created by Ian Damping on 08,September,2020
@@ -33,7 +37,7 @@ class HomeFragment : BaseFragment(), HomeSliderAdapter.HomeSliderAdapterListener
 
     private val loadImageHelper: LoadImageHelper by inject()
     private val sharedVm: SharedViewModel by activityViewModels()
-    private val gameVm: GameViewModel by lifecycleScope.inject()
+    private val gameVm: GameViewModel by lifecycleScope.viewModel(this)
 
     private lateinit var genrePagerAdapter: GenrePagerAdapter
     private lateinit var homeAdapter: HomeSliderAdapter
@@ -140,6 +144,13 @@ class HomeFragment : BaseFragment(), HomeSliderAdapter.HomeSliderAdapterListener
             val directions =HomeFragmentDirections.actionHomeFragmentToPagingFragment()
             navigate(directions)
         }
+
+        tvFavorite.setOnClickListener {
+            val uri = Uri.parse("gamesapp://fav")
+            startActivity(Intent(Intent.ACTION_VIEW, uri))
+        }
+
+
         btnSearchMain.setOnClickListener {
             setupExitEnterAxisTransition()
             val directions = HomeFragmentDirections.actionHomeFragmentToSearchFragment()

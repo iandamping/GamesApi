@@ -30,7 +30,7 @@
 
 
                 <TextView
-                    android:id="@+id/ivMain"
+                    android:id="@+id/tvMain"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -123,12 +123,28 @@
                     android:id="@+id/tvPaging"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:layout_marginBottom="8dp"
+                    android:gravity="start"
+                    android:text="@string/see_more_games"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/letter_xlarge"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvFavorite"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="end"
+                    android:layout_weight="1"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
                     android:gravity="end"
-                    android:text="@string/see_more_games"
+                    android:text="Favorite Game"
                     android:textColor="@color/white"
                     android:textSize="@dimen/letter_xlarge"
                     android:textStyle="bold" />

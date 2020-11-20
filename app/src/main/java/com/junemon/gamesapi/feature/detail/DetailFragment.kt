@@ -20,7 +20,7 @@ import com.junemon.gamesapi.core.data.datasource.remote.response.GameDetailRespo
 import com.junemon.gamesapi.core.domain.model.GameDetail
 import org.koin.android.ext.android.inject
 import org.koin.androidx.scope.lifecycleScope
-
+import org.koin.androidx.viewmodel.scope.viewModel
 
 /**
  * Created by Ian Damping on 09,September,2020
@@ -33,7 +33,7 @@ class DetailFragment : BaseFragment() {
 
     private val args: DetailFragmentArgs by navArgs()
 
-    private val gameVm: GameViewModel by lifecycleScope.inject()
+    private val gameVm: GameViewModel by lifecycleScope.viewModel(this)
 
     private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!
@@ -135,7 +135,7 @@ class DetailFragment : BaseFragment() {
         with(binding) {
             loadImageHelper.loadWithGlide(ivDetailImages,data.backgroundImage)
             tvGameDetailName.text = data.name
-            tvGameDetailRating.text = data.rating.toString()
+            tvGameDetailRating.text = data.rating
             chipDetail.chipBackgroundColor =
                 ColorStateList.valueOf(Color.parseColor(generateRandomHexColor()))
             if (!data.genres.isNullOrEmpty()){

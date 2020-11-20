@@ -10,6 +10,6 @@ data class GameDetail(
     val backgroundImage: String?,
     val description: String,
     val genres: String?,
-    val rating: Double,
+    val rating: String?,
     val name: String
 )

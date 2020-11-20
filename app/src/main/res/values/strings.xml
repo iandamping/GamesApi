@@ -6,5 +6,7 @@
     <string name="all_games">All Games</string>
     <string name="see_more_games">See More Games</string>
     <string name="home">Home</string>
+    <string name="fav">Favorite</string>
     <string name="introduction">Introduction</string>
+    <string name="title_favorite">Favorite</string>
 </resources>

@@ -4,7 +4,9 @@ import com.junemon.gamesapi.feature.detail.DetailFragment
 import com.junemon.gamesapi.feature.home.HomeFragment
 import com.junemon.gamesapi.feature.paging.PagingFragment
 import com.junemon.gamesapi.feature.search.SearchFragment
+import com.junemon.gamesapi.feature.viewmodel.GameViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 /**
@@ -16,16 +18,16 @@ import org.koin.dsl.module
 val fragmentModule = module {
 
     scope<HomeFragment> {
-        gameViewModelInjector()
+        viewModel { GameViewModel(get()) }
     }
 
     scope<SearchFragment> {
-        gameViewModelInjector()
+        viewModel { GameViewModel(get()) }
     }
     scope<PagingFragment> {
-        gameViewModelInjector()
+        viewModel { GameViewModel(get()) }
     }
     scope<DetailFragment> {
-        gameViewModelInjector()
+        viewModel { GameViewModel(get()) }
     }
 }

@@ -16,6 +16,7 @@ import com.junemon.gamesapi.feature.viewmodel.GameViewModel
 import com.junemon.gamesapi.util.imageHelper.LoadImageHelper
 import org.koin.android.ext.android.inject
 import org.koin.androidx.scope.lifecycleScope
+import org.koin.androidx.viewmodel.scope.viewModel
 
 /**
  * Created by Ian Damping on 10,September,2020
@@ -24,7 +25,7 @@ import org.koin.androidx.scope.lifecycleScope
  */
 class SearchFragment : BaseFragment(), SearchAdapter.SearchAdapterListener {
     private val loadImageHelper: LoadImageHelper by inject()
-    private val gameVm: GameViewModel by lifecycleScope.inject()
+    private val gameVm: GameViewModel by lifecycleScope.viewModel(this)
 
     private lateinit var searchAdapter: SearchAdapter
     private var _binding: FragmentSearchBinding? = null

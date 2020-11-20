@@ -97,6 +97,14 @@ fun GameDetailResponse.mapSingleRemoteDetailGameDataToDomain(): GameDetail =
         backgroundImage,
         description,
         genres?.mapRemoteGenreItemDataToDomain()?.get(0)?.name,
-        rating,
+        rating.toString(),
         name
     )
+
+fun GameFavorite.mapToData():GameDetail = GameDetail(
+    backgroundImage = backgroundImage,
+    description = description,
+    genres = genres,
+    name = name,
+    rating = rating
+)

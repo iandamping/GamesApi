@@ -5,7 +5,9 @@ import com.junemon.gamesapi.core.module.dispatchersModule
 import com.junemon.gamesapi.core.module.glideModule
 import com.junemon.gamesapi.core.module.remoteModule
 import com.junemon.gamesapi.core.module.remotePaginationDataSourceModule
+import com.junemon.gamesapi.core.module.repositoryModule
 import com.junemon.gamesapi.core.module.sharedPreferenceModule
+import com.junemon.gamesapi.core.module.useCaseModule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.koin.core.context.loadKoinModules
 
@@ -25,6 +27,8 @@ private val loadFeature by lazy {
             sharedPreferenceModule,
             remotePaginationDataSourceModule,
             remoteModule,
+            repositoryModule,
+            useCaseModule,
             glideModule,
             utilModule,
             fragmentModule,
