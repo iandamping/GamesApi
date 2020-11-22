@@ -72,11 +72,11 @@ fun generateRandomHexColor(): String {
 
 @FlowPreview
 @ExperimentalCoroutinesApi
-fun <T> SharedFlow<String>.searchData(searchData: (String) -> Flow<T>) = this.debounce(300)
+fun <T> SharedFlow<String>.search(searchData: (String) -> Flow<T>) = this.debounce(300)
     .distinctUntilChanged()
     .filter {
         it.trim().isNotEmpty()
     }.flatMapLatest {
-        searchData(it)
+        searchData.invoke(it)
     }.asLiveData()
 
