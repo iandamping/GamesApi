@@ -4,13 +4,18 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.asLiveData
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.flatMapLatest
 import java.util.*
 
 /**
@@ -24,7 +29,6 @@ inline var View.loadingVisibility: Boolean
     set(value) {
         visibility = if (!value) View.VISIBLE else View.GONE
     }
-
 
 fun ViewGroup.inflates(layout: Int): View {
     return LayoutInflater.from(context).inflate(layout, this, false)
@@ -55,10 +59,9 @@ fun RecyclerView.gridRecyclerviewInitializer(size: Int) {
     layoutManager = GridLayoutManager(
         this.context, size
     )
-
 }
 
-fun generateRandomHexColor():String{
+fun generateRandomHexColor(): String {
     // create object of Random class
     val obj = Random()
     val randomNumber = obj.nextInt(0xffffff + 1)
@@ -66,4 +69,14 @@ fun generateRandomHexColor():String{
 
     return String.format("#%06x", randomNumber)
 }
+
+@FlowPreview
+@ExperimentalCoroutinesApi
+fun <T> SharedFlow<String>.searchData(searchData: (String) -> Flow<T>) = this.debounce(300)
+    .distinctUntilChanged()
+    .filter {
+        it.trim().isNotEmpty()
+    }.flatMapLatest {
+        searchData(it)
+    }.asLiveData()
 

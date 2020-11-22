@@ -9,6 +9,7 @@ import com.junemon.gamesapi.core.module.repositoryModule
 import com.junemon.gamesapi.core.module.sharedPreferenceModule
 import com.junemon.gamesapi.core.module.useCaseModule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import org.koin.core.context.loadKoinModules
 
 /**
@@ -16,9 +17,12 @@ import org.koin.core.context.loadKoinModules
  * Github https://github.com/iandamping
  * Indonesia.
  */
+
+@FlowPreview
 @ExperimentalCoroutinesApi
 fun injectData() = loadFeature
 
+@FlowPreview
 @ExperimentalCoroutinesApi
 private val loadFeature by lazy {
     loadKoinModules(

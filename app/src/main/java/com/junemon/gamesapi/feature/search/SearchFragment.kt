@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.transition.MaterialSharedAxis
 import com.junemon.gamesapi.R
 import com.junemon.gamesapi.base.BaseFragment
@@ -15,7 +16,7 @@ import com.junemon.gamesapi.databinding.FragmentSearchBinding
 import com.junemon.gamesapi.feature.viewmodel.GameViewModel
 import com.junemon.gamesapi.util.imageHelper.LoadImageHelper
 import org.koin.android.ext.android.inject
-import org.koin.androidx.scope.lifecycleScope
+import org.koin.androidx.scope.lifecycleScope as koinLifecycleScope
 import org.koin.androidx.viewmodel.scope.viewModel
 
 /**
@@ -25,7 +26,7 @@ import org.koin.androidx.viewmodel.scope.viewModel
  */
 class SearchFragment : BaseFragment(), SearchAdapter.SearchAdapterListener {
     private val loadImageHelper: LoadImageHelper by inject()
-    private val gameVm: GameViewModel by lifecycleScope.viewModel(this)
+    private val gameVm: GameViewModel by koinLifecycleScope.viewModel(this)
 
     private lateinit var searchAdapter: SearchAdapter
     private var _binding: FragmentSearchBinding? = null
@@ -60,6 +61,7 @@ class SearchFragment : BaseFragment(), SearchAdapter.SearchAdapterListener {
     }
 
     override fun activityCreated() {
+        obserSearchResult()
     }
 
     private fun FragmentSearchBinding.initView() {
@@ -87,31 +89,37 @@ class SearchFragment : BaseFragment(), SearchAdapter.SearchAdapterListener {
 
     private fun searchGame(s: String?) {
         if (!s.isNullOrEmpty()) {
-            gameVm.getSearchGames(s).observe(viewLifecycleOwner, {
-                when (it) {
+            lifecycleScope.launchWhenStarted {
+                gameVm.searchGames(s)
+            }
+        }
+    }
 
-                    is ConsumeResult.ConsumeData -> {
-                        if (it.data.isEmpty()) {
-                            binding.lnSearchFailed.visibility = View.VISIBLE
-                            binding.rvSearchPlace.visibility = View.GONE
-                        } else {
-                            searchAdapter.run {
-                                submitList(it.data)
-                                // Force a redraw
-                                this.notifyDataSetChanged()
-                            }
+    private fun obserSearchResult(){
+        gameVm.searchResult.observe(viewLifecycleOwner){
+            when (it) {
 
-                            binding.lnSearchFailed.visibility = View.GONE
-                            binding.rvSearchPlace.visibility = View.VISIBLE
+                is ConsumeResult.ConsumeData -> {
+                    if (it.data.isEmpty()) {
+                        binding.lnSearchFailed.visibility = View.VISIBLE
+                        binding.rvSearchPlace.visibility = View.GONE
+                    } else {
+                        searchAdapter.run {
+                            submitList(it.data)
+                            // Force a redraw
+                            this.notifyDataSetChanged()
                         }
-                    }
-                    is ConsumeResult.ErrorHappen -> {
-                        onFailGetValue(it.exception)
-                    }
 
+                        binding.lnSearchFailed.visibility = View.GONE
+                        binding.rvSearchPlace.visibility = View.VISIBLE
+                    }
+                }
+                is ConsumeResult.ErrorHappen -> {
+                    onFailGetValue(it.exception)
                 }
 
-            })
+            }
+
         }
     }
 

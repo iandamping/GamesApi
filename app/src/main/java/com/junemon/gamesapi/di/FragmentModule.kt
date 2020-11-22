@@ -6,6 +6,7 @@ import com.junemon.gamesapi.feature.paging.PagingFragment
 import com.junemon.gamesapi.feature.search.SearchFragment
 import com.junemon.gamesapi.feature.viewmodel.GameViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -14,6 +15,7 @@ import org.koin.dsl.module
  * Github https://github.com/iandamping
  * Indonesia.
  */
+@FlowPreview
 @ExperimentalCoroutinesApi
 val fragmentModule = module {
 
