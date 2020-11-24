@@ -50,6 +50,6 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "androidx.navigation:navigation-fragment-ktx:$navigationVer"
     implementation "androidx.navigation:navigation-ui-ktx:$navigationVer"
-
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.4'
 
 }

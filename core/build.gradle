@@ -32,6 +32,10 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    buildTypes.each {
+        it.buildConfigField 'String', 'passPhrase', passPhrase
+    }
 }
 
 dependencies {
@@ -49,4 +53,9 @@ dependencies {
     implementation "androidx.room:room-ktx:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
     api "androidx.paging:paging-runtime-ktx:$paging_version"
+    //security
+    implementation "net.zetetic:android-database-sqlcipher:4.4.0"
+    implementation "androidx.sqlite:sqlite-ktx:2.1.0"
+    implementation "androidx.security:security-crypto:1.1.0-alpha02"
+    implementation 'com.scottyab:secure-preferences-lib:0.1.7'
 }

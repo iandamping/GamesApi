@@ -6,7 +6,8 @@ import com.junemon.gamesapi.core.module.glideModule
 import com.junemon.gamesapi.core.module.remoteModule
 import com.junemon.gamesapi.core.module.remotePaginationDataSourceModule
 import com.junemon.gamesapi.core.module.repositoryModule
-import com.junemon.gamesapi.core.module.sharedPreferenceModule
+import com.junemon.gamesapi.core.module.keyProviderModule
+import com.junemon.gamesapi.core.module.sharedPreferencesModule
 import com.junemon.gamesapi.core.module.useCaseModule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -27,10 +28,11 @@ fun injectData() = loadFeature
 private val loadFeature by lazy {
     loadKoinModules(
         listOf(
+            sharedPreferencesModule,
             databaseModule,
-            sharedPreferenceModule,
             remotePaginationDataSourceModule,
             remoteModule,
+            keyProviderModule,
             repositoryModule,
             useCaseModule,
             glideModule,

@@ -44,8 +44,6 @@ class GameViewModel(
 
     fun getDetailGames(data: Int) = useCase.getDetailGames(data).asLiveData()
 
-    // fun getSearchGames(query: String) = useCase.getSearchGames(query).asLiveData()
-
     fun getFavoriteGames() = useCase.getFavoriteGames().asLiveData()
 
     fun clearFavoriteGameById(id: Int?) {

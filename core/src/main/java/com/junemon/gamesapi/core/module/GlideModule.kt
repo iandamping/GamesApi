@@ -16,9 +16,9 @@ import org.koin.dsl.module
  * Indonesia.
  */
 val glideModule = module {
-    single { provideRequestOptions() }
-    single { provideRequestManager(application = androidContext(), requestOptions = get()) }
-    single { provideGlideInstance(application = androidContext()) }
+    factory { provideRequestOptions() }
+    factory { provideRequestManager(application = androidContext(), requestOptions = get()) }
+    factory { provideGlideInstance(application = androidContext()) }
 }
 
 private fun provideRequestManager(

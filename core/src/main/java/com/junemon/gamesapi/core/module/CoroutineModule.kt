@@ -13,9 +13,9 @@ import org.koin.dsl.module
  */
 
 val dispatchersModule = module {
-    single(named("default")) { provideDefaultDispatcher() }
-    single(named("main")) { provideMainDispatcher() }
-    single(named("io")) { provideIoDispatcher() }
+    factory(named("default")) { provideDefaultDispatcher() }
+    factory(named("main")) { provideMainDispatcher() }
+    factory(named("io")) { provideIoDispatcher() }
 }
 
 private fun provideIoDispatcher(): CoroutineDispatcher = Dispatchers.IO
