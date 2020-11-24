@@ -26,10 +26,11 @@ import timber.log.Timber
  * Indonesia.
  */
 private const val prefHelperInit = "Init preference"
+private const val databaseName = "gaming_database.db"
 
 val databaseModule = module {
     single {
-        Room.databaseBuilder(androidContext(), GameDatabase::class.java, "gaming_database.db")
+        Room.databaseBuilder(androidContext(), GameDatabase::class.java,databaseName)
             .fallbackToDestructiveMigration()
             .openHelperFactory(provideSupportFactoryDatabase(get()))
             .build()

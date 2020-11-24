@@ -1,16 +1,21 @@
 package com.junemon.gamesapi.core.module
 
+import android.content.Context
 import com.google.gson.GsonBuilder
 import com.junemon.gamesapi.core.data.datasource.remote.GamePaginationRemoteDataSource
 import com.junemon.gamesapi.core.data.datasource.remote.network.ApiInterface
+import com.junemon.gamesapi.core.data.datasource.remote.network.SSLCertificateConfigurator
 import okhttp3.CookieJar
 import okhttp3.Dispatcher
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.*
 import java.util.concurrent.TimeUnit
+import javax.net.ssl.X509TrustManager
 
 /**
  * Created by Ian Damping on 18,May,2020
@@ -25,10 +30,23 @@ val remotePaginationDataSourceModule = module {
 }
 
 inline fun <reified T> helperNetworkModuleInjector(baseUrl: String) = module {
-    single { createClient<T>(createOkHttpClient(), baseUrl) }
+    single { createClient<T>(createOkHttpClient(androidContext()), baseUrl) }
 }
 
-fun createOkHttpClient(): OkHttpClient = OkHttpClient.Builder()
+fun provideTrustManager(context: Context): X509TrustManager {
+    val trustManagerFactory = SSLCertificateConfigurator.getTrustManager(context)
+    val trustManagers = trustManagerFactory.trustManagers
+    if (trustManagers.size != 1 || trustManagers[0] !is X509TrustManager) {
+        throw IllegalStateException(
+            "Unexpected default trust managers:" + Arrays.toString(
+                trustManagers
+            )
+        )
+    }
+    return trustManagers[0] as X509TrustManager
+}
+
+fun createOkHttpClient(context: Context): OkHttpClient = OkHttpClient.Builder()
     .cookieJar(CookieJar.NO_COOKIES)
     .connectTimeout(15L, TimeUnit.SECONDS)
     .writeTimeout(15L, TimeUnit.SECONDS)
@@ -42,7 +60,11 @@ fun createOkHttpClient(): OkHttpClient = OkHttpClient.Builder()
     })
     .addInterceptor { chain ->
         chain.run { proceed(this.request().newBuilder().build()) }
-    }.build()
+    }.sslSocketFactory(
+        SSLCertificateConfigurator.getSSLConfiguration(context).socketFactory,
+        provideTrustManager(context)
+    )
+    .build()
 
 inline fun <reified T> createClient(okHttpClient: OkHttpClient, baseUrl: String): T {
     val retrofit = Retrofit.Builder()
