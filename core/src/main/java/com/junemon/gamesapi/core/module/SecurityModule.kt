@@ -4,8 +4,6 @@ import com.junemon.gamesapi.core.data.datasource.cache.preference.key.ProvideKey
 import com.junemon.gamesapi.core.data.datasource.cache.preference.key.ProvideKeyImpl
 import com.junemon.gamesapi.core.data.datasource.cache.preference.value.ProvideValue
 import com.junemon.gamesapi.core.data.datasource.cache.preference.value.ProvideValueImpl
-import net.sqlcipher.database.SQLiteDatabase
-import net.sqlcipher.database.SupportFactory
 import org.koin.dsl.module
 
 /**

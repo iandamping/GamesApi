@@ -1,6 +1,5 @@
 package com.junemon.gamesapi.favorite.di
 
-import com.junemon.gamesapi.favorite.feature.favorite.FavoriteFragment
 import com.junemon.gamesapi.favorite.feature.vm.GameFavoriteViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.koin.androidx.viewmodel.dsl.viewModel

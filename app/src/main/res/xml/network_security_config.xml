@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <base-config cleartextTrafficPermitted="false" />
+
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">https://api.rawg.io</domain>
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+
+        <pin-set>
+            <pin digest="SHA-256">vHHGbQYs6CXkaHdSSvse6oIcaFRuNGYApQOqnR+NeVs=</pin>
+            <pin digest="SHA-256">YXiyN7zReob3B8mVu5SW0EPahdiIG6kYknj53vQyD5M=</pin>
+        </pin-set>
+
+    </domain-config>
+</network-security-config>

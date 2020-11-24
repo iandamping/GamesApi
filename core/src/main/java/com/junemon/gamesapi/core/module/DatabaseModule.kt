@@ -18,7 +18,6 @@ import net.sqlcipher.database.SQLiteDatabase
 import net.sqlcipher.database.SupportFactory
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
-import timber.log.Timber
 
 /**
  * Created by Ian Damping on 23,October,2020

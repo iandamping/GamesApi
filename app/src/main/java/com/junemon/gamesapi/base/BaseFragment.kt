@@ -6,7 +6,6 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
-import android.os.StrictMode
 import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
@@ -22,8 +21,8 @@ import com.google.android.material.transition.MaterialElevationScale
 import com.google.android.material.transition.MaterialFadeThrough
 import com.google.android.material.transition.MaterialSharedAxis
 import com.junemon.gamesapi.R
-import com.junemon.gamesapi.databinding.CustomLoadingBinding
 import com.junemon.gamesapi.core.util.layoutInflater
+import com.junemon.gamesapi.databinding.CustomLoadingBinding
 
 /**
  * Created by Ian Damping on 05,August,2020
@@ -151,7 +150,7 @@ abstract class BaseFragment : Fragment() {
 
     protected fun htmlReader(view:TextView, data:String){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            view.text = Html.fromHtml(data, Html.FROM_HTML_MODE_COMPACT);
+            view.text = Html.fromHtml(data, Html.FROM_HTML_MODE_COMPACT)
         } else {
             view.text = Html.fromHtml(data)
         }

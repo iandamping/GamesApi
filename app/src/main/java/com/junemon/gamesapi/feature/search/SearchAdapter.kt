@@ -3,11 +3,10 @@ package com.junemon.gamesapi.feature.search
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
+import com.junemon.gamesapi.core.domain.model.GameSearch
 import com.junemon.gamesapi.databinding.ItemSearchBinding
 import com.junemon.gamesapi.util.adapter.AdapterConstant
 import com.junemon.gamesapi.util.imageHelper.LoadImageHelper
-import com.junemon.gamesapi.core.data.datasource.remote.response.GameSearchResponse
-import com.junemon.gamesapi.core.domain.model.GameSearch
 
 /**
  * Created by Ian Damping on 10,September,2020
