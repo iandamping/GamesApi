@@ -19,13 +19,14 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+-keep class com.google.crypto.** { *; }
 -keep class androidx.navigation.fragment.NavHostFragment
 -keep public class * extends android.app.Activity
 
     ##---------------Begin: proguard configuration for SQLCipher  ----------
 
-    -keep,includedescriptorclasses class net.sqlcipher.** { *; }
-    -keep,includedescriptorclasses interface net.sqlcipher.** { *; }
+-keep,includedescriptorclasses class net.sqlcipher.** { *; }
+-keep,includedescriptorclasses interface net.sqlcipher.** { *; }
 
 
     ##---------------Begin: proguard configuration for Gson ----------
