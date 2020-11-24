@@ -13,12 +13,10 @@ import com.junemon.gamesapi.core.domain.model.DataHelper
 import com.junemon.gamesapi.core.domain.model.Game
 import com.junemon.gamesapi.core.domain.model.GameDetail
 import com.junemon.gamesapi.core.domain.model.GameFavorite
-import com.junemon.gamesapi.core.domain.model.GameGenre
 import com.junemon.gamesapi.core.domain.model.GameSearch
 import com.junemon.gamesapi.core.domain.repository.GameRepository
 import com.junemon.gamesapi.core.util.mapEntitiesToDomain
 import com.junemon.gamesapi.core.util.mapFavToDomain
-import com.junemon.gamesapi.core.util.mapRemoteGenresDataToDomain
 import com.junemon.gamesapi.core.util.mapRemoteSearchDataToDomain
 import com.junemon.gamesapi.core.util.mapSingleRemoteDetailGameDataToDomain
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -66,20 +64,6 @@ class GameRepositoryImpl(
         }.asFlow().onStart { emit(ConsumeResult.Loading) }
             .onCompletion { emit(ConsumeResult.Complete) }
     }
-
-    override fun getListGamesByGenres(): Flow<ConsumeResult<List<GameGenre>>> = flow {
-        when (val response = remoteDataSource.getListGamesByGenres()) {
-            is DataHelper.RemoteSourceValue -> {
-                emit(ConsumeResult.ConsumeData(response.data.mapRemoteGenresDataToDomain()))
-            }
-            is DataHelper.RemoteSourceError -> {
-                emit(ConsumeResult.ErrorHappen(response.exception))
-            }
-            is DataHelper.RemoteSourceEmpty ->{
-                emit(ConsumeResult.ErrorHappen(Exception(EMPTY_DATA)))
-            }
-        }
-    }.onStart { emit(ConsumeResult.Loading) }.onCompletion { emit(ConsumeResult.Complete) }
 
     override fun getSearchGames(query: String): Flow<ConsumeResult<List<GameSearch>>> = flow {
         when (val response = remoteDataSource.getSearchGames(query)) {

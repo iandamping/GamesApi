@@ -5,7 +5,6 @@ import com.junemon.gamesapi.core.domain.model.ConsumeResult
 import com.junemon.gamesapi.core.domain.model.Game
 import com.junemon.gamesapi.core.domain.model.GameDetail
 import com.junemon.gamesapi.core.domain.model.GameFavorite
-import com.junemon.gamesapi.core.domain.model.GameGenre
 import com.junemon.gamesapi.core.domain.model.GameSearch
 import kotlinx.coroutines.flow.Flow
 
@@ -16,7 +15,6 @@ import kotlinx.coroutines.flow.Flow
  */
 interface GameUseCase {
     fun getCachedListGames(): Flow<ConsumeResult<List<Game>>>
-    fun getListGamesByGenres(): Flow<ConsumeResult<List<GameGenre>>>
     fun getSearchGames(query: String): Flow<ConsumeResult<List<GameSearch>>>
     fun getDetailGames(gameId: Int): Flow<ConsumeResult<GameDetail>>
     fun getPagingListGames(): Flow<PagingData<Game>>

@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.fragment.app.activityViewModels
 import com.junemon.gamesapi.base.BaseFragment
 import com.junemon.gamesapi.core.domain.model.ConsumeResult
 import com.junemon.gamesapi.core.domain.model.Game
@@ -16,7 +15,6 @@ import com.junemon.gamesapi.core.util.horizontalRecyclerviewInitializer
 import com.junemon.gamesapi.core.util.loadingVisibility
 import com.junemon.gamesapi.databinding.FragmentHomeBinding
 import com.junemon.gamesapi.feature.viewmodel.GameViewModel
-import com.junemon.gamesapi.feature.viewmodel.SharedViewModel
 import com.junemon.gamesapi.util.imageHelper.LoadImageHelper
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -34,7 +32,6 @@ import org.koin.androidx.viewmodel.scope.viewModel
 class HomeFragment : BaseFragment(), HomeSliderAdapter.HomeSliderAdapterListener {
 
     private val loadImageHelper: LoadImageHelper by inject()
-    private val sharedVm: SharedViewModel by activityViewModels()
     private val gameVm: GameViewModel by lifecycleScope.viewModel(this)
 
     private lateinit var homeAdapter: HomeSliderAdapter
@@ -61,28 +58,7 @@ class HomeFragment : BaseFragment(), HomeSliderAdapter.HomeSliderAdapterListener
 
     override fun activityCreated() {
         getGames()
-        getGenres()
         observeState()
-    }
-
-    private fun getGenres() {
-        gameVm.getListGamesByGenres().observe(viewLifecycleOwner, { result ->
-            when (result) {
-                is ConsumeResult.Loading -> {
-                    gameVm.setupProgressBar(false)
-                }
-                is ConsumeResult.ConsumeData -> {
-                    sharedVm.setGames(result.data)
-                }
-                is ConsumeResult.ErrorHappen -> {
-                    onFailGetValue(result.exception)
-                }
-                is ConsumeResult.Complete -> {
-                    gameVm.setupProgressBar(true)
-                }
-            }
-
-        })
     }
 
     private fun getGames() {

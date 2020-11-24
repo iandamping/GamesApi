@@ -40,8 +40,6 @@ class GameViewModel(
 
     fun getCachedListGames() = useCase.getCachedListGames().asLiveData()
 
-    fun getListGamesByGenres() = useCase.getListGamesByGenres().asLiveData()
-
     fun getDetailGames(data: Int) = useCase.getDetailGames(data).asLiveData()
 
     fun getFavoriteGames() = useCase.getFavoriteGames().asLiveData()

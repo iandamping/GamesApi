@@ -2,7 +2,6 @@ package com.junemon.gamesapi.core.data.datasource.remote.network
 
 import com.junemon.gamesapi.core.data.datasource.remote.response.ListGameResponse
 import com.junemon.gamesapi.core.data.datasource.remote.response.GameDetailResponse
-import com.junemon.gamesapi.core.data.datasource.remote.response.GameGenreResponse
 import com.junemon.gamesapi.core.data.datasource.remote.response.GameResponse
 import com.junemon.gamesapi.core.data.datasource.remote.response.GameSearchResponse
 import retrofit2.Response
@@ -18,9 +17,6 @@ import retrofit2.http.Query
 interface ApiInterface {
     @GET("games")
     suspend fun getListGames(): Response<ListGameResponse<GameResponse>>
-
-    @GET("genres")
-    suspend fun getListGamesByGenres(): Response<ListGameResponse<GameGenreResponse>>
 
     @GET("games")
     suspend fun getSearchGames(@Query("search") searchQuery: String): Response<ListGameResponse<GameSearchResponse>>

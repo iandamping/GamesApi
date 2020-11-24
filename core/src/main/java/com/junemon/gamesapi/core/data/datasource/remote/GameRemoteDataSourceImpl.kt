@@ -5,7 +5,6 @@ import com.junemon.gamesapi.core.data.datasource.remote.network.BaseSources
 import com.junemon.gamesapi.core.domain.model.DataHelper
 import com.junemon.gamesapi.core.data.datasource.remote.response.GameResponse
 import com.junemon.gamesapi.core.data.datasource.remote.response.GameDetailResponse
-import com.junemon.gamesapi.core.data.datasource.remote.response.GameGenreResponse
 import com.junemon.gamesapi.core.data.datasource.remote.response.GameSearchResponse
 import com.junemon.gamesapi.core.domain.model.Results
 import kotlinx.coroutines.CoroutineDispatcher
@@ -39,36 +38,6 @@ class GameRemoteDataSourceImpl(
             }
         }.flowOn(defaultDispatcher).conflate()
     }
-
-
-    override suspend fun getListGames(): DataHelper<List<GameResponse>> =
-        withContext(defaultDispatcher) {
-            when (val responses = oneShotCalls { api.getListGames() }) {
-                is Results.Success -> {
-                    if (responses.data.data.isNotEmpty()){
-                        DataHelper.RemoteSourceValue(responses.data.data)
-                    }else DataHelper.RemoteSourceEmpty
-                }
-                is Results.Error -> {
-                    DataHelper.RemoteSourceError(responses.exception)
-                }
-            }
-        }
-
-    override suspend fun getListGamesByGenres(): DataHelper<List<GameGenreResponse>> =
-        withContext(defaultDispatcher) {
-            when (val responses = oneShotCalls { api.getListGamesByGenres() }) {
-                is Results.Success -> {
-                    if (responses.data.data.isNotEmpty()){
-                        DataHelper.RemoteSourceValue(responses.data.data)
-                    }else DataHelper.RemoteSourceEmpty
-
-                }
-                is Results.Error -> {
-                    DataHelper.RemoteSourceError(responses.exception)
-                }
-            }
-        }
 
     override suspend fun getDetailGames(gameId: Int): DataHelper<GameDetailResponse> =
         withContext(defaultDispatcher) {

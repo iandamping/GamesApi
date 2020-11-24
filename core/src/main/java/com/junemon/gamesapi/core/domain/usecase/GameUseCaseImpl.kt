@@ -16,8 +16,6 @@ class GameUseCaseImpl(private val repository: GameRepository) : GameUseCase {
 
     override fun getCachedListGames() = repository.getCachedListGames()
 
-    override fun getListGamesByGenres() = repository.getListGamesByGenres()
-
     override fun getSearchGames(query: String) = repository.getSearchGames(query)
 
     override fun getDetailGames(gameId: Int) = repository.getDetailGames(gameId)
