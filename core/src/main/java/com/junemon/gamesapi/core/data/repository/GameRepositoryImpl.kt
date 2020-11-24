@@ -125,4 +125,8 @@ class GameRepositoryImpl(
     override suspend fun clearFavoriteGameById(id: Int) {
         cacheDataSource.clearFavoriteGameById(id)
     }
+
+    override fun getFavoriteUri(): String {
+        return cacheDataSource.getFavoriteUri()
+    }
 }

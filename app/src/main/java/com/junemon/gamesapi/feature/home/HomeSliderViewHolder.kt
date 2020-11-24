@@ -1,9 +1,8 @@
 package com.junemon.gamesapi.feature.home
 
 import androidx.recyclerview.widget.RecyclerView
-import com.junemon.gamesapi.core.data.datasource.cache.entity.GameEntity
 import com.junemon.gamesapi.core.domain.model.Game
-import com.junemon.gamesapi.databinding.ItemSliderBinding
+import com.junemon.gamesapi.databinding.ItemHomeBinding
 import com.junemon.gamesapi.util.imageHelper.LoadImageHelper
 
 /**
@@ -12,7 +11,7 @@ import com.junemon.gamesapi.util.imageHelper.LoadImageHelper
  * Indonesia.
  */
 class HomeSliderViewHolder(
-    private val binding: ItemSliderBinding,
+    private val binding: ItemHomeBinding,
     private val loadImageHelper: LoadImageHelper
 ) : RecyclerView.ViewHolder(binding.root) {
 

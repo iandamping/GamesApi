@@ -7,4 +7,5 @@ package com.junemon.gamesapi.core.data.datasource.cache.preference.key
  */
 interface ProvideKey {
     fun provideRoomPassPhraseKeys():String
+    fun provideFavoriteUriKeys():String
 }

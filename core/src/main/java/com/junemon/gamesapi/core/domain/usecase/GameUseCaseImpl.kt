@@ -29,4 +29,6 @@ class GameUseCaseImpl(private val repository: GameRepository) : GameUseCase {
     override fun getFavoriteGames():Flow<List<GameFavorite>> = repository.getFavoriteGames()
 
     override suspend fun clearFavoriteGameById(id: Int) = repository.clearFavoriteGameById(id)
+
+    override fun getFavoriteUri(): String  = repository.getFavoriteUri()
 }

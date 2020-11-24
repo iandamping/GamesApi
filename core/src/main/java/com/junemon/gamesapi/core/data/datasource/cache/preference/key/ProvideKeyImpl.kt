@@ -21,4 +21,15 @@ class ProvideKeyImpl(private val preferenceHelper: PreferenceHelper) : ProvideKe
             }
         }
     }
+
+    override fun provideFavoriteUriKeys(): String {
+        return if (preferenceHelper.getStringInSharedPreference(BuildConfig.uriFav) != "") {
+            preferenceHelper.getStringInSharedPreference(BuildConfig.uriFav)
+        } else {
+            val randomValue = UUID.randomUUID().toString().replace("-", "")
+            preferenceHelper.saveStringInSharedPreference(BuildConfig.uriFav, randomValue).let {
+                preferenceHelper.getStringInSharedPreference(BuildConfig.uriFav)
+            }
+        }
+    }
 }

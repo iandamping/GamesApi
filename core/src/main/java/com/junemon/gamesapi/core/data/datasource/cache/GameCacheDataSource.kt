@@ -19,4 +19,6 @@ interface GameCacheDataSource {
     suspend fun clearAllCachedGames()
 
     suspend fun clearFavoriteGameById(id:Int)
+
+    fun getFavoriteUri():String
 }

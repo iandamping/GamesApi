@@ -2,6 +2,7 @@ package com.junemon.gamesapi.core.data.datasource.cache
 
 import com.junemon.gamesapi.core.data.datasource.cache.entity.GameEntity
 import com.junemon.gamesapi.core.data.datasource.cache.entity.GameFavoriteEntity
+import com.junemon.gamesapi.core.data.datasource.cache.preference.value.ProvideValue
 import com.junemon.gamesapi.core.data.datasource.cache.room.GameDao
 import com.junemon.gamesapi.core.data.datasource.cache.room.GameFavoriteDao
 import com.junemon.gamesapi.core.data.datasource.remote.response.GameResponse
@@ -16,6 +17,7 @@ import kotlinx.coroutines.flow.Flow
  * Indonesia.
  */
 class GameCacheDataSourceImpl(
+    private val valueProvider: ProvideValue,
     private val gameDao: GameDao,
     private val gameFavoriteDao: GameFavoriteDao
 ) : GameCacheDataSource {
@@ -46,5 +48,7 @@ class GameCacheDataSourceImpl(
         gameFavoriteDao.deleteFavoriteGameById(id)
     }
 
-
+    override fun getFavoriteUri(): String {
+        return valueProvider.provideFavoriteUriValue()
+    }
 }

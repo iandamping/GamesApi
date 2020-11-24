@@ -23,4 +23,5 @@ interface GameRepository {
     suspend fun saveFavoriteGames(data: GameDetail)
     fun getFavoriteGames(): Flow<List<GameFavorite>>
     suspend fun clearFavoriteGameById(id: Int)
+    fun getFavoriteUri():String
 }

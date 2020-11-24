@@ -7,4 +7,5 @@ package com.junemon.gamesapi.core.data.datasource.cache.preference.value
  */
 interface ProvideValue {
     fun provideRoomPassPhraseValue():String
+    fun provideFavoriteUriValue():String
 }

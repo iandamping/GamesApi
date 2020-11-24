@@ -27,4 +27,18 @@ class ProvideValueImpl(
             }
         }
     }
+
+    override fun provideFavoriteUriValue(): String {
+        return if (preferenceHelper.getStringInSharedPreference(provideKey.provideFavoriteUriKeys()) != "") {
+            preferenceHelper.getStringInSharedPreference(provideKey.provideFavoriteUriKeys())
+        } else {
+            val value = "gamesapp://fav"
+            preferenceHelper.saveStringInSharedPreference(
+                provideKey.provideFavoriteUriKeys(),
+                value
+            ).let {
+                preferenceHelper.getStringInSharedPreference(provideKey.provideFavoriteUriKeys())
+            }
+        }
+    }
 }

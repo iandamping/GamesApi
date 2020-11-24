@@ -3,9 +3,8 @@ package com.junemon.gamesapi.feature.home
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
-import com.junemon.gamesapi.core.data.datasource.cache.entity.GameEntity
 import com.junemon.gamesapi.core.domain.model.Game
-import com.junemon.gamesapi.databinding.ItemSliderBinding
+import com.junemon.gamesapi.databinding.ItemHomeBinding
 import com.junemon.gamesapi.util.adapter.AdapterConstant
 import com.junemon.gamesapi.util.imageHelper.LoadImageHelper
 
@@ -26,7 +25,7 @@ class HomeSliderAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeSliderViewHolder {
         return HomeSliderViewHolder(
-            ItemSliderBinding.inflate(
+            ItemHomeBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false

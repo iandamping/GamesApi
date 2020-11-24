@@ -28,7 +28,7 @@ val repositoryModule = module {
     }
     single<GameCacheDataSource> {
         GameCacheDataSourceImpl(
-            get(), get()
+            get(),get(), get()
         )
     }
 

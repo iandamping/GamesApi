@@ -46,6 +46,8 @@ class GameViewModel(
 
     fun getFavoriteGames() = useCase.getFavoriteGames().asLiveData()
 
+    fun getFavoriteUri(): String  = useCase.getFavoriteUri()
+
     fun clearFavoriteGameById(id: Int?) {
         viewModelScope.launch {
             if (id != null) useCase.clearFavoriteGameById(id)

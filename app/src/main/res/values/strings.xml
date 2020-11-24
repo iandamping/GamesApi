@@ -10,4 +10,5 @@
     <string name="introduction">Introduction</string>
     <string name="title_favorite">Favorite</string>
     <string name="no_favorite_data">No Favorite Data</string>
+    <string name="favorite_game">Favorite Game</string>
 </resources>

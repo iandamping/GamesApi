@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -53,12 +52,12 @@
                     android:layout_marginTop="@dimen/spacing_medium"
                     android:layout_marginEnd="4dp"
                     android:layout_marginBottom="@dimen/spacing_medium"
+                    android:contentDescription="@string/image_description"
                     android:padding="@dimen/spacing_small"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:src="@tools:sample/backgrounds/scenic"
-                    android:contentDescription="@string/image_description" />
+                    tools:src="@tools:sample/backgrounds/scenic" />
 
                 <ImageButton
                     android:id="@+id/btnSearchMain"
@@ -68,11 +67,11 @@
                     android:layout_marginEnd="@dimen/spacing_medium"
                     android:layout_marginBottom="@dimen/spacing_medium"
                     android:background="@drawable/toolbar_bg"
+                    android:contentDescription="@string/image_description"
                     android:src="@drawable/ic_search_home"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:contentDescription="@string/image_description" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -99,7 +98,7 @@
                     android:layout_gravity="center"
                     android:orientation="vertical">
 
-                    <include layout="@layout/item_shimmer_slider" />
+                    <include layout="@layout/item_home_shimmer" />
 
                 </LinearLayout>
 
@@ -124,10 +123,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
-                    android:layout_marginTop="@dimen/spacing_medium"
                     android:layout_marginStart="@dimen/spacing_medium"
-                    android:layout_weight="1"
+                    android:layout_marginTop="@dimen/spacing_medium"
                     android:layout_marginBottom="@dimen/spacing_medium"
+                    android:layout_weight="1"
                     android:gravity="start"
                     android:text="@string/see_more_games"
                     android:textColor="@color/white"
@@ -139,12 +138,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
-                    android:layout_weight="1"
                     android:layout_marginTop="@dimen/spacing_medium"
                     android:layout_marginEnd="@dimen/spacing_medium"
                     android:layout_marginBottom="@dimen/spacing_medium"
+                    android:layout_weight="1"
                     android:gravity="end"
-                    android:text="Favorite Game"
+                    android:text="@string/favorite_game"
                     android:textColor="@color/white"
                     android:textSize="@dimen/letter_xlarge"
                     android:textStyle="bold" />
@@ -154,30 +153,7 @@
 
         </LinearLayout>
 
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@+id/slider">
-
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tab_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/home_bg"
-                app:tabIndicatorColor="@color/mainYellow"
-                app:tabSelectedTextColor="@color/mainYellow"
-                app:tabTextColor="@color/textGray" />
-
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/pager"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
-
-        </LinearLayout>
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 </androidx.core.widget.NestedScrollView>
