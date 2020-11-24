@@ -68,8 +68,10 @@ class HomeFragment : BaseFragment(), HomeSliderAdapter.HomeSliderAdapterListener
                     gameVm.setupProgressBar(false)
                 }
                 is ConsumeResult.ConsumeData -> {
-                    homeAdapter.run {
+                    with(homeAdapter){
                         submitList(it.data)
+                        // Force a redraw
+                        this.notifyDataSetChanged()
                     }
                 }
                 is ConsumeResult.ErrorHappen -> {

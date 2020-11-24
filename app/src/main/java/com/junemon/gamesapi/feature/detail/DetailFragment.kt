@@ -18,6 +18,8 @@ import com.junemon.gamesapi.util.imageHelper.LoadImageHelper
 import com.junemon.gamesapi.core.domain.model.ConsumeResult
 import com.junemon.gamesapi.core.data.datasource.remote.response.GameDetailResponse
 import com.junemon.gamesapi.core.domain.model.GameDetail
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import org.koin.android.ext.android.inject
 import org.koin.androidx.scope.lifecycleScope
 import org.koin.androidx.viewmodel.scope.viewModel
@@ -27,6 +29,8 @@ import org.koin.androidx.viewmodel.scope.viewModel
  * Github https://github.com/iandamping
  * Indonesia.
  */
+@FlowPreview
+@ExperimentalCoroutinesApi
 class DetailFragment : BaseFragment() {
 
     private val loadImageHelper: LoadImageHelper by inject()

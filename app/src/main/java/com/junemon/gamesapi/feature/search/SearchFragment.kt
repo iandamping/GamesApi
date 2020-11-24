@@ -11,10 +11,13 @@ import com.junemon.gamesapi.R
 import com.junemon.gamesapi.base.BaseFragment
 import com.junemon.gamesapi.core.domain.model.ConsumeResult
 import com.junemon.gamesapi.core.domain.model.GameSearch
+import com.junemon.gamesapi.core.util.EventObserver
 import com.junemon.gamesapi.core.util.gridRecyclerviewInitializer
 import com.junemon.gamesapi.databinding.FragmentSearchBinding
 import com.junemon.gamesapi.feature.viewmodel.GameViewModel
 import com.junemon.gamesapi.util.imageHelper.LoadImageHelper
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import org.koin.android.ext.android.inject
 import org.koin.androidx.scope.lifecycleScope as koinLifecycleScope
 import org.koin.androidx.viewmodel.scope.viewModel
@@ -24,6 +27,8 @@ import org.koin.androidx.viewmodel.scope.viewModel
  * Github https://github.com/iandamping
  * Indonesia.
  */
+@FlowPreview
+@ExperimentalCoroutinesApi
 class SearchFragment : BaseFragment(), SearchAdapter.SearchAdapterListener {
     private val loadImageHelper: LoadImageHelper by inject()
     private val gameVm: GameViewModel by koinLifecycleScope.viewModel(this)
@@ -62,6 +67,7 @@ class SearchFragment : BaseFragment(), SearchAdapter.SearchAdapterListener {
 
     override fun activityCreated() {
         obserSearchResult()
+        observeState()
     }
 
     private fun FragmentSearchBinding.initView() {
@@ -98,7 +104,6 @@ class SearchFragment : BaseFragment(), SearchAdapter.SearchAdapterListener {
     private fun obserSearchResult(){
         gameVm.searchResult.observe(viewLifecycleOwner){
             when (it) {
-
                 is ConsumeResult.ConsumeData -> {
                     if (it.data.isEmpty()) {
                         binding.lnSearchFailed.visibility = View.VISIBLE
@@ -117,10 +122,17 @@ class SearchFragment : BaseFragment(), SearchAdapter.SearchAdapterListener {
                 is ConsumeResult.ErrorHappen -> {
                     onFailGetValue(it.exception)
                 }
-
+                ConsumeResult.Loading ->  gameVm.setupProgressBar(false)
+                ConsumeResult.Complete ->  gameVm.setupProgressBar(true)
             }
 
         }
+    }
+
+    private fun observeState() {
+        gameVm.progressBar.observe(this, EventObserver {
+            setDialogShow(it)
+        })
     }
 
     override fun onClicked(data: GameSearch) {

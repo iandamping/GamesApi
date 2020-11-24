@@ -13,6 +13,8 @@ import com.junemon.gamesapi.feature.viewmodel.GameViewModel
 import com.junemon.gamesapi.util.imageHelper.LoadImageHelper
 import com.junemon.gamesapi.core.domain.model.Game
 import com.junemon.gamesapi.core.util.verticalRecyclerviewInitializer
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
@@ -24,6 +26,8 @@ import org.koin.androidx.scope.lifecycleScope as koinLifecycleScope
  * Github https://github.com/iandamping
  * Indonesia.
  */
+@FlowPreview
+@ExperimentalCoroutinesApi
 class PagingFragment : BaseFragment(), PagingAdapter.PagingAdapterListener {
     private val loadImageHelper: LoadImageHelper by inject()
     private val gameVm: GameViewModel by koinLifecycleScope.viewModel(this)

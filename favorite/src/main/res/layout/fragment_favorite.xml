@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/home_bg">
+    android:background="@color/home_bg"
+    tools:ignore="Overdraw">
 
     <TextView
         android:id="@+id/textView"

@@ -11,14 +11,16 @@ import kotlinx.coroutines.flow.map
 abstract class NetworkBoundResource<ResultType, RequestType> {
 
     private var result: Flow<ConsumeResult<ResultType>> = flow {
-
+        emit(ConsumeResult.Loading)
         val dbSource = loadFromDB().first()
-
         if (shouldFetch(dbSource)) {
+            emit(ConsumeResult.Loading)
+
             when (val apiResponse = createCall().first()) {
 
                 is DataHelper.RemoteSourceValue -> {
                     saveCallResult(apiResponse.data)
+                    emit(ConsumeResult.Complete)
                     emitAll(loadFromDB().map {
                         ConsumeResult.ConsumeData(
                             it
@@ -26,6 +28,7 @@ abstract class NetworkBoundResource<ResultType, RequestType> {
                     })
                 }
                 is DataHelper.RemoteSourceEmpty -> {
+                    emit(ConsumeResult.Complete)
                     emitAll(loadFromDB().map {
                         ConsumeResult.ConsumeData(
                             it
@@ -33,6 +36,7 @@ abstract class NetworkBoundResource<ResultType, RequestType> {
                     })
                 }
                 is DataHelper.RemoteSourceError -> {
+                    emit(ConsumeResult.Complete)
                     onFetchFailed()
                     emit(
                         ConsumeResult.ErrorHappen(
@@ -43,6 +47,7 @@ abstract class NetworkBoundResource<ResultType, RequestType> {
             }
         } else {
             emitAll(loadFromDB().map {
+                emit(ConsumeResult.Complete)
                 ConsumeResult.ConsumeData(
                     it
                 )

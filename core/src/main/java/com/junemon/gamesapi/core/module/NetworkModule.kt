@@ -48,9 +48,9 @@ fun provideTrustManager(context: Context): X509TrustManager {
 
 fun createOkHttpClient(context: Context): OkHttpClient = OkHttpClient.Builder()
     .cookieJar(CookieJar.NO_COOKIES)
-    .connectTimeout(15L, TimeUnit.SECONDS)
-    .writeTimeout(15L, TimeUnit.SECONDS)
-    .readTimeout(15L, TimeUnit.SECONDS)
+    .connectTimeout(60L, TimeUnit.SECONDS)
+    .writeTimeout(60L, TimeUnit.SECONDS)
+    .readTimeout(60L, TimeUnit.SECONDS)
     .dispatcher(Dispatcher().apply {
         maxRequests = 20
         maxRequestsPerHost = 20

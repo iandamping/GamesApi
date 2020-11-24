@@ -61,8 +61,7 @@ class GameRepositoryImpl(
             override suspend fun saveCallResult(data: List<GameResponse>) {
                 cacheDataSource.saveGames(data)
             }
-        }.asFlow().onStart { emit(ConsumeResult.Loading) }
-            .onCompletion { emit(ConsumeResult.Complete) }
+        }.asFlow()
     }
 
     override fun getSearchGames(query: String): Flow<ConsumeResult<List<GameSearch>>> = flow {
