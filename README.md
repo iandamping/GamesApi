@@ -1,1 +1,1 @@
-[![iandamping](https://app.circleci.com/pipelines/github/iandamping/GamesApi.svg?style=shield)](https://app.circleci.com/pipelines/github/iandamping/GamesApi)
+[![iandamping](https://circleci.com/gh/iandamping/GamesApi/tree/Dicoding-Submission2.svg?style=svg)](https://circleci.com/gh/iandamping/GamesApi/tree/Dicoding-Submission2)
