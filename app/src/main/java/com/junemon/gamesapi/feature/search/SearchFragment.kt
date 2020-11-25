@@ -67,7 +67,6 @@ class SearchFragment : BaseFragment(), SearchAdapter.SearchAdapterListener {
 
     override fun activityCreated() {
         obserSearchResult()
-        observeState()
     }
 
     private fun FragmentSearchBinding.initView() {
@@ -122,8 +121,6 @@ class SearchFragment : BaseFragment(), SearchAdapter.SearchAdapterListener {
                 is ConsumeResult.ErrorHappen -> {
                     onFailGetValue(it.exception)
                 }
-                ConsumeResult.Loading ->  gameVm.setupProgressBar(false)
-                ConsumeResult.Complete ->  gameVm.setupProgressBar(true)
             }
 
         }
