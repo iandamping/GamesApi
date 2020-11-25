@@ -19,6 +19,8 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+#noinspection ShrinkerUnresolvedReference
 -keep class com.google.crypto.** { *; }
 -keep class androidx.navigation.fragment.NavHostFragment
 -keep public class * extends android.app.Activity

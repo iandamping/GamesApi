@@ -11,7 +11,6 @@ import com.junemon.gamesapi.R
 import com.junemon.gamesapi.base.BaseFragment
 import com.junemon.gamesapi.core.domain.model.ConsumeResult
 import com.junemon.gamesapi.core.domain.model.GameSearch
-import com.junemon.gamesapi.core.util.EventObserver
 import com.junemon.gamesapi.core.util.gridRecyclerviewInitializer
 import com.junemon.gamesapi.databinding.FragmentSearchBinding
 import com.junemon.gamesapi.feature.viewmodel.GameViewModel
@@ -126,11 +125,6 @@ class SearchFragment : BaseFragment(), SearchAdapter.SearchAdapterListener {
         }
     }
 
-    private fun observeState() {
-        gameVm.progressBar.observe(this, EventObserver {
-            setDialogShow(it)
-        })
-    }
 
     override fun onClicked(data: GameSearch) {
         setupExitEnterAxisTransition()
